@@ -42,36 +42,61 @@
       text-align: center;
       opacity: 0;
       transition: opacity 0.5s;
+      background: white;
+      border-radius: 50px;
+      padding: 20px 40px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      position: relative;
     }
     .message.show {
       opacity: 1;
     }
+    .message::before,
+    .message::after {
+      content: "🌸";
+      font-size: 30px;
+      position: absolute;
+    }
+    .message::before {
+      top: -20px;
+      left: -20px;
+    }
+    .message::after {
+      bottom: -20px;
+      right: -20px;
+    }
   </style>
 </head>
 <body>
-  <h1>Las mensajes que hay aquí, son cosas que realmente pienso. Con que uno te ayude a subirte el animo, doy por cumplido mi meta.</h1>
+  <h1 id="introText">Las mensajes que hay aquí, son cosas que realmente pienso. Con que uno te ayude a subirte el animo, doy por cumplido mi meta.</h1>
   <button onclick="showCompliment()">Haz clic para descubrir</button>
   <div class="message" id="complimentMessage"></div>
 
   <script>
-    // Lista de cumplidos
     const compliments = [
-      "Tu sonrisa ilumina cualquier lugar donde estés.",
-      "Siempre sabes cómo alegrar el día.",
-      "Eres una persona única y especial.",
+      "Estoy tan feliz de que llegaras a mi vida.",
+      "Tus buenos dias siempre me ayudan a hacer más facil el dia.",
+      "Eres una persona muy especial, que nadie te diga que no, o te lo haga pensar, ni si quiera tú.",
       "Tienes un corazón lleno de bondad.",
-      "Cada momento contigo se siente mágico.",
-      "Tu risa es contagiosa y hermosa.",
+      "Tu sonrisa es muy hermosa.",
       "Eres más fuerte de lo que imaginas.",
       "Siempre logras inspirarme a ser mejor.",
       "Tu forma de ser ilumina el mundo de los demás.",
-      "Eres simplemente increíble, no lo olvides."
+      "La vida es más bonita desde que te tengo aquí."
     ];
 
-    // Función para mostrar un cumplido aleatorio
+    let firstClick = true;
+
     function showCompliment() {
+      const introText = document.getElementById('introText');
       const messageElement = document.getElementById('complimentMessage');
       const randomIndex = Math.floor(Math.random() * compliments.length);
+
+      if (firstClick) {
+        introText.style.display = 'none';
+        firstClick = false;
+      }
+
       messageElement.textContent = compliments[randomIndex];
       messageElement.classList.add('show');
     }
