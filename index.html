@@ -17,8 +17,15 @@
       align-items: center;
       background-color: #ffe5e5;
       background-image: 
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='50' font-size='30'%3E⭐💫🧚🏾‍♂️🐹%3C/text%3E%3C/svg%3E");
-      background-size: 100px;
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 100px,
+          rgba(255, 255, 255, 0.6) 100px,
+          rgba(255, 255, 255, 0.6) 200px
+        ),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Ctext x='0' y='50' font-size='50'%3E⭐💫🧚🏾‍♂️🐹%3C/text%3E%3Ctext x='0' y='150' font-size='50'%3E💫🧚🏾‍♂️🐹⭐%3C/text%3E%3Ctext x='0' y='250' font-size='50'%3E🧚🏾‍♂️🐹⭐💫%3C/text%3E%3Ctext x='0' y='350' font-size='50'%3E🐹⭐💫🧚🏾‍♂️%3C/text%3E%3C/svg%3E");
+      background-size: 400px 400px;
       background-repeat: repeat;
       background-attachment: fixed;
     }
