@@ -8,55 +8,29 @@
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      background: linear-gradient(to bottom, #ffe5e5, #ffcccc);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Estilo para el fondo de emojis */
-    .emoji-background {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: transparent;
-      pointer-events: none;
-      z-index: -1;
+      padding: 0;
+      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      font-size: 2rem;
-      line-height: 1.5;
-      white-space: nowrap;
-      animation: scroll-emojis 5s linear infinite;
-    }
-
-    .emoji-line {
-      display: flex;
-      justify-content: center;
-    }
-
-    @keyframes scroll-emojis {
-      0% {
-        transform: translateY(0);
-      }
-      100% {
-        transform: translateY(-100%);
-      }
+      background-color: #ffe5e5;
+      background-image: 
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='50' font-size='30'%3E⭐💫🧚🏾‍♂️🐹%3C/text%3E%3C/svg%3E");
+      background-size: 100px;
+      background-repeat: repeat;
+      background-attachment: fixed;
     }
 
     h1 {
       color: #d6336c;
       margin-bottom: 20px;
       text-align: center;
+      background: #ffe5e5;
+      padding: 10px 20px;
+      border-radius: 10px;
+      z-index: 1;
     }
 
     button {
@@ -69,6 +43,7 @@
       border-radius: 5px;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       transition: background-color 0.3s;
+      z-index: 1;
     }
 
     button:hover {
@@ -87,6 +62,7 @@
       padding: 20px 40px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       position: relative;
+      z-index: 1;
     }
 
     .message.show {
@@ -112,23 +88,15 @@
   </style>
 </head>
 <body>
-  <div class="emoji-background">
-    <div class="emoji-line">⭐💫🧚🏾‍♂️🐹</div>
-    <div class="emoji-line">💫🧚🏾‍♂️🐹⭐</div>
-    <div class="emoji-line">🧚🏾‍♂️🐹⭐💫</div>
-    <div class="emoji-line">🐹⭐💫🧚🏾‍♂️</div>
-    <div class="emoji-line">⭐💫🧚🏾‍♂️🐹</div>
-  </div>
-  
-  <h1 id="introText">Las mensajes que hay aquí, son cosas que realmente pienso. Con que uno te ayude a subirte el animo, doy por cumplido mi meta.</h1>
+  <h1 id="introText">Las mensajes que hay aquí, son cosas que realmente pienso. Con que uno te ayude a subirte el ánimo, doy por cumplida mi meta.</h1>
   <button onclick="showCompliment()">Haz clic para descubrir</button>
   <div class="message" id="complimentMessage"></div>
 
   <script>
     const compliments = [
       "Estoy tan feliz de que llegaras a mi vida.",
-      "Tus buenos dias siempre me ayudan a hacer más facil el dia.",
-      "Eres una persona muy especial, que nadie te diga que no, o te lo haga pensar, ni si quiera tú.",
+      "Tus buenos días siempre me ayudan a hacer más fácil el día.",
+      "Eres una persona muy especial, que nadie te diga que no, o te lo haga pensar, ni siquiera tú.",
       "Tienes un corazón lleno de bondad.",
       "Tu sonrisa es muy hermosa.",
       "Eres más fuerte de lo que imaginas.",
