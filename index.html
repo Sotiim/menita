@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,18 +17,6 @@
       justify-content: center;
       align-items: center;
       background-color: #ffe5e5;
-      background-image: 
-        repeating-linear-gradient(
-          0deg,
-          transparent,
-          transparent 100px,
-          rgba(255, 255, 255, 0.6) 100px,
-          rgba(255, 255, 255, 0.6) 200px
-        ),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Ctext x='0' y='50' font-size='50'%3E⭐💫🧚🏾‍♂️🐹%3C/text%3E%3Ctext x='0' y='150' font-size='50'%3E💫🧚🏾‍♂️🐹⭐%3C/text%3E%3Ctext x='0' y='250' font-size='50'%3E🧚🏾‍♂️🐹⭐💫%3C/text%3E%3Ctext x='0' y='350' font-size='50'%3E🐹⭐💫🧚🏾‍♂️%3C/text%3E%3C/svg%3E");
-      background-size: 400px 400px;
-      background-repeat: repeat;
-      background-attachment: fixed;
     }
 
     h1 {
@@ -66,7 +55,7 @@
       transition: opacity 0.5s;
       background: white;
       border-radius: 50px;
-      padding: 20px 40px;
+      padding: 40px 60px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       position: relative;
       z-index: 1;
@@ -78,26 +67,42 @@
 
     .message::before,
     .message::after {
-      content: "🌸";
+      content: "";
       font-size: 30px;
       position: absolute;
     }
 
     .message::before {
+      content: "⭐";
       top: -20px;
       left: -20px;
     }
 
     .message::after {
-      bottom: -20px;
+      content: "🧚‍♀️";
+      top: -20px;
       right: -20px;
+    }
+
+    .hamster {
+      content: "🐹";
+      font-size: 30px;
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
     }
   </style>
 </head>
+
 <body>
-  <h1 id="introText">Las mensajes que hay aquí, son cosas que realmente pienso. Con que uno te ayude a subirte el ánimo, doy por cumplida mi meta.</h1>
+  <h1 id="introText">Las mensajes que hay aquí, son cosas que realmente pienso. Con que uno te ayude a subirte el ánimo,
+    doy por cumplida mi meta.</h1>
   <button onclick="showCompliment()">Haz clic para descubrir</button>
-  <div class="message" id="complimentMessage"></div>
+  <div class="message" id="complimentMessage">
+    <div class="hamster">🐹</div>
+  </div>
 
   <script>
     const compliments = [
@@ -109,8 +114,15 @@
       "Eres más fuerte de lo que imaginas.",
       "Siempre logras inspirarme a ser mejor.",
       "Tu forma de ser ilumina el mundo de los demás.",
-      "La vida es más bonita desde que te tengo aquí."
+      "La vida es más bonita desde que te tengo aquí.",
+      "Tu bondad siempre me sorprende.",
+      "Qué suerte tengo de tenerte en mi vida.",
+      "Eres un ejemplo de cómo seguir adelante.",
+      "Tu presencia siempre hace todo más fácil.",
+      "Eres un regalo para todos los que te conocemos.",
+      "Tu buena onda se siente en todos lados."
     ];
+
 
     let firstClick = true;
 
@@ -129,4 +141,5 @@
     }
   </script>
 </body>
+
 </html>
