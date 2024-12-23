@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portal de Cumplidos</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to bottom, #ffe5e5, #ffcccc);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      color: #d6336c;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    button {
+      background-color: #d6336c;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 5px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #c1275c;
+    }
+    .message {
+      margin-top: 20px;
+      font-size: 24px;
+      color: #4d4d4d;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.5s;
+    }
+    .message.show {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <h1>Descubre un Cumplido</h1>
+  <button onclick="showCompliment()">Haz clic para descubrir</button>
+  <div class="message" id="complimentMessage"></div>
+
+  <script>
+    // Lista de cumplidos
+    const compliments = [
+      "Tu sonrisa ilumina cualquier lugar donde estés.",
+      "Siempre sabes cómo alegrar el día.",
+      "Eres una persona única y especial.",
+      "Tienes un corazón lleno de bondad.",
+      "Cada momento contigo se siente mágico.",
+      "Tu risa es contagiosa y hermosa.",
+      "Eres más fuerte de lo que imaginas.",
+      "Siempre logras inspirarme a ser mejor.",
+      "Tu forma de ser ilumina el mundo de los demás.",
+      "Eres simplemente increíble, no lo olvides."
+    ];
+
+    // Función para mostrar un cumplido aleatorio
+    function showCompliment() {
+      const messageElement = document.getElementById('complimentMessage');
+      const randomIndex = Math.floor(Math.random() * compliments.length);
+      messageElement.textContent = compliments[randomIndex];
+      messageElement.classList.add('show');
+    }
+  </script>
+</body>
+</html>
