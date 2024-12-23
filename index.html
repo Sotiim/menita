@@ -15,12 +15,50 @@
       align-items: center;
       height: 100vh;
       margin: 0;
+      position: relative;
+      overflow: hidden;
     }
+
+    /* Estilo para el fondo de emojis */
+    .emoji-background {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: transparent;
+      pointer-events: none;
+      z-index: -1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-size: 2rem;
+      line-height: 1.5;
+      white-space: nowrap;
+      animation: scroll-emojis 5s linear infinite;
+    }
+
+    .emoji-line {
+      display: flex;
+      justify-content: center;
+    }
+
+    @keyframes scroll-emojis {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-100%);
+      }
+    }
+
     h1 {
       color: #d6336c;
       margin-bottom: 20px;
       text-align: center;
     }
+
     button {
       background-color: #d6336c;
       color: white;
@@ -32,9 +70,11 @@
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       transition: background-color 0.3s;
     }
+
     button:hover {
       background-color: #c1275c;
     }
+
     .message {
       margin-top: 20px;
       font-size: 24px;
@@ -48,19 +88,23 @@
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
       position: relative;
     }
+
     .message.show {
       opacity: 1;
     }
+
     .message::before,
     .message::after {
       content: "🌸";
       font-size: 30px;
       position: absolute;
     }
+
     .message::before {
       top: -20px;
       left: -20px;
     }
+
     .message::after {
       bottom: -20px;
       right: -20px;
@@ -68,6 +112,14 @@
   </style>
 </head>
 <body>
+  <div class="emoji-background">
+    <div class="emoji-line">⭐💫🧚🏾‍♂️🐹</div>
+    <div class="emoji-line">💫🧚🏾‍♂️🐹⭐</div>
+    <div class="emoji-line">🧚🏾‍♂️🐹⭐💫</div>
+    <div class="emoji-line">🐹⭐💫🧚🏾‍♂️</div>
+    <div class="emoji-line">⭐💫🧚🏾‍♂️🐹</div>
+  </div>
+  
   <h1 id="introText">Las mensajes que hay aquí, son cosas que realmente pienso. Con que uno te ayude a subirte el animo, doy por cumplido mi meta.</h1>
   <button onclick="showCompliment()">Haz clic para descubrir</button>
   <div class="message" id="complimentMessage"></div>
