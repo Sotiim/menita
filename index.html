@@ -1,142 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cumplidos</title>
-  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/833/833472.png">
-  <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background-color: #ffe5e5;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenida!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    h1 {
-      color: #d6336c;
-      margin-bottom: 20px;
-      text-align: center;
-      background: #ffe5e5;
-      padding: 10px 20px;
-      border-radius: 10px;
-      z-index: 1;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-    button {
-      background-color: #d6336c;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 18px;
-      cursor: pointer;
-      border-radius: 5px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s;
-      z-index: 1;
-    }
+        .login-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
 
-    button:hover {
-      background-color: #c1275c;
-    }
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #333;
+        }
 
-    .message {
-      margin-top: 20px;
-      font-size: 24px;
-      color: #4d4d4d;
-      text-align: center;
-      opacity: 0;
-      transition: opacity 0.5s;
-      background: white;
-      border-radius: 50px;
-      padding: 40px 60px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      position: relative;
-      z-index: 1;
-    }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
 
-    .message.show {
-      opacity: 1;
-    }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+        }
 
-    .message::before,
-    .message::after {
-      content: "";
-      font-size: 30px;
-      position: absolute;
-    }
+        button:hover {
+            background-color: #45a049;
+        }
 
-    .message::before {
-      content: "⭐";
-      top: -20px;
-      left: -20px;
-    }
-
-    .message::after {
-      content: "🧚‍♀️";
-      top: -20px;
-      right: -20px;
-    }
-
-    .hamster {
-      content: "🐹";
-      font-size: 30px;
-      position: absolute;
-      top: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
-    }
-  </style>
+        p {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
 </head>
-
 <body>
-  <h1 id="introText">Las mensajes que hay aquí, son cosas que realmente pienso. Con que uno te ayude a subirte el ánimo,
-    doy por cumplida mi meta.</h1>
-  <button onclick="showCompliment()">Haz clic para descubrir</button>
-  <div class="message" id="complimentMessage">
-    <div class="hamster">🐹</div>
-  </div>
-
-  <script>
-    const compliments = [
-  "Tu empatía es algo que pocas personas tienen y que valoro muchísimo.",
-  "Tu manera de escuchar demuestra cuánto te importan las personas.",
-  "Es raro encontrar a alguien tan auténtico y amable como tú.",
-  "Hablar contigo siempre me deja algo positivo.",
-  "Siempre se nota lo genuino que eres al preocuparte por los demás.",
-  "Tu amabilidad es algo que realmente admiro.",
-  "Tienes una manera muy especial de conectar con las personas.",
-  "La forma en que valoras a los demás me enseña mucho sobre el tipo de persona que eres.",
-  "Aunque no hemos compartido tanto tiempo como me gustaría, puedo ver lo especial que eres.",
-  "Es un privilegio poder conocerte y hablar contigo.",
-  "Me inspira la forma en que siempre piensas en los demás.",
-  "Desde que hablamos, es claro lo genuino y noble que eres.",
-  "Cada día que hablamos, siento más ganas de conocerte mejor."];
-   
-
-    let firstClick = true;
-
-    function showCompliment() {
-      const introText = document.getElementById('introText');
-      const messageElement = document.getElementById('complimentMessage');
-      const randomIndex = Math.floor(Math.random() * compliments.length);
-
-      if (firstClick) {
-        introText.style.display = 'none';
-        firstClick = false;
-      }
-
-      messageElement.textContent = compliments[randomIndex];
-      messageElement.classList.add('show');
-    }
-  </script>
+    <div class="login-container">
+        <h2>Bienvenida, jimenita</h2>
+        <form id="login-form">
+            <input type="text" id="username" value="jimenita" readonly>
+            <input type="password" id="password" placeholder="Contraseña" required>
+            <button type="submit" id="login-btn">Iniciar sesión</button>
+        </form>
+        <p id="message"></p>
+    </div>
+    <script>
+        document.getElementById("login-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            
+            const password = document.getElementById("password").value;
+            
+            if (password === "🐹") {
+                window.location.href = "menu.html"; // Redirige al menú si la contraseña es correcta
+            } else {
+                document.getElementById("message").textContent = "Contraseña incorrecta. Intenta nuevamente.";
+            }
+        });
+    </script>
 </body>
-
 </html>
