@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login con Emoji 🐹</title>
+    <title>Menú</title>
     <style>
         * {
             margin: 0;
@@ -12,85 +12,90 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #f7f2e9;
+            background-image: url('https://www.transparenttextures.com/patterns/gray-floral.png');
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0;
         }
 
-        .login-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        .menu-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            width: 340px;
             text-align: center;
-            width: 300px;
+            backdrop-filter: blur(8px);
         }
 
-        h2 {
+        .menu-container h2 {
             margin-bottom: 20px;
-            font-size: 24px;
-            color: #333;
+            font-size: 30px;
+            color: #826ba5;
+            font-weight: 700;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
         }
 
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        button {
-            width: 100%;
-            padding: 10px;
-            background-color: #4CAF50;
+        .menu-option {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #c2b8e2;
             color: white;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 18px;
+            position: relative;
         }
 
-        button:hover {
-            background-color: #45a049;
+        .menu-option:hover {
+            background-color: #a59bc5;
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
         }
 
-        p {
-            color: red;
-            margin-top: 10px;
+        .menu-option img {
+            width: 30px;
+            margin-right: 10px;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #826ba5;
+        }
+
+        .footer a {
+            color: #826ba5;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Bienvenida</h2>
-        <form id="login-form">
-            <input type="text" id="username" placeholder="Usuario" required>
-            <input type="password" id="password" placeholder="Contraseña" required>
-            <button type="submit" id="login-btn">🐹 Iniciar sesión</button>
-        </form>
-        <p id="message"></p>
+    <div class="menu-container">
+        <h2>¡Selecciona algún regalo!</h2>
+        <a href="regalo.html" class="menu-option">
+            <img src="https://img.icons8.com/ios/452/gift.png" alt="Regalo"> Regalo
+        </a>
+        <a href="mapa.html" class="menu-option">
+            <img src="https://img.icons8.com/ios/452/worldwide-location.png" alt="Mapa"> Mapa
+        </a>
+        <a href="carta.html" class="menu-option">
+            <img src="https://img.icons8.com/ios/452/new-post.png" alt="Carta"> Carta
+        </a>
+        <a href="palabras.html" class="menu-option">
+            <img src="https://img.icons8.com/ios/452/book.png" alt="Textos"> Textos
+        </a>
     </div>
-    <script>
-        document.getElementById("login-form").addEventListener("submit", function(event) {
-            event.preventDefault();
-            
-            const username = document.getElementById("username").value.trim().toLowerCase();
-            const password = document.getElementById("password").value;
-            
-            // Normaliza la cadena del nombre de usuario (sin tildes y minúsculas)
-            const normalizedUsername = username.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-            
-            // Verifica si el usuario es "curiosa" (sin importar mayúsculas, minúsculas ni acentos) y si la contraseña es 🐹
-            if (normalizedUsername === "curiosa" && password === "🐹") {
-                window.location.href = "menu.html"; // Redirige al menú si los datos son correctos
-            } else {
-                document.getElementById("message").textContent = "Usuario o contraseña incorrectos. Intenta nuevamente.";
-            }
-        });
-    </script>
 </body>
 </html>
