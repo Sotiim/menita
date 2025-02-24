@@ -5,11 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú Interactivo</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: Arial, sans-serif;
-            background-color: #f2f2f2;
+            background-color: #f9f9f9;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -18,43 +23,67 @@
 
         .menu-container {
             background-color: #fff;
-            padding: 30px;
+            padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
             width: 300px;
+            text-align: center;
+            transition: all 0.3s ease;
         }
 
-        h2 {
+        .menu-container h2 {
             margin-bottom: 20px;
-            font-size: 24px;
+            font-size: 28px;
             color: #333;
+            font-weight: 600;
         }
 
-        button {
-            width: 100%;
-            padding: 10px;
+        .menu-option {
+            display: block;
+            padding: 15px;
             margin: 10px 0;
             background-color: #4CAF50;
             color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
             font-size: 18px;
+            font-weight: 500;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
         }
 
-        button:hover {
+        .menu-option:hover {
             background-color: #45a049;
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .menu-option:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .footer a {
+            color: #4CAF50;
+            text-decoration: none;
         }
     </style>
 </head>
 <body>
     <div class="menu-container">
         <h2>Menú Interactivo</h2>
-        <button onclick="location.href='pagina1.html'">Página 1</button>
-        <button onclick="location.href='pagina2.html'">Página 2</button>
-        <button onclick="location.href='pagina3.html'">Página 3</button>
-        <button onclick="location.href='pagina4.html'">Página 4</button>
+        <a href="regalo.html" class="menu-option">Regalo</a>
+        <a href="mapa.html" class="menu-option">Mapa</a>
+        <a href="carta.html" class="menu-option">Carta</a>
+        <a href="textos.html" class="menu-option">Textos</a>
+        <div class="footer">
+            <p>Selecciona una opción para comenzar.</p>
+        </div>
     </div>
 </body>
 </html>

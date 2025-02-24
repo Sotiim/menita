@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenida!</title>
+    <title>Login con Emoji 🐹</title>
     <style>
         * {
             margin: 0;
@@ -66,11 +66,11 @@
 </head>
 <body>
     <div class="login-container">
-        <h2>Bienvenida, jimenita</h2>
+        <h2>Bienvenida</h2>
         <form id="login-form">
-            <input type="text" id="username" value="jimenita" readonly>
+            <input type="text" id="username" placeholder="Usuario" required>
             <input type="password" id="password" placeholder="Contraseña" required>
-            <button type="submit" id="login-btn">Iniciar sesión</button>
+            <button type="submit" id="login-btn">🐹 Iniciar sesión</button>
         </form>
         <p id="message"></p>
     </div>
@@ -78,12 +78,17 @@
         document.getElementById("login-form").addEventListener("submit", function(event) {
             event.preventDefault();
             
+            const username = document.getElementById("username").value.trim().toLowerCase();
             const password = document.getElementById("password").value;
             
-            if (password === "🐹") {
-                window.location.href = "menu.html"; // Redirige al menú si la contraseña es correcta
+            // Normaliza la cadena del nombre de usuario (sin tildes y minúsculas)
+            const normalizedUsername = username.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+            
+            // Verifica si el usuario es "curiosa" (sin importar mayúsculas, minúsculas ni acentos) y si la contraseña es 🐹
+            if (normalizedUsername === "curiosa" && password === "🐹") {
+                window.location.href = "menu.html"; // Redirige al menú si los datos son correctos
             } else {
-                document.getElementById("message").textContent = "Contraseña incorrecta. Intenta nuevamente.";
+                document.getElementById("message").textContent = "Usuario o contraseña incorrectos. Intenta nuevamente.";
             }
         });
     </script>
