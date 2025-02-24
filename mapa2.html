@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestro Mapa de Recuerdos</title>
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/833/833472.png">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin: 20px 0;
+            font-size: 24px;
+        }
+
+        #map {
+            width: 90%;
+            max-width: 600px;
+            height: 400px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+        }
+
+        #texto-abajo {
+            width: 90%;
+            max-width: 600px;
+            text-align: center;
+            font-size: 16px;
+            color: #555;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .popup-content {
+            font-size: 14px;
+            color: #333;
+            text-align: center;
+        }
+
+        .leaflet-popup-content-wrapper {
+            background-color: #fefefe;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .leaflet-popup-tip {
+            border-top-color: #fefefe !important;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Nuestro Mapa de Recuerdos</h1>
+    <div id="map"></div>
+
+    <div id="texto-abajo">
+        <p>El mejor regalo que puedo darte es mi tiempo, junto con todo lo necesario para seguir construyendo esta
+            historia. Aunque por ahora solo hay unos pocos lugares representados en el mapa, el plan es llenarlo de
+            recuerdos significativos que compartamos.
+            Quiero que siempre tengas lo mejor, lo que haga falta para que te sientas especial en cada momento. Este
+            mapa tiene mucho por contar, y juntos vamos a escribir cada rincón con nuestras aventuras.
+            <br><br>
+            BTW, si le das click en cada icono, te aparece una sorpresa :)
+        </p>
+    </div>
+
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+        var map = L.map('map').setView([20.573879, -100.385917], 12);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        var lugares = [
+            {
+                nombre: "Dónde nos conocimos",
+                lat: 20.573879,
+                lon: -100.385917,
+                descripcion: "Este año estuve en muchos lugares, este fue mi favorito, porque ahí fue donde te conocí.",
+                icono: "heart"
+            },
+            {
+                nombre: "Nuestra primera cita",
+                lat: 21.157563898690523,
+                lon: -100.9183410624351,
+                descripcion: "Toda la mañana y todo el viaje estuve tosiendo y temblando, como si tuviera frío, porque estaba nervioso. Uno de los momentos más bonitos de todo el año",
+                icono: "date"
+            },
+            {
+                nombre: "El primer regalo",
+                lat: 21.012819234368518,
+                lon: -101.25167217463073,
+                descripcion: "Un día antes me dijiste que estabas cansada y que te faltaba cenar. Desde ese momento, me propuse cuidar de ti y hacerte feliz en todo lo que esté a mi alcance.",
+                icono: "pizza"
+            },
+            {
+                nombre: "Las primeras flores que te regalé",
+                lat: 21.045013,
+                lon: -101.253213,
+                descripcion: "Las primeras son las más importantes, pero también las que menos me han gustado, jajaja. Desde ahí me propuse darte el ramo perfecto, y aún sigo en busca de él.",
+                icono: "flowers"
+            },
+            {
+                nombre: "Flores amarillas",
+                lat: 21.158016486842236,
+                lon: -100.93651626243508,
+                descripcion: "De por si ya te las iba a regalar, pero un dia subiste una nota que me dejó pensando, donde, en tono de broma, decías que estabas de envidiosilla. A mí nunca me gusta prometer cosas, pero créeme que, mientras siga en tu vida, tú no serás espectadora de nada ni tendrás que envidiarle nada a nadie. Será al revés.",
+                icono: "bee"
+            }
+        ];
+
+        var icons = {
+            heart: L.icon({
+                iconUrl: 'https://cdn-icons-png.flaticon.com/512/833/833472.png',
+                iconSize: [30, 30],
+                iconAnchor: [15, 30],
+                popupAnchor: [0, -30]
+            }),
+            date: L.icon({
+                iconUrl: 'https://cdn-icons-png.flaticon.com/512/1775/1775748.png',
+                iconSize: [30, 30],
+                iconAnchor: [15, 30],
+                popupAnchor: [0, -30]
+            }),
+            pizza: L.icon({
+                iconUrl: 'https://cdn-icons-png.flaticon.com/512/3132/3132693.png',
+                iconSize: [30, 30],
+                iconAnchor: [15, 30],
+                popupAnchor: [0, -30]
+            }),
+            flowers: L.icon({
+                iconUrl: 'https://cdn-icons-png.flaticon.com/512/4098/4098389.png',
+                iconSize: [30, 30],
+                iconAnchor: [15, 30],
+                popupAnchor: [0, -30]
+            }),
+            bee: L.icon({
+                iconUrl: 'https://cdn-icons-png.flaticon.com/512/809/809154.png',
+                iconSize: [30, 30],
+                iconAnchor: [15, 30],
+                popupAnchor: [0, -30]
+            })
+        };
+
+        lugares.forEach(function (lugar) {
+            L.marker([lugar.lat, lugar.lon], { icon: icons[lugar.icono] })
+                .addTo(map)
+                .bindPopup("<div class='popup-content'><b>" + lugar.nombre + "</b><br>" + lugar.descripcion + "</div>");
+        });
+    </script>
+
+</body>
+
+</html>

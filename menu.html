@@ -12,8 +12,8 @@
         }
 
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #ffebf0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -23,38 +23,41 @@
 
         .menu-container {
             background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
             width: 300px;
             text-align: center;
-            transition: all 0.3s ease;
+            animation: fadeIn 1s ease-out;
         }
 
         .menu-container h2 {
-            margin-bottom: 20px;
-            font-size: 28px;
-            color: #333;
-            font-weight: 600;
+            margin-bottom: 25px;
+            font-size: 36px;
+            color: #ff4081;
+            font-weight: 700;
+            text-shadow: 2px 2px #ff80ab;
         }
 
         .menu-option {
             display: block;
             padding: 15px;
-            margin: 10px 0;
-            background-color: #4CAF50;
+            margin: 15px 0;
+            background-color: #ff80ab;
             color: white;
-            font-size: 18px;
-            font-weight: 500;
+            font-size: 22px;
+            font-weight: bold;
             text-decoration: none;
-            border-radius: 5px;
+            border-radius: 12px;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border: 3px solid #ff4081;
         }
 
         .menu-option:hover {
-            background-color: #45a049;
+            background-color: #ff4081;
             transform: translateY(-5px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
         .menu-option:active {
@@ -62,27 +65,52 @@
             box-shadow: none;
         }
 
+        .menu-option img {
+            width: 40px;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
         .footer {
             margin-top: 30px;
             font-size: 14px;
-            color: #666;
+            color: #ff4081;
         }
 
         .footer a {
-            color: #4CAF50;
+            color: #ff4081;
             text-decoration: none;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body>
     <div class="menu-container">
-        <h2>Menú Interactivo</h2>
-        <a href="regalo.html" class="menu-option">Regalo</a>
-        <a href="mapa.html" class="menu-option">Mapa</a>
-        <a href="carta.html" class="menu-option">Carta</a>
-        <a href="textos.html" class="menu-option">Textos</a>
+        <h2>¡Hola, Jimenita!</h2>
+        <a href="regalo.html" class="menu-option">
+            <img src="https://img.icons8.com/ios/452/gift.png" alt="Regalo"> Regalo
+        </a>
+        <a href="mapa.html" class="menu-option">
+            <img src="https://img.icons8.com/ios/452/worldwide-location.png" alt="Mapa"> Mapa
+        </a>
+        <a href="carta.html" class="menu-option">
+            <img src="https://img.icons8.com/ios/452/new-post.png" alt="Carta"> Carta
+        </a>
+        <a href="palabras.html" class="menu-option">
+            <img src="https://img.icons8.com/ios/452/book.png" alt="Textos"> Textos
+        </a>
         <div class="footer">
-            <p>Selecciona una opción para comenzar.</p>
+            <p>¡Diviértete eligiendo una opción!</p>
         </div>
     </div>
 </body>

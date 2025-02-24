@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mensaje Especial de Santa Claus</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Mountains of Christmas', cursive;
+      background: linear-gradient(to bottom, #e63946, #f4a261);
+      color: white;
+      text-align: center;
+      overflow: hidden; /* Evita el scroll innecesario */
+    }
+
+    h1 {
+      font-size: 3em;
+      margin-top: 20px;
+      text-shadow: 2px 2px #6d031f;
+    }
+
+    p {
+      font-size: 1.5em;
+      margin: 20px auto;
+      max-width: 80%;
+      text-shadow: 1px 1px #6d031f;
+    }
+
+    .gift-box {
+      width: 200px;
+      height: 200px;
+      margin: 30px auto;
+      background: #fef9ef;
+      border: 5px solid #6d031f;
+      border-radius: 20px;
+      box-shadow: 0 0 15px #6d031f;
+      position: relative;
+      animation: bounce 1s infinite;
+      cursor: pointer;
+    }
+
+    .gift-box:hover {
+      background: #fde9d9;
+    }
+
+    .gift-box:before, .gift-box:after {
+      content: '';
+      position: absolute;
+      background: #6d031f;
+    }
+
+    .gift-box:before {
+      width: 30px;
+      height: 100%;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+    }
+
+    .gift-box:after {
+      width: 100%;
+      height: 30px;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+    }
+
+    .ribbon {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 20px 20px 0 0;
+      border-color: #6d031f transparent transparent transparent;
+      top: -10px;
+      left: -10px;
+    }
+
+    .snowflake {
+      position: fixed;
+      top: -10px;
+      font-size: 1.5em;
+      animation: fall 5s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+
+    @keyframes fall {
+      from {
+        transform: translateY(-10%);
+      }
+      to {
+        transform: translateY(100vh); /* Llega al fondo de la pantalla visible */
+      }
+    }
+
+    /* Media Queries para dispositivos móviles */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5em;
+      }
+
+      p {
+        font-size: 1.2em;
+        margin: 15px auto;
+      }
+
+      .gift-box {
+        width: 150px;
+        height: 150px;
+      }
+
+      .snowflake {
+        font-size: 1.2em;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2em;
+      }
+
+      p {
+        font-size: 1em;
+        margin: 10px auto;
+        max-width: 90%;
+      }
+
+      .gift-box {
+        width: 130px;
+        height: 130px;
+      }
+
+      .snowflake {
+        font-size: 1em;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Copos de nieve -->
+  <div class="snowflake" style="left: 10%; animation-duration: 4s;">❄</div>
+  <div class="snowflake" style="left: 30%; animation-duration: 5s;">❄</div>
+  <div class="snowflake" style="left: 50%; animation-duration: 3.5s;">❄</div>
+  <div class="snowflake" style="left: 70%; animation-duration: 4.2s;">❄</div>
+  <div class="snowflake" style="left: 90%; animation-duration: 4.8s;">❄</div>
+
+  <h1>¡Hola, Jimena!</h1>
+  <p>Santa Claus aquí, escribiéndote un mensaje especial. Este año decidí hacer algo diferente. El regalo que te había preparado, esta vez, se lo dejé a Alberto para que él pudiera dártelo. ¡Estoy seguro de que te va a encantar!</p>
+  <p>Recuerda siempre compartir tu alegría y mantener la magia de la Navidad en tu corazón.</p>
+  <div class="gift-box" onclick="redirectToPage()">
+    <div class="ribbon"></div>
+  </div>
+  <p>Con cariño,</p>
+  <h1>Santa Claus 🎅</h1>
+
+  <script>
+    function redirectToPage() {
+      window.location.href = "mapa1.html"; // Cambia la URL a la página deseada
+    }
+  </script>
+</body>
+</html>

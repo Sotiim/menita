@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carta Envejecida</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Dancing Script', cursive;
+      background: #f3efe2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .letter-container {
+      width: 90%;
+      max-width: 600px;
+      max-height: 90vh;
+      background: #fffdf5;
+      padding: 20px;
+      border-radius: 5px;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.2);
+      animation: fadeIn 1.5s ease-in-out forwards;
+      background: linear-gradient(to bottom, #fff8dc, #f1e6ca);
+      background-size: 100%;
+      border: 1px solid #b2967d;
+      overflow-y: auto;
+    }
+
+    .letter-container:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+      opacity: 0.5;
+      z-index: -1;
+    }
+
+    .fold-effect {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: rgba(0, 0, 0, 0.1);
+      transform: translateY(-50%);
+      mix-blend-mode: multiply;
+      opacity: 0.5;
+    }
+
+    .letter-header {
+      font-size: 1.8em;
+      text-align: center;
+      color: #6e4b30;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+    }
+
+    .letter-body {
+      font-size: 1em;
+      color: #4b3621;
+      line-height: 1.6;
+      text-align: justify;
+      margin-bottom: 20px;
+    }
+
+    .letter-footer {
+      text-align: center;
+      font-size: 1.3em;
+      margin-top: 20px;
+      color: #6e4b30;
+    }
+
+    .link-button {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1.2em;
+      color: white;
+      background-color: #6e4b30;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .link-button:hover {
+      background-color: #5a3e26;
+      transform: scale(1.05);
+    }
+
+    .link-button:active {
+      transform: scale(0.95);
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* Ajustes para pantallas móviles */
+    @media (max-width: 480px) {
+      .letter-container {
+        padding: 10px;
+        font-size: 0.9em;
+      }
+
+      .letter-header {
+        font-size: 1.5em;
+      }
+
+      .letter-footer {
+        font-size: 1.1em;
+      }
+
+      .link-button {
+        font-size: 1em;
+        padding: 8px 15px;
+      }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div class="letter-container">
+    <div class="fold-effect"></div>
+    <div class="letter-header">Querida Jimena,</div>
+    <div class="letter-body">
+      Espero que esta carta te encuentre llena de alegría y salud. Quiero aprovechar este momento para recordarte cuánto
+      significas para mí y para todos los que te rodean. Tu sonrisa ilumina cualquier lugar, y tu energía es contagiosa.
+      Este año ha sido especial gracias a ti.
+      <br><br>
+      Ahora, tengo una sorpresa especial para ti. Haz clic en el botón de abajo y descubre algo que Santa me pidió que
+      te preparara. Lo hice con mucho cariño. ¡Espero que te guste!
+      <br><br>
+      Estuve pensando en qué podría regalarte. Nada material parecía lo suficientemente especial como para comprártelo.
+      Aunque las flores tienen su encanto, no me parecían adecuadas para estas fechas. Por eso, decidí regalarte lo que
+      estás a punto de ver. Creo que es más valioso que cualquier otra cosa.
+      <br><br>
+      Y aunque, literalmente, sí fui yo quien escribió esto, en realidad está escrito por ti. Yo solo soy alguien que
+      disfruta poner palabras sobre el papel, pero eres tú quien me inspira, quien hace que las palabras fluyan y cobren
+      verdadero significado.
+      <br><br>
+      Feliz navidad, preciosa. Gracias por ser mi Swiftie-Chivista-Clique-Hamster Curiosa-Hada-Skinny Flakko-Arollafan, favorita 🫶🏾
+    </div>
+    <div class="letter-footer">Con cariño,<br>Alberto</div>
+    <a href="mapa2.html" class="link-button">Descubrir Sorpresa</a>
+  </div>
+</body>
+
+</html>
