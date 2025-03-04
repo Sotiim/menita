@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memorama de Frases</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        h1 {
+            color: #ff4081;
+        }
+        .game-board {
+            display: grid;
+            grid-template-columns: repeat(4, 120px); /* Ajustado al nuevo tamaño */
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .card {
+            width: 120px; /* Nuevo tamaño */
+            height: 120px; /* Nuevo tamaño */
+            perspective: 1000px;
+            cursor: pointer;
+        }
+        .card-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease;
+        }
+        .card.flipped .card-inner {
+            transform: rotateY(180deg);
+        }
+        .card-front, .card-back {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            backface-visibility: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 14px; /* Ajustado para adaptarse al nuevo tamaño */
+            text-align: center;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.6s ease;
+        }
+        .card-front {
+            background-color: #ff4081;
+            color: white;
+            font-size: 24px; /* Ajustado para el tamaño nuevo */
+            font-weight: bold;
+        }
+        .card-back {
+            background-color: white;
+            color: #333;
+            transform: rotateY(180deg);
+            border: 2px solid #ff4081;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Memorama de Frases 💖</h1>
+    <p>Encuentra las frases iguales</p>
+    <div class="game-board" id="gameBoard"></div>
+
+    <script>
+        const frases = [
+            "Chimena", "Chimena",
+            "🐹", "🐹",
+            "Antes de dormir agradezco que estés aquí", "Antes de dormir agradezco que estés aquí",
+            "Tqm", "Tqm",
+            "curiosa", "curiosa",
+            "bombón cubierto de chocolate", "bombón cubierto de chocolate",
+            "Ibuprofeno de 600", "Ibuprofeno de 600",
+            "All I can say is it was enchanting to meet you", "All I can say is it was enchanting to meet you"
+        ];
+
+        let cartas = [];
+        let seleccionadas = [];
+        let paresEncontrados = 0;
+
+        function barajar(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function crearTablero() {
+            const tablero = document.getElementById("gameBoard");
+            tablero.innerHTML = "";
+            cartas = barajar(frases);
+
+            cartas.forEach((frase, index) => {
+                const card = document.createElement("div");
+                card.classList.add("card");
+                card.dataset.index = index;
+                card.dataset.frase = frase;
+
+                const cardInner = document.createElement("div");
+                cardInner.classList.add("card-inner");
+
+                const cardFront = document.createElement("div");
+                cardFront.classList.add("card-front");
+                cardFront.innerText = "❓";
+
+                const cardBack = document.createElement("div");
+                cardBack.classList.add("card-back");
+                cardBack.innerText = frase;
+
+                cardInner.appendChild(cardFront);
+                cardInner.appendChild(cardBack);
+                card.appendChild(cardInner);
+
+                card.addEventListener("click", voltearCarta);
+                tablero.appendChild(card);
+            });
+        }
+
+        function voltearCarta() {
+            if (seleccionadas.length < 2 && !this.classList.contains("flipped")) {
+                this.classList.add("flipped");
+                seleccionadas.push(this);
+
+                if (seleccionadas.length === 2) {
+                    setTimeout(verificarPareja, 800);
+                }
+            }
+        }
+
+        function verificarPareja() {
+            if (seleccionadas[0].dataset.frase === seleccionadas[1].dataset.frase) {
+                paresEncontrados++;
+                seleccionadas = [];
+                if (paresEncontrados === frases.length / 2) {
+                    setTimeout(() => alert("¡Felicidades! Has encontrado todas las frases 🎉"), 500);
+                }
+            } else {
+                seleccionadas.forEach(card => {
+                    card.classList.remove("flipped");
+                });
+                seleccionadas = [];
+            }
+        }
+
+        crearTablero();
+    </script>
+
+</body>
+</html>
