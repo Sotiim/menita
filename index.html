@@ -3,102 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú</title>
+    <title>index</title>
     <style>
-        * {
+        /* Reseteo básico */
+        body, html {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            background-color: #f7f2e9;
-            background-image: url('https://www.transparenttextures.com/patterns/gray-floral.png');
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
         }
 
-        .menu-container {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-            width: 340px;
-            text-align: center;
-            backdrop-filter: blur(8px);
-        }
-
-        .menu-container h2 {
-            margin-bottom: 20px;
-            font-size: 30px;
-            color: #826ba5;
-            font-weight: 700;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-        }
-
-        .menu-option {
+        /* Estilo para la hoja */
+        .hoja-carta {
+            width: 90%;
+            max-width: 600px;
+            height: auto;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 16px;
+            box-sizing: border-box;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-            margin: 15px 0;
-            background-color: #c2b8e2;
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
-            border: none;
-            position: relative;
+            flex-direction: column;
+            justify-content: space-between;
         }
 
-        .menu-option:hover {
-            background-color: #a59bc5;
-            transform: scale(1.05);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+        .hoja-carta h1 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 16px;
         }
 
-        .menu-option img {
-            width: 30px;
-            margin-right: 10px;
-        }
-
-        .footer {
-            margin-top: 20px;
+        .hoja-carta p {
             font-size: 14px;
-            color: #826ba5;
+            line-height: 1.6;
+            text-align: justify;
+            margin-bottom: 16px;
         }
 
-        .footer a {
-            color: #826ba5;
-            text-decoration: none;
+        .pie-pagina {
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            margin-top: 16px;
+        }
+
+        /* Botón bonito */
+        .boton-bonito {
+            background-color: #ff6b81;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin: 20px auto 0;
+            display: block;
+            text-align: center;
+        }
+
+        .boton-bonito:hover {
+            background-color: #ff4c65;
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
-    <div class="menu-container">
-        <h2>¡Selecciona algún regalo!</h2>
-        <a href="regalo.html" class="menu-option">
-            <img src="https://img.icons8.com/ios/452/gift.png" alt="Regalo"> Regalo
-        </a>
-        <a href="mapa.html" class="menu-option">
-            <img src="https://img.icons8.com/ios/452/worldwide-location.png" alt="Mapa"> Mapa
-        </a>
-        <a href="carta.html" class="menu-option">
-            <img src="https://img.icons8.com/ios/452/new-post.png" alt="Carta"> Carta
-        </a>
-        <a href="palabras.html" class="menu-option">
-            <img src="https://img.icons8.com/ios/452/book.png" alt="Textos"> Textos
-        </a>
-        <a href="memorama.html" class="menu-option">
-            <img src="https://img.icons8.com/ios/452/cards.png" alt="Memorama"> Memorama
-        </a>
+    <div class="hoja-carta">
+        <br><br><br><br>
+        <h1>Felices 21 :)</h1>
+        <p>Antes que nada, perdón si algo sale mal o suena raro. Hace mucho tiempo que no escribo una carta, ahahahaha.</p>
+        <p>Felices 60 a tu cuerpo y sus dolencias, ahahahaha, y 21 a ti. Gracias por estos casi 4 meses de estar en mi vida...</p>
+        <p>Como te lo he dicho algunas veces, yo no voy por la vida tratando de conocer a todos o metiéndome en cosas...</p>
+        <p>Por cosas como esas, es que te digo que no me gusta verte triste, porque no te lo mereces...</p>
+
+        <!-- Botón bonito -->
+        <button class="boton-bonito" onclick="alert('Te quiero mucho :)')">Haz clic aquí</button>
+
+        <div class="pie-pagina">
+            &copy; 2024 - Tu Nombre o Empresa
+        </div>
     </div>
 </body>
 </html>

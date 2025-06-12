@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #f7f2e9;
+            background-image: url('https://www.transparenttextures.com/patterns/gray-floral.png');
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .menu-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            width: 340px;
+            text-align: center;
+            backdrop-filter: blur(8px);
+        }
+
+        .menu-container h2 {
+            margin-bottom: 20px;
+            font-size: 30px;
+            color: #826ba5;
+            font-weight: 700;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .menu-option {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            margin: 15px 0;
+            background-color: #c2b8e2;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+            border: none;
+            position: relative;
+        }
+
+        .menu-option:hover {
+            background-color: #a59bc5;
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .menu-option img {
+            width: 30px;
+            margin-right: 10px;
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #826ba5;
+        }
+
+        .footer a {
+            color: #826ba5;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-container">
+        <h2>¡Selecciona algún regalo!</h2>
+        <a href="regalo.html" class="menu-option">
+            <img src="https://img.icons8.com/ios/452/gift.png" alt="Regalo"> Regalo
+        </a>
+        <a href="mapa.html" class="menu-option">
+            <img src="https://img.icons8.com/ios/452/worldwide-location.png" alt="Mapa"> Mapa
+        </a>
+        <a href="carta.html" class="menu-option">
+            <img src="https://img.icons8.com/ios/452/new-post.png" alt="Carta"> Carta
+        </a>
+        <a href="palabras.html" class="menu-option">
+            <img src="https://img.icons8.com/ios/452/book.png" alt="Textos"> Textos
+        </a>
+        <a href="memorama.html" class="menu-option">
+            <img src="https://img.icons8.com/ios/452/cards.png" alt="Memorama"> Memorama
+        </a>
+    </div>
+</body>
+</html>
