@@ -1,0 +1,51 @@
+body {
+  font-family: Arial, sans-serif;
+  max-width: 600px;
+  margin: auto;
+  padding: 1rem;
+  background: #f9f9f9;
+  color: #333;
+}
+
+h1, h2 {
+  text-align: center;
+}
+
+#thoughts-container {
+  margin-top: 1rem;
+  border-left: 3px solid #6b8e23;
+  padding-left: 1rem;
+}
+
+.thought {
+  margin-bottom: 1.5rem;
+  cursor: pointer;
+}
+
+.thought-date {
+  font-weight: bold;
+  color: #6b8e23;
+}
+
+.thought-text {
+  margin-top: 0.25rem;
+  display: none;
+}
+
+#playlist-container {
+  list-style: none;
+  padding: 0;
+}
+
+.playlist-item {
+  margin-bottom: 1rem;
+}
+
+.playlist-link {
+  color: #1db954;
+  text-decoration: none;
+}
+
+.playlist-link:hover {
+  text-decoration: underline;
+}
