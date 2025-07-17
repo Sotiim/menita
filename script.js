@@ -12,59 +12,94 @@ function formatDate(dateStr) {
   return new Date(dateStr).toLocaleDateString('es-MX', options);
 }
 
-function createThoughtElement(thought) {
-  const container = document.createElement('div');
-  container.className = 'thought';
 
-  const dateElem = document.createElement('div');
-  dateElem.className = 'thought-date';
-  dateElem.textContent = formatDate(thought.date);
-  container.appendChild(dateElem);
+let currentMonth = new Date().getMonth();
+let currentYear = new Date().getFullYear();
 
-  const textElem = document.createElement('div');
-  textElem.className = 'thought-text';
-  textElem.textContent = thought.text;
-  container.appendChild(textElem);
-
-  // Alternar mostrar/ocultar texto al hacer clic
-  container.addEventListener('click', () => {
-    textElem.style.display = textElem.style.display === 'block' ? 'none' : 'block';
-  });
-
-  return container;
-}
-
-function createPlaylistItem(song) {
-  const li = document.createElement('li');
-  li.className = 'playlist-item';
-
-  const a = document.createElement('a');
-  a.href = song.url;
-  a.target = '_blank';
-  a.rel = 'noopener noreferrer';
-  a.className = 'playlist-link';
-  a.textContent = `${song.title} — ${song.artist}`;
-
-  li.appendChild(a);
-  return li;
+function renderCalendar(month, year, thoughts, playlist) {
+  const calendar = document.getElementById('calendar');
+  calendar.innerHTML = '';
+  
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  
+  // Rellenar días vacíos al inicio
+  for (let i = 0; i < firstDay; i++) {
+    const emptyDay = document.createElement('div');
+    emptyDay.className = 'calendar-day empty';
+    calendar.appendChild(emptyDay);
+  }
+  
+  // Crear días del mes
+  for (let day = 1; day <= daysInMonth; day++) {
+    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    const dayElement = document.createElement('div');
+    dayElement.className = 'calendar-day';
+    
+    const dateElement = document.createElement('div');
+    dateElement.className = 'calendar-date';
+    dateElement.textContent = day;
+    dayElement.appendChild(dateElement);
+    
+    // Buscar pensamientos para este día
+    const dailyThoughts = thoughts.filter(t => t.date.startsWith(dateStr));
+    if (dailyThoughts.length > 0) {
+      dayElement.classList.add('has-thought');
+      
+      const popup = document.createElement('div');
+      popup.className = 'thought-popup';
+      dailyThoughts.forEach(thought => {
+        const thoughtElem = document.createElement('p');
+        thoughtElem.textContent = thought.text;
+        popup.appendChild(thoughtElem);
+      });
+      dayElement.appendChild(popup);
+    }
+    
+    // Buscar canciones para este día
+    const dailySongs = playlist.filter(s => s.date && s.date.startsWith(dateStr));
+    dailySongs.forEach(song => {
+      const songElem = document.createElement('div');
+      songElem.className = 'playlist-event';
+      songElem.textContent = `${song.artist} - ${song.title}`;
+      songElem.title = `${song.artist} - ${song.title}`;
+      dayElement.appendChild(songElem);
+    });
+    
+    calendar.appendChild(dayElement);
+  }
+  
+  // Actualizar título del mes
+  const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", 
+                     "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+  document.getElementById('current-month').textContent = `${monthNames[month]} ${year}`;
 }
 
 async function init() {
   const thoughts = await loadJSON('data/thoughts.json');
   const playlist = await loadJSON('data/playlist.json');
-
-  // Mostrar pensamientos ordenados por fecha
-  thoughts.sort((a, b) => new Date(a.date) - new Date(b.date));
-  const thoughtsContainer = document.getElementById('thoughts-container');
-  thoughts.forEach(thought => {
-    thoughtsContainer.appendChild(createThoughtElement(thought));
+  
+  // Configurar navegación de meses
+  document.getElementById('prev-month').addEventListener('click', () => {
+    currentMonth--;
+    if (currentMonth < 0) {
+      currentMonth = 11;
+      currentYear--;
+    }
+    renderCalendar(currentMonth, currentYear, thoughts, playlist);
   });
-
-  // Mostrar playlist
-  const playlistContainer = document.getElementById('playlist-container');
-  playlist.forEach(song => {
-    playlistContainer.appendChild(createPlaylistItem(song));
+  
+  document.getElementById('next-month').addEventListener('click', () => {
+    currentMonth++;
+    if (currentMonth > 11) {
+      currentMonth = 0;
+      currentYear++;
+    }
+    renderCalendar(currentMonth, currentYear, thoughts, playlist);
   });
+  
+  // Renderizar calendario inicial
+  renderCalendar(currentMonth, currentYear, thoughts, playlist);
 }
 
 init();

@@ -7,18 +7,24 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Mientras te esperaba</h1>
+  <<!-- Añade esto dentro del body -->
+<div class="month-navigation">
+  <button class="nav-button" id="prev-month">←</button>
+  <h2 class="month-title" id="current-month">Mes Actual</h2>
+  <button class="nav-button" id="next-month">→</button>
+</div>
 
-  <section id="timeline">
-    <h2>Línea del tiempo</h2>
-    <div id="thoughts-container"></div>
-  </section>
+<div class="calendar-header">
+  <div>Dom</div>
+  <div>Lun</div>
+  <div>Mar</div>
+  <div>Mié</div>
+  <div>Jue</div>
+  <div>Vie</div>
+  <div>Sáb</div>
+</div>
 
-  <section id="playlist">
-    <h2>Playlist de la espera</h2>
-    <ul id="playlist-container"></ul>
-  </section>
-
+<div class="calendar-container" id="calendar"></div>
   <script src="script.js"></script>
 </body>
 </html>
