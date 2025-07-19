@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Línea de Tiempo 2024-2025</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: #3498db;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding: 15px;
+            border-radius: 8px;
+            background: white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -40px;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 4px solid #3498db;
+            background: white;
+        }
+        
+        .timeline-date {
+            font-weight: bold;
+            color: #3498db;
+            margin-bottom: 5px;
+        }
+        
+        .timeline-content {
+            margin-left: 10px;
+        }
+        
+        .event-dot {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        
+        .letter-container {
+            text-align: center;
+            margin-top: 40px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .letter-button {
+            background: none;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .letter-button:hover {
+            transform: scale(1.1);
+        }
+        
+        .letter-button img {
+            width: 80px;
+        }
+        
+        .letter-caption {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-top: 10px;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            text-align: center;
+            position: relative;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(-20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+        
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #7f8c8d;
+        }
+        
+        .hidden-message {
+            font-style: italic;
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+        }
+    </style>
+</head>
+<body>
+    <h1>Línea de Tiempo 2024-2025</h1>
+    
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-date">
+                <span class="event-dot" style="background: #3498db;"></span>
+                20 de julio de 2024
+            </div>
+            <div class="timeline-content">
+                <p>✅ <strong>Inicio de esta línea temporal.</strong><br>
+                <em>(¡El día que todo comenzó!)</em></p>
+            </div>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-date">
+                <span class="event-dot" style="background: #e67e22;"></span>
+                Octubre 2024
+            </div>
+            <div class="timeline-content">
+                <p>🌍 <strong>Primera misión tripulada a Marte anunciada.</strong><br>
+                <em>(¿Será el inicio de la colonización?)</em></p>
+            </div>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-date">
+                <span class="event-dot" style="background: #e74c3c;"></span>
+                Diciembre 2024
+            </div>
+            <div class="timeline-content">
+                <p>🎄 <strong>Avance en IA: Crean el primer asistente con emociones humanas.</strong><br>
+                <em>(¿Amigo o amenaza?)</em></p>
+            </div>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-date">
+                <span class="event-dot" style="background: #2ecc71;"></span>
+                Marzo 2025
+            </div>
+            <div class="timeline-content">
+                <p>🌱 <strong>Descubren una planta que purifica el aire en horas.</strong><br>
+                <em>(¡Respira hondo!)</em></p>
+            </div>
+        </div>
+        
+        <div class="timeline-item">
+            <div class="timeline-date">
+                <span class="event-dot" style="background: #9b59b6;"></span>
+                20 de julio de 2025
+            </div>
+            <div class="timeline-content">
+                <p>🎉 <strong>¡Llegamos al futuro!</strong></p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="letter-container">
+        <h3>📜 CARTA SECRETA</h3>
+        <p><em>(Haz clic en el sobre para abrirla)</em></p>
+        
+        <button class="letter-button" onclick="openLetter()">
+            <img src="https://cdn-icons-png.flaticon.com/512/3721/3721843.png" alt="Sobre cerrado">
+            <p class="letter-caption">¡Abrir carta!</p>
+        </button>
+    </div>
+    
+    <div id="letterModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2>¡Feliz 20 de julio de 2025! 🎉</h2>
+            <p>Este mensaje viajó en el tiempo para recordarte que el futuro lo construyes hoy. 🌟</p>
+            
+            <div class="hidden-message">
+                <p>"Los días son largos, pero los años son cortos.<br>
+                Disfruta cada momento, porque este es el primer día<br>
+                del resto de tu línea de tiempo."</p>
+                <p>— Con cariño, el Universo.</p>
+            </div>
+            
+            <img src="https://cdn-icons-png.flaticon.com/512/3721/3721876.png" alt="Sobre abierto" width="80" style="margin-top: 20px;">
+        </div>
+    </div>
+    
+    <script>
+        function openLetter() {
+            document.getElementById('letterModal').style.display = 'flex';
+        }
+        
+        function closeModal() {
+            document.getElementById('letterModal').style.display = 'none';
+        }
+        
+        // Cerrar modal al hacer clic fuera del contenido
+        window.onclick = function(event) {
+            const modal = document.getElementById('letterModal');
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
