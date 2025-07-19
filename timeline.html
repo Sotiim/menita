@@ -3,93 +3,150 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Línea de Tiempo 2024-2025</title>
+    <title>Línea de Tiempo Vertical 2024-2025</title>
     <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
         body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
             max-width: 800px;
             margin: 0 auto;
             padding: 20px;
-            background-color: #f9f9f9;
         }
         
         h1 {
             text-align: center;
+            margin-bottom: 40px;
             color: #2c3e50;
-            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        h1::after {
+            content: "";
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, #3498db, #9b59b6);
+            margin: 10px auto;
+            border-radius: 2px;
         }
         
         .timeline {
             position: relative;
             padding-left: 50px;
+            margin: 0 auto;
         }
         
+        /* Línea vertical */
         .timeline::before {
             content: '';
             position: absolute;
-            left: 20px;
+            left: 25px;
             top: 0;
             bottom: 0;
             width: 4px;
-            background: #3498db;
+            background: linear-gradient(to bottom, #3498db, #9b59b6);
+            border-radius: 2px;
         }
         
         .timeline-item {
             position: relative;
-            margin-bottom: 30px;
-            padding: 15px;
-            border-radius: 8px;
+            margin-bottom: 40px;
             background: white;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         
+        .timeline-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Punto de la línea de tiempo */
         .timeline-item::before {
             content: '';
             position: absolute;
-            left: -40px;
-            top: 20px;
+            left: -38px;
+            top: 25px;
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            border: 4px solid #3498db;
-            background: white;
+            border: 4px solid white;
+            z-index: 1;
         }
+        
+        /* Colores diferentes para cada punto */
+        .timeline-item:nth-child(1)::before { background: #3498db; }
+        .timeline-item:nth-child(2)::before { background: #e67e22; }
+        .timeline-item:nth-child(3)::before { background: #e74c3c; }
+        .timeline-item:nth-child(4)::before { background: #2ecc71; }
+        .timeline-item:nth-child(5)::before { background: #9b59b6; }
         
         .timeline-date {
             font-weight: bold;
-            color: #3498db;
-            margin-bottom: 5px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .timeline-icon {
+            margin-right: 10px;
+            font-size: 1.2em;
         }
         
         .timeline-content {
-            margin-left: 10px;
+            padding-left: 5px;
         }
         
-        .event-dot {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            margin-right: 10px;
-            vertical-align: middle;
+        .timeline-content p {
+            margin-bottom: 10px;
         }
         
-        .letter-container {
+        .timeline-content em {
+            color: #7f8c8d;
+            font-size: 0.9em;
+        }
+        
+        /* Estilos para la carta */
+        .letter-section {
             text-align: center;
-            margin-top: 40px;
-            padding: 20px;
+            margin-top: 50px;
+            padding: 30px;
             background: white;
-            border-radius: 8px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .letter-title {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+        
+        .letter-subtitle {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            font-size: 0.9em;
         }
         
         .letter-button {
             background: none;
             border: none;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: transform 0.3s ease;
         }
         
         .letter-button:hover {
@@ -97,15 +154,17 @@
         }
         
         .letter-button img {
-            width: 80px;
+            width: 100px;
+            height: auto;
         }
         
         .letter-caption {
-            font-size: 14px;
             color: #7f8c8d;
+            font-size: 0.8em;
             margin-top: 10px;
         }
         
+        /* Modal de la carta */
         .modal {
             display: none;
             position: fixed;
@@ -113,147 +172,215 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.7);
+            background-color: rgba(0, 0, 0, 0.7);
             z-index: 1000;
             justify-content: center;
             align-items: center;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
         .modal-content {
             background: white;
+            border-radius: 15px;
             padding: 30px;
-            border-radius: 10px;
+            width: 90%;
             max-width: 500px;
-            text-align: center;
             position: relative;
-            animation: fadeIn 0.5s;
+            animation: slideUp 0.4s;
+            text-align: center;
         }
         
-        @keyframes fadeIn {
-            from {opacity: 0; transform: translateY(-20px);}
-            to {opacity: 1; transform: translateY(0);}
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
         
-        .close-button {
+        .close-btn {
             position: absolute;
-            top: 10px;
-            right: 15px;
+            top: 15px;
+            right: 20px;
             font-size: 24px;
-            cursor: pointer;
             color: #7f8c8d;
+            cursor: pointer;
+            transition: color 0.3s;
         }
         
-        .hidden-message {
+        .close-btn:hover {
+            color: #e74c3c;
+        }
+        
+        .modal-title {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .modal-message {
+            margin-bottom: 20px;
+            line-height: 1.7;
+        }
+        
+        .modal-signature {
             font-style: italic;
+            color: #7f8c8d;
             margin-top: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-left: 4px solid #3498db;
+        }
+        
+        .modal-image {
+            width: 80px;
+            height: auto;
+            margin: 20px auto;
+        }
+        
+        @media (max-width: 600px) {
+            .timeline {
+                padding-left: 30px;
+            }
+            
+            .timeline::before {
+                left: 15px;
+            }
+            
+            .timeline-item::before {
+                left: -28px;
+                width: 16px;
+                height: 16px;
+            }
+            
+            .timeline-item {
+                padding: 15px;
+            }
         }
     </style>
 </head>
 <body>
-    <h1>Línea de Tiempo 2024-2025</h1>
-    
-    <div class="timeline">
-        <div class="timeline-item">
-            <div class="timeline-date">
-                <span class="event-dot" style="background: #3498db;"></span>
-                20 de julio de 2024
+    <div class="container">
+        <h1>Línea de Tiempo 2024-2025</h1>
+        
+        <div class="timeline">
+            <!-- Evento 1 -->
+            <div class="timeline-item">
+                <div class="timeline-date">
+                    <span class="timeline-icon">📅</span>
+                    20 de julio de 2024
+                </div>
+                <div class="timeline-content">
+                    <p><strong>Inicio de esta línea temporal</strong></p>
+                    <p><em>¡El día que todo comenzó!</em></p>
+                </div>
             </div>
-            <div class="timeline-content">
-                <p>✅ <strong>Inicio de esta línea temporal.</strong><br>
-                <em>(¡El día que todo comenzó!)</em></p>
+            
+            <!-- Evento 2 -->
+            <div class="timeline-item">
+                <div class="timeline-date">
+                    <span class="timeline-icon">🚀</span>
+                    Octubre 2024
+                </div>
+                <div class="timeline-content">
+                    <p><strong>Primera misión tripulada a Marte anunciada</strong></p>
+                    <p><em>¿Será el inicio de la colonización espacial?</em></p>
+                </div>
+            </div>
+            
+            <!-- Evento 3 -->
+            <div class="timeline-item">
+                <div class="timeline-date">
+                    <span class="timeline-icon">🤖</span>
+                    Diciembre 2024
+                </div>
+                <div class="timeline-content">
+                    <p><strong>Avance en IA: Primer asistente con emociones humanas</strong></p>
+                    <p><em>¿Amigo o amenaza para la humanidad?</em></p>
+                </div>
+            </div>
+            
+            <!-- Evento 4 -->
+            <div class="timeline-item">
+                <div class="timeline-date">
+                    <span class="timeline-icon">🌿</span>
+                    Marzo 2025
+                </div>
+                <div class="timeline-content">
+                    <p><strong>Descubren planta que purifica el aire en horas</strong></p>
+                    <p><em>¡Respira hondo! El aire limpio está por llegar</em></p>
+                </div>
+            </div>
+            
+            <!-- Evento 5 -->
+            <div class="timeline-item">
+                <div class="timeline-date">
+                    <span class="timeline-icon">🎊</span>
+                    20 de julio de 2025
+                </div>
+                <div class="timeline-content">
+                    <p><strong>¡Llegamos al futuro!</strong></p>
+                    <p><em>Un año de progreso y descubrimientos</em></p>
+                </div>
             </div>
         </div>
         
-        <div class="timeline-item">
-            <div class="timeline-date">
-                <span class="event-dot" style="background: #e67e22;"></span>
-                Octubre 2024
-            </div>
-            <div class="timeline-content">
-                <p>🌍 <strong>Primera misión tripulada a Marte anunciada.</strong><br>
-                <em>(¿Será el inicio de la colonización?)</em></p>
-            </div>
-        </div>
-        
-        <div class="timeline-item">
-            <div class="timeline-date">
-                <span class="event-dot" style="background: #e74c3c;"></span>
-                Diciembre 2024
-            </div>
-            <div class="timeline-content">
-                <p>🎄 <strong>Avance en IA: Crean el primer asistente con emociones humanas.</strong><br>
-                <em>(¿Amigo o amenaza?)</em></p>
-            </div>
-        </div>
-        
-        <div class="timeline-item">
-            <div class="timeline-date">
-                <span class="event-dot" style="background: #2ecc71;"></span>
-                Marzo 2025
-            </div>
-            <div class="timeline-content">
-                <p>🌱 <strong>Descubren una planta que purifica el aire en horas.</strong><br>
-                <em>(¡Respira hondo!)</em></p>
-            </div>
-        </div>
-        
-        <div class="timeline-item">
-            <div class="timeline-date">
-                <span class="event-dot" style="background: #9b59b6;"></span>
-                20 de julio de 2025
-            </div>
-            <div class="timeline-content">
-                <p>🎉 <strong>¡Llegamos al futuro!</strong></p>
-            </div>
+        <!-- Sección de la carta -->
+        <div class="letter-section">
+            <h2 class="letter-title">📜 Carta Secreta</h2>
+            <p class="letter-subtitle">(Haz clic en el sobre para revelar el mensaje)</p>
+            
+            <button class="letter-button" onclick="openLetter()">
+                <img src="https://cdn-icons-png.flaticon.com/512/3721/3721843.png" alt="Sobre cerrado">
+                <p class="letter-caption">¡Abrir carta del futuro!</p>
+            </button>
         </div>
     </div>
     
-    <div class="letter-container">
-        <h3>📜 CARTA SECRETA</h3>
-        <p><em>(Haz clic en el sobre para abrirla)</em></p>
-        
-        <button class="letter-button" onclick="openLetter()">
-            <img src="https://cdn-icons-png.flaticon.com/512/3721/3721843.png" alt="Sobre cerrado">
-            <p class="letter-caption">¡Abrir carta!</p>
-        </button>
-    </div>
-    
+    <!-- Modal de la carta -->
     <div id="letterModal" class="modal">
         <div class="modal-content">
-            <span class="close-button" onclick="closeModal()">&times;</span>
-            <h2>¡Feliz 20 de julio de 2025! 🎉</h2>
-            <p>Este mensaje viajó en el tiempo para recordarte que el futuro lo construyes hoy. 🌟</p>
-            
-            <div class="hidden-message">
-                <p>"Los días son largos, pero los años son cortos.<br>
-                Disfruta cada momento, porque este es el primer día<br>
-                del resto de tu línea de tiempo."</p>
-                <p>— Con cariño, el Universo.</p>
-            </div>
-            
-            <img src="https://cdn-icons-png.flaticon.com/512/3721/3721876.png" alt="Sobre abierto" width="80" style="margin-top: 20px;">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h2 class="modal-title">¡Feliz 20 de julio de 2025! 🎉</h2>
+            <img class="modal-image" src="https://cdn-icons-png.flaticon.com/512/3721/3721876.png" alt="Sobre abierto">
+            <p class="modal-message">
+                Este mensaje viajó en el tiempo para recordarte que el futuro no es algo que simplemente sucede, 
+                sino algo que construyes cada día con tus decisiones y acciones.
+            </p>
+            <p class="modal-message">
+                Los próximos 365 días están llenos de posibilidades infinitas. 
+                ¿Qué historia escribirás en esta línea de tiempo?
+            </p>
+            <p class="modal-signature">
+                — Con cariño,<br>
+                La versión de ti del futuro
+            </p>
         </div>
     </div>
     
     <script>
+        // Función para abrir la carta
         function openLetter() {
             document.getElementById('letterModal').style.display = 'flex';
         }
         
+        // Función para cerrar el modal
         function closeModal() {
             document.getElementById('letterModal').style.display = 'none';
         }
         
-        // Cerrar modal al hacer clic fuera del contenido
+        // Cerrar al hacer clic fuera del contenido
         window.onclick = function(event) {
             const modal = document.getElementById('letterModal');
-            if (event.target == modal) {
+            if (event.target === modal) {
                 closeModal();
             }
         }
+        
+        // Cerrar con la tecla ESC
+        document.onkeydown = function(event) {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        };
     </script>
 </body>
 </html>
