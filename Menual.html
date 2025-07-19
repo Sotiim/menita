@@ -3,31 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manual de Operaciones | [Nombre]</title>
+    <title>Manual Premium de [Su Nombre]</title>
     <style>
         :root {
-            --color-primario: #6a4c93;
-            --color-secundario: #8a5a44;
-            --color-accento: #f8bbd0;
+            --color-primario: #E91E63;  /* Rosa chic - puedes cambiarlo */
+            --color-secundario: #9C27B0;
+            --color-accento: #FFC107;
             --color-texto: #333;
-            --color-fondo: #f9f4e8;
+            --color-fondo: #FFF9F9;
+            --color-tarjeta: #fff;
         }
         
         body {
-            font-family: 'Georgia', serif;
+            font-family: 'Quicksand', 'Segoe UI', sans-serif;
             background-color: var(--color-fondo);
             color: var(--color-texto);
-            line-height: 1.6;
+            line-height: 1.7;
             margin: 0;
             padding: 0;
+            background-image: radial-gradient(circle at 5% 5%, rgba(233,30,99,0.05) 0%, transparent 15%);
         }
         
         .manual-container {
             max-width: 900px;
-            margin: 30px auto;
+            margin: 40px auto;
             background: white;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            border-radius: 5px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            border-radius: 15px;
             overflow: hidden;
             position: relative;
         }
@@ -35,293 +37,391 @@
         .manual-header {
             background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
             color: white;
-            padding: 30px;
+            padding: 40px 30px;
             text-align: center;
             position: relative;
         }
         
-        .manual-header::after {
-            content: "";
-            position: absolute;
-            bottom: -20px;
-            left: 0;
-            right: 0;
-            height: 40px;
-            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" fill="white"/></svg>');
-            background-size: cover;
-        }
-        
         .manual-title {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             margin: 0;
-            font-weight: 300;
-            letter-spacing: 1px;
+            font-weight: 700;
+            letter-spacing: -1px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
         }
         
         .manual-subtitle {
             font-style: italic;
             opacity: 0.9;
             margin: 10px 0 0;
+            font-size: 1.2rem;
+            font-weight: 300;
         }
         
         .manual-body {
             padding: 40px;
         }
         
-        .section {
+        .seccion-gustos {
             margin-bottom: 40px;
-            border-left: 4px solid var(--color-accento);
-            padding-left: 20px;
-            transition: all 0.3s ease;
+            background: var(--color-tarjeta);
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--color-accento);
+            position: relative;
+            overflow: hidden;
         }
         
-        .section:hover {
-            border-left-width: 8px;
-            padding-left: 16px;
+        .seccion-gustos::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60px;
+            height: 60px;
+            background: var(--color-accento);
+            opacity: 0.1;
+            border-radius: 0 0 0 100%;
         }
         
-        .section-title {
+        .seccion-titulo {
             color: var(--color-primario);
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             margin-top: 0;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
         }
         
-        .section-title::before {
-            content: "§";
-            margin-right: 10px;
-            font-weight: bold;
-            color: var(--color-secundario);
+        .seccion-titulo i {
+            margin-right: 15px;
+            font-size: 1.5rem;
         }
         
-        .specs-grid {
+        .grid-gustos {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             gap: 20px;
+        }
+        
+        .item-gusto {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+        
+        .icono-gusto {
+            margin-right: 15px;
+            color: var(--color-primario);
+            font-size: 1.2rem;
+            min-width: 25px;
+            text-align: center;
+        }
+        
+        .texto-gusto {
+            flex: 1;
+        }
+        
+        .tag {
+            display: inline-block;
+            background: var(--color-accento);
+            color: #333;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+        }
+        
+        .galeria-fotos {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
             margin-top: 20px;
         }
         
-        .spec-card {
-            background: white;
+        .foto-item {
             border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-            border-top: 3px solid var(--color-accento);
-        }
-        
-        .spec-title {
-            font-weight: bold;
-            color: var(--color-secundario);
-            margin-bottom: 8px;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .warning-note {
-            background: #fff8e1;
-            border-left: 4px solid #ffc107;
-            padding: 15px;
-            margin: 20px 0;
-            font-size: 0.9rem;
-        }
-        
-        .warning-title {
-            font-weight: bold;
-            color: #ff9800;
-            margin-top: 0;
-            display: flex;
-            align-items: center;
-        }
-        
-        .warning-title::before {
-            content: "⚠";
-            margin-right: 8px;
-        }
-        
-        .tabs {
-            display: flex;
-            border-bottom: 1px solid #ddd;
-            margin-bottom: 20px;
-        }
-        
-        .tab {
-            padding: 10px 20px;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
+            overflow: hidden;
+            height: 120px;
+            position: relative;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
             transition: all 0.3s;
         }
         
-        .tab.active {
-            border-bottom-color: var(--color-primario);
-            color: var(--color-primario);
-            font-weight: bold;
+        .foto-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
         
-        .tab-content {
-            display: none;
-        }
-        
-        .tab-content.active {
-            display: block;
-        }
-        
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-top: 20px;
-        }
-        
-        .gallery img {
+        .foto-item img {
             width: 100%;
-            border-radius: 5px;
-            transition: transform 0.3s;
+            height: 100%;
+            object-fit: cover;
         }
         
-        .gallery img:hover {
-            transform: scale(1.05);
-        }
-        
-        .footer-note {
+        .foto-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            padding: 5px;
+            font-size: 0.7rem;
             text-align: center;
+        }
+        
+        .frase-destacada {
+            background: linear-gradient(135deg, rgba(233,30,99,0.1), rgba(156,39,176,0.1));
+            border-left: 4px solid var(--color-primario);
+            padding: 20px;
+            margin: 30px 0;
             font-style: italic;
+            position: relative;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .frase-destacada::before {
+            content: "";
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 3rem;
+            color: var(--color-primario);
+            opacity: 0.2;
+            font-family: serif;
+        }
+        
+        .footer-personalizado {
+            text-align: center;
             margin-top: 40px;
             padding-top: 20px;
             border-top: 1px dashed #ddd;
             color: #666;
+            font-size: 0.9rem;
         }
         
-        /* Efecto de manual antiguo */
-        .manual-container::before {
+        .corazon {
+            color: var(--color-primario);
+            font-size: 1.2rem;
+            animation: latido 1.5s infinite;
+            display: inline-block;
+        }
+        
+        @keyframes latido {
+            0% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            75% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        /* Efecto de notas adhesivas */
+        .nota-adhesiva {
+            background: #FFF9C4;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 15px 15px 15px;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+            position: relative;
+            border: 1px solid #FFEE58;
+        }
+        
+        .nota-adhesiva::before {
             content: "";
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml;utf8,<svg opacity="0.03" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="black" stroke-width="2"/></svg>');
-            pointer-events: none;
+            top: -15px;
+            left: 10px;
+            width: 30px;
+            height: 15px;
+            background: #FFF9C4;
+            clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
+            border-top: 1px solid #FFEE58;
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="manual-container">
         <div class="manual-header">
-            <h1 class="manual-title">Manual de Operaciones</h1>
-            <p class="manual-subtitle">Guía definitiva para interactuar con [Nombre]</p>
+            <h1 class="manual-title">Manual Exclusivo de [Su Nombre]</h1>
+            <p class="manual-subtitle">Edición Limitada - Contiene información clasificada</p>
         </div>
         
         <div class="manual-body">
-            <div class="section">
-                <h2 class="section-title">Especificaciones Técnicas</h2>
-                <p>Modelo humano único, versión [año de nacimiento]. Diseñado/a para máxima compatibilidad emocional y rendimiento social.</p>
+            <!-- SECCIÓN 1: GUSTOS PRINCIPALES -->
+            <div class="seccion-gustos">
+                <h2 class="seccion-titulo"><i class="fas fa-heart"></i> Pasiones y Preferencias</h2>
                 
-                <div class="specs-grid">
-                    <div class="spec-card">
-                        <div class="spec-title">Sistema Operativo</div>
-                        <div>Personalidad [tipo de personalidad] v4.2</div>
+                <div class="grid-gustos">
+                    <div>
+                        <h3><i class="fas fa-music icono-gusto"></i> Música Favorita</h3>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">♫</div>
+                            <div class="texto-gusto">Artista favorito: [Nombre artista]</div>
+                        </div>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">♫</div>
+                            <div class="texto-gusto">Canción emblemática: "[Canción]"</div>
+                        </div>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">♫</div>
+                            <div class="texto-gusto">Géneros preferidos: 
+                                <span class="tag">Pop</span>
+                                <span class="tag">Indie</span>
+                                <span class="tag">Rock Alternativo</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="spec-card">
-                        <div class="spec-title">Procesador</div>
-                        <div>Cerebro multitarea [IQ estimado]</div>
+                    
+                    <div>
+                        <h3><i class="fas fa-utensils icono-gusto"></i> Gustos Gastronómicos</h3>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">🍕</div>
+                            <div class="texto-gusto">Comida favorita: [Comida]</div>
+                        </div>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">🍰</div>
+                            <div class="texto-gusto">Debilidad dulce: [Postre]</div>
+                        </div>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">☕</div>
+                            <div class="texto-gusto">Bebida preferida: [Bebida]</div>
+                        </div>
                     </div>
-                    <div class="spec-card">
-                        <div class="spec-title">Memoria</div>
-                        <div>Almacenamiento selectivo (prioriza recuerdos emocionales)</div>
+                </div>
+                
+                <div class="nota-adhesiva">
+                    <strong>Dato curioso:</strong> [Anécdota graciosa sobre sus gustos, ej. "Puede comer sushi 5 días seguidos sin cansarse"]
+                </div>
+            </div>
+            
+            <!-- SECCIÓN 2: HOBBIES -->
+            <div class="seccion-gustos">
+                <h2 class="seccion-titulo"><i class="fas fa-paint-brush"></i> Hobbies y Tiempo Libre</h2>
+                
+                <div class="grid-gustos">
+                    <div>
+                        <h3><i class="fas fa-camera icono-gusto"></i> Actividades Creativas</h3>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">🎨</div>
+                            <div class="texto-gusto">[Hobby 1]</div>
+                        </div>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">✍️</div>
+                            <div class="texto-gusto">[Hobby 2]</div>
+                        </div>
                     </div>
-                    <div class="spec-card">
-                        <div class="spec-title">Conexiones</div>
-                        <div>Wi-Fi emocional, Bluetooth afectivo</div>
+                    
+                    <div>
+                        <h3><i class="fas fa-running icono-gusto"></i> Actividades Físicas</h3>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">🏃‍♀️</div>
+                            <div class="texto-gusto">[Deporte o actividad]</div>
+                        </div>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">🧘‍♀️</div>
+                            <div class="texto-gusto">[Otra actividad]</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="frase-destacada">
+                    "Cuando hace [hobby favorito], entra en un estado de flujo donde el tiempo parece detenerse. No interrumpir."
+                </div>
+            </div>
+            
+            <!-- SECCIÓN 3: PELÍCULAS/SERIES/LIBROS -->
+            <div class="seccion-gustos">
+                <h2 class="seccion-titulo"><i class="fas fa-film"></i> Entretenimiento Favorito</h2>
+                
+                <div class="grid-gustos">
+                    <div>
+                        <h3><i class="fas fa-book-open icono-gusto"></i> Libros</h3>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">📚</div>
+                            <div class="texto-gusto">Género favorito: [Género]</div>
+                        </div>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">❤️</div>
+                            <div class="texto-gusto">Libro favorito: [Título]</div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-tv icono-gusto"></i> Series & Películas</h3>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">🍿</div>
+                            <div class="texto-gusto">Serie para maratonear: [Nombre]</div>
+                        </div>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">🎬</div>
+                            <div class="texto-gusto">Película que puede ver 100 veces: [Título]</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 style="margin-top: 20px;"><i class="fas fa-photo-video"></i> Galería de Favoritos</h3>
+                <div class="galeria-fotos">
+                    <div class="foto-item">
+                        <img src="https://via.placeholder.com/300x200?text=Serie+Favorita" alt="Serie favorita">
+                        <div class="foto-caption">[Nombre serie]</div>
+                    </div>
+                    <div class="foto-item">
+                        <img src="https://via.placeholder.com/300x200?text=Lugar+Favorito" alt="Lugar favorito">
+                        <div class="foto-caption">[Lugar especial]</div>
+                    </div>
+                    <div class="foto-item">
+                        <img src="https://via.placeholder.com/300x200?text=Recuerdo+Especial" alt="Recuerdo">
+                        <div class="foto-caption">[Momento especial]</div>
                     </div>
                 </div>
             </div>
             
-            <div class="warning-note">
-                <h3 class="warning-title">Advertencia importante</h3>
-                <p>Este modelo es sensible a la falta de café, comentarios sarcásticos sin contexto y días lluviosos. No exponer a largos periodos de soledad o conversaciones superficiales.</p>
-            </div>
-            
-            <div class="section">
-                <h2 class="section-title">Modos de Operación</h2>
+            <!-- SECCIÓN 4: DATOS CURIOSOS -->
+            <div class="seccion-gustos">
+                <h2 class="seccion-titulo"><i class="fas fa-star"></i> Datos de Colección</h2>
                 
-                <div class="tabs">
-                    <div class="tab active" onclick="openTab(event, 'modo-diurno')">Modo Diurno</div>
-                    <div class="tab" onclick="openTab(event, 'modo-nocturno')">Modo Nocturno</div>
-                    <div class="tab" onclick="openTab(event, 'modo-emergencia')">Modo Emergencia</div>
+                <div class="grid-gustos">
+                    <div>
+                        <h3><i class="fas fa-lightbulb icono-gusto"></i> Curiosidades</h3>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">🌟</div>
+                            <div class="texto-gusto">Talento oculto: [Talento]</div>
+                        </div>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">🤫</div>
+                            <div class="texto-gusto">Miedo irracional: [Miedo gracioso]</div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3><i class="fas fa-grin-stars icono-gusto"></i> Manías</h3>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">🔹</div>
+                            <div class="texto-gusto">[Manía 1]</div>
+                        </div>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">🔹</div>
+                            <div class="texto-gusto">[Manía 2]</div>
+                        </div>
+                    </div>
                 </div>
                 
-                <div id="modo-diurno" class="tab-content active">
-                    <p><strong>Horario:</strong> 8:00 AM - 10:00 PM</p>
-                    <p><strong>Características:</strong></p>
-                    <ul>
-                        <li>Productividad al 85%</li>
-                        <li>Socialización optimizada</li>
-                        <li>Respuestas coherentes</li>
-                        <li>Recomendado para actividades complejas</li>
-                    </ul>
-                </div>
-                
-                <div id="modo-nocturno" class="tab-content">
-                    <p><strong>Horario:</strong> 10:00 PM - 8:00 AM</p>
-                    <p><strong>Características:</strong></p>
-                    <ul>
-                        <li>Funciones limitadas</li>
-                        <li>Modo reflexivo activado</li>
-                        <li>Respuestas filosóficas probables</li>
-                        <li>Recomendado para conversaciones profundas</li>
-                    </ul>
-                </div>
-                
-                <div id="modo-emergencia" class="tab-content">
-                    <p><strong>Activación:</strong> Situaciones críticas</p>
-                    <p><strong>Características:</strong></p>
-                    <ul>
-                        <li>Prioriza necesidades básicas</li>
-                        <li>Respuestas directas</li>
-                        <li>Recomendado: Café o chocolate de emergencia</li>
-                        <li>Tiempo de recuperación: 2-8 horas</li>
-                    </ul>
+                <div class="nota-adhesiva">
+                    <strong>Secreto:</strong> [Algo que pocos saben de ella, ej. "Sabe recitar de memoria todos los diálogos de su película favorita"]
                 </div>
             </div>
             
-            <div class="section">
-                <h2 class="section-title">Galería de Estados</h2>
-                <p>Documentación visual de los diferentes modos operativos:</p>
-                
-                <div class="gallery">
-                    <img src="https://via.placeholder.com/300x200?text=Modo+Productivo" alt="Modo Productivo">
-                    <img src="https://via.placeholder.com/300x200?text=Modo+Creativo" alt="Modo Creativo">
-                    <img src="https://via.placeholder.com/300x200?text=Modo+Descanso" alt="Modo Descanso">
-                </div>
-            </div>
-            
-            <div class="footer-note">
-                <p>Este manual es una versión simplificada. Para consultar el manual completo con todas sus funciones y secretos, se requiere un nivel de confianza superior a 90%.</p>
-                <p>© [Año actual] - Todos los derechos reservados. Prohibida la reproducción no autorizada.</p>
+            <div class="footer-personalizado">
+                <p>Manual creado con <span class="corazon">❤️</span> el [fecha actual]</p>
+                <p>Actualización recomendada cada 6 meses (sus gustos evolucionan)</p>
             </div>
         </div>
     </div>
-    
-    <script>
-        function openTab(evt, tabName) {
-            // Oculta todos los contenidos de pestañas
-            const tabContents = document.getElementsByClassName("tab-content");
-            for (let i = 0; i < tabContents.length; i++) {
-                tabContents[i].classList.remove("active");
-            }
-            
-            // Desactiva todas las pestañas
-            const tabs = document.getElementsByClassName("tab");
-            for (let i = 0; i < tabs.length; i++) {
-                tabs[i].classList.remove("active");
-            }
-            
-            // Activa la pestaña y contenido seleccionados
-            document.getElementById(tabName).classList.add("active");
-            evt.currentTarget.classList.add("active");
-        }
-    </script>
 </body>
 </html>
