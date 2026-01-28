@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Un Mensaje a la Deriva</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden; /* Mantiene el mar sin scroll */
+            background: linear-gradient(180deg, #2b5876 0%, #4e4376 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* --- FONDO ANIMADO (MAR) --- */
+        .ocean {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            z-index: 1;
+            overflow: hidden;
+            pointer-events: none; /* Para que no interfiera con el scroll */
+        }
+
+        .wave {
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 198'%3E%3Cpath fill='%23ffffff' fill-opacity='0.1' d='M1600 91.59C1340 91.59 1300 12.4 1100 12.4 900 12.4 900 91.59 700 91.59 500 91.59 500 12.4 300 12.4 100 12.4 100 91.59 0 91.59V198h1600V91.59z'/%3E%3C/svg%3E") repeat-x; 
+            position: absolute;
+            width: 6400px;
+            top: 0;
+            left: 0;
+            height: 100%;
+            animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) infinite;
+            transform: translate3d(0, 0, 0);
+        }
+
+        .wave:nth-of-type(2) {
+            top: 20px;
+            animation: wave 7s cubic-bezier( 0.36, 0.45, 0.63, 0.53) -.125s infinite, swell 7s ease -1.25s infinite;
+            opacity: 1;
+        }
+
+        @keyframes wave {
+            0% { margin-left: 0; }
+            100% { margin-left: -1600px; }
+        }
+
+        @keyframes swell {
+            0%, 100% { transform: translate3d(0,-25px,0); }
+            50% { transform: translate3d(0,5px,0); }
+        }
+
+        /* --- LA BOTELLA --- */
+        .bottle-container {
+            position: relative;
+            z-index: 10;
+            cursor: pointer;
+            animation: float 3s ease-in-out infinite;
+            transition: transform 1s, opacity 1s;
+        }
+
+        .bottle-container:hover {
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.4));
+        }
+
+        .bottle {
+            width: 100px;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-radius: 40px 40px 15px 15px;
+            position: relative;
+            backdrop-filter: blur(3px);
+            box-shadow: inset 0 0 20px rgba(255,255,255,0.2);
+        }
+
+        .bottle::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 35px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.6);
+            border-bottom: none;
+            backdrop-filter: blur(3px);
+        }
+
+        .cork {
+            position: absolute;
+            top: -70px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 30px;
+            height: 15px;
+            background: #8B4513;
+            border-radius: 3px;
+            border: 1px solid #5c2e0b;
+        }
+
+        .scroll-inside {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-10deg);
+            width: 60px;
+            height: 120px;
+            background: #f4e4bc;
+            border-radius: 5px;
+            box-shadow: inset 5px 0 10px rgba(0,0,0,0.1);
+            border: 1px solid #d3c092;
+        }
+        
+        .scroll-inside::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            height: 4px;
+            background: #a81c1c;
+        }
+
+        .reflection {
+            position: absolute;
+            top: 20px;
+            right: 15px;
+            width: 10px;
+            height: 80px;
+            background: rgba(255,255,255,0.4);
+            border-radius: 10px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(5deg); }
+            50% { transform: translateY(-20px) rotate(-5deg); }
+        }
+
+        /* --- MENSAJE DESPLEGADO (MODIFICADO PARA SCROLL) --- */
+        .message-overlay {
+            position: fixed;
+            top: 0; left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 100;
+            display: flex;
+            /* Flex-direction column ayuda al scroll en móviles */
+            flex-direction: column; 
+            /* Align items flex-start previene que se corte arriba si es muy largo */
+            align-items: center; 
+            
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s;
+            backdrop-filter: blur(5px);
+            
+            /* PROPIEDADES CLAVE PARA SCROLL */
+            overflow-y: auto; 
+            -webkit-overflow-scrolling: touch;
+            padding: 20px 0; /* Espacio arriba y abajo para scrollear */
+        }
+
+        /* Papel estilo antiguo con bordes rotos */
+        .paper {
+            /* Ancho responsivo */
+            width: 90%;
+            max-width: 450px; 
+            
+            /* Altura automática para que crezca con el texto */
+            height: auto; 
+            min-height: 400px;
+            
+            background-color: #f4e4bc;
+            background-image: url('https://www.transparenttextures.com/patterns/aged-paper.png');
+            padding: 50px 40px;
+            box-sizing: border-box;
+            position: relative;
+            
+            /* Margin auto centra vertical y horizontalmente, pero respeta el scroll */
+            margin: auto; 
+            
+            transform: scale(0.5) rotate(-5deg);
+            transition: transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
+            /* Borde irregular */
+            clip-path: polygon(2% 0%, 98% 1%, 100% 98%, 95% 100%, 2% 98%, 0% 2%);
+        }
+
+        /* TIPOGRAFÍA */
+        .text-content {
+            text-align: center;
+            color: #2c241b; 
+        }
+
+        h2 {
+            font-family: 'Dancing Script', cursive; 
+            font-size: 2.5rem;
+            margin-bottom: 25px;
+            color: #a81c1c; 
+            margin-top: 0;
+        }
+
+        p {
+            font-family: 'Cormorant Garamond', serif; 
+            font-size: 1.35rem; 
+            font-weight: 600; 
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .hint {
+            position: absolute;
+            bottom: 20%;
+            color: rgba(255,255,255,0.8);
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: bold;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: pulse 2s infinite;
+        }
+
+        /* Estados activos */
+        .message-overlay.active { opacity: 1; pointer-events: auto; }
+        .message-overlay.active .paper { transform: scale(1) rotate(0deg); }
+        .hide { opacity: 0; pointer-events: none; }
+        
+        @keyframes pulse { 0%, 100% { opacity: 0.5; } 50% { opacity: 1; } }
+
+        /* Ajustes específicos para móviles */
+        @media (max-width: 600px) {
+            .paper {
+                padding: 40px 25px; /* Menos padding lateral en móvil */
+                width: 85%; /* Un poco más estrecho para ver el fondo */
+            }
+            h2 { font-size: 2rem; }
+            p { font-size: 1.15rem; } /* Letra un poco más chica para que quepa mejor */
+            
+            /* Asegurar que el scroll empiece desde arriba */
+            .message-overlay {
+                justify-content: flex-start; 
+                padding-top: 40px;
+                padding-bottom: 40px;
+            }
+            .paper {
+                margin: 0 auto; /* Quitar margen automático vertical en móvil para evitar saltos */
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="ocean">
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <div class="bottle-container" id="bottle" onclick="openMessage()">
+        <div class="cork"></div>
+        <div class="bottle">
+            <div class="reflection"></div>
+            <div class="scroll-inside"></div>
+        </div>
+    </div>
+    
+    <div class="hint" id="hint">HAY UN MENSAJE PARA TI</div>
+
+    <div class="message-overlay" id="overlay">
+        <div class="paper">
+            <div class="text-content">
+                <h2>Jimena</h2>
+                <p>
+                    A veces, cuando nos acercamos demasiado, es natural que aparezca ese instinto de dar un paso atrás. Entiendo que la vulnerabilidad se siente como quedar expuesto, y que tu forma de protegerte sea buscar la distancia para recuperar el control. No lo veo como un rechazo, sino como el gesto de quien necesita asegurarse de que el terreno sigue siendo firme.
+                </p>
+                <p>
+                    Sé que mostrarse de verdad da muchísimo miedo, y por eso no tengo ninguna prisa.
+                </p>
+                <p>
+                    Sé que a veces, cuando la cercanía se vuelve muy real, aparece ese impulso de poner distancia. Mi intención es que sientas que cuando ese miedo aparezca, no necesitas esconderte de mí.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openMessage() {
+            const bottle = document.getElementById('bottle');
+            const hint = document.getElementById('hint');
+            bottle.classList.add('hide');
+            hint.classList.add('hide');
+
+            setTimeout(() => {
+                document.getElementById('overlay').classList.add('active');
+            }, 500);
+        }
+    </script>
+</body>
+</html>
