@@ -1,220 +1,325 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Juego de Adivinanza de Regalo</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            padding: 20px;
-            margin: 0;
-            text-align: center;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para Menita · El regalo</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      padding: 80px 20px 80px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
 
-        h1 {
-            font-size: 2.5rem;
-            color: #4caf50;
-            margin-bottom: 20px;
-        }
+    .page-header {
+      text-align: center;
+      margin-bottom: 36px;
+      animation: fadeInUp 0.6s ease both;
+    }
 
-        .clue {
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-            background-color: #fff;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+    .page-header h1 {
+      font-family: var(--font-script);
+      font-size: clamp(2rem, 6vw, 3rem);
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
 
-        button {
-            background-color: #008cba;
-            color: white;
-            padding: 12px 25px;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            margin: 10px;
-            transition: background-color 0.3s;
-        }
+    .page-header p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
 
-        button:hover {
-            background-color: #005f6a;
-        }
+    .game-wrapper {
+      width: 100%;
+      max-width: 520px;
+    }
 
-        .hidden {
-            display: none;
-        }
+    /* Progress bar */
+    .progress-bar {
+      background: var(--secondary);
+      border-radius: 20px;
+      height: 8px;
+      margin-bottom: 28px;
+      overflow: hidden;
+      animation: fadeInUp 0.5s ease 0.2s both;
+    }
 
-        .result {
-            font-size: 1.4rem;
-            color: #333;
-            margin-top: 30px;
-            background-color: #eaf7e0;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
+    .progress-fill {
+      height: 100%;
+      background: var(--gradient-primary);
+      border-radius: 20px;
+      transition: width 0.5s ease;
+      width: 12.5%;
+    }
 
-        input[type="text"] {
-            padding: 10px;
-            font-size: 1.1rem;
-            width: 70%;
-            max-width: 300px;
-            margin: 15px 0;
-            border: 2px solid #ccc;
-            border-radius: 8px;
-        }
+    .progress-label {
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-bottom: 12px;
+      letter-spacing: 1px;
+    }
 
-        .clue-box {
-            margin-bottom: 20px;
-        }
+    /* Clue card */
+    .clue-card {
+      background: white;
+      border-radius: 20px;
+      padding: 36px 32px;
+      box-shadow: var(--shadow);
+      text-align: center;
+      margin-bottom: 24px;
+      animation: fadeInUp 0.5s ease both;
+      border-top: 4px solid var(--accent);
+      transition: border-color 0.4s ease;
+    }
 
-        /* Responsive design */
-        @media (min-width: 600px) {
-            h1 {
-                font-size: 3rem;
-            }
-            button {
-                font-size: 1.3rem;
-            }
-            input[type="text"] {
-                font-size: 1.2rem;
-                width: 50%;
-            }
-        }
+    .clue-number {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      color: var(--primary-dark);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
 
-        @media (min-width: 1000px) {
-            h1 {
-                font-size: 3.5rem;
-            }
-            button {
-                font-size: 1.5rem;
-            }
-            input[type="text"] {
-                font-size: 1.3rem;
-                width: 40%;
-            }
-        }
-    </style>
+    .clue-icon {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      display: block;
+      animation: float 3s ease infinite;
+    }
+
+    .clue-text {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text);
+      margin-bottom: 0;
+    }
+
+    /* Final question */
+    .final-section {
+      text-align: center;
+    }
+
+    .final-section p {
+      font-size: 1rem;
+      color: var(--text-light);
+      margin-bottom: 16px;
+      font-style: italic;
+    }
+
+    .lyric-hint {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--primary);
+      margin: 20px 0;
+      padding: 16px;
+      background: linear-gradient(135deg, #fce4ec, #ede0ea);
+      border-radius: 12px;
+    }
+
+    .answer-input {
+      width: 100%;
+      padding: 14px 20px;
+      font-size: 1rem;
+      font-family: var(--font-body);
+      border: 2px solid var(--secondary);
+      border-radius: 50px;
+      outline: none;
+      color: var(--text);
+      margin-bottom: 16px;
+      transition: border-color 0.3s ease;
+      text-align: center;
+    }
+
+    .answer-input:focus {
+      border-color: var(--primary);
+    }
+
+    .answer-input::placeholder {
+      color: var(--text-light);
+    }
+
+    /* Reveal */
+    .reveal-card {
+      background: linear-gradient(135deg, #fce4ec, #ede0ea);
+      border-radius: 20px;
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      animation: fadeInUp 0.6s ease both;
+    }
+
+    .reveal-card .big-emoji {
+      font-size: 4rem;
+      display: block;
+      margin-bottom: 16px;
+      animation: heartbeat 1.5s ease infinite;
+    }
+
+    .reveal-card h2 {
+      font-family: var(--font-script);
+      font-size: 2rem;
+      color: var(--primary-dark);
+      margin-bottom: 12px;
+    }
+
+    .reveal-card p {
+      color: var(--text);
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .reveal-card .gift-name {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 16px 0;
+    }
+  </style>
 </head>
 <body>
 
-    <h1>¡Adivina qué es el regalo!</h1>
-    <p>Te daré pistas sobre el regalo, pero si te equivocas, ¡el juego se reiniciará!</p>
+  <a href="menu.html" class="nav-back">← Menú</a>
 
-    <div id="clue1" class="clue">
-        <p><strong>Pista 1:</strong> Este regalo está relacionado con recuerdos y momentos especiales.</p>
-        <button onclick="nextClue(1)">Siguiente pista</button>
+  <div class="page-header">
+    <h1>Adivina el regalo 🎁</h1>
+    <p>Sigue las pistas para descubrirlo</p>
+  </div>
+
+  <div class="game-wrapper">
+    <p class="progress-label" id="progressLabel">Pista 1 de 8</p>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
     </div>
 
-    <div id="clue2" class="hidden clue">
-        <p><strong>Pista 2:</strong> Tiene algo que ver con colecciones, pero no es un objeto común.</p>
-        <button onclick="nextClue(1)">Siguiente pista</button>
-    </div>
+    <div id="gameArea"></div>
+  </div>
 
-    <div id="clue3" class="hidden clue">
-        <p><strong>Pista 3:</strong> Si eres fan de las historias que se cuentan a través de imágenes, este regalo te encantará.</p>
-        <button onclick="nextClue(1)">Siguiente pista</button>
-    </div>
+  <script>
+    const clues = [
+      { icon: '🌟', text: 'Este regalo está relacionado con recuerdos y momentos especiales.' },
+      { icon: '📦', text: 'Tiene algo que ver con colecciones, pero no es un objeto común.' },
+      { icon: '🖼️', text: 'Si eres fan de las historias que se cuentan a través de imágenes, este regalo te encantará.' },
+      { icon: '🎶', text: 'Este regalo está inspirado en alguien que ha marcado a muchas generaciones con su música.' },
+      { icon: '🧩', text: 'Es algo que se disfruta al ver cómo se va completando, pieza por pieza.' },
+      { icon: '✨', text: 'Este regalo tiene que ver con la evolución de una artista que ha sido icónica durante años.' },
+      { icon: '📖', text: 'Se puede decir que este regalo refleja una historia en cada paso, desde el principio hasta el final.' },
+      { icon: '💫', text: '¿Te gusta coleccionar recuerdos? Este regalo es una forma de juntar recuerdos a lo largo del tiempo.' },
+    ];
 
-    <div id="clue4" class="hidden clue">
-        <p><strong>Pista 4:</strong> Este regalo está inspirado en alguien que ha marcado a muchas generaciones con su música.</p>
-        <button onclick="nextClue(1)">Siguiente pista</button>
-    </div>
+    const correctAnswers = [
+      "álbum de estampas de taylor swift",
+      "álbum de estampas de todas las eras de taylor swift",
+      "álbum de fotos de taylor swift",
+      "álbum de estampas de las eras de taylor swift",
+      "álbum de taylor swift",
+      "album de estampas de taylor swift",
+      "taylor swift",
+      "estampas de taylor swift",
+    ];
 
-    <div id="clue5" class="hidden clue">
-        <p><strong>Pista 5:</strong> Es algo que se disfruta al ver cómo se va completando, pieza por pieza.</p>
-        <button onclick="nextClue(1)">Siguiente pista</button>
-    </div>
+    let step = 0;
 
-    <div id="clue6" class="hidden clue">
-        <p><strong>Pista 6:</strong> Este regalo tiene que ver con la evolución de un artista que ha sido icónica durante años.</p>
-        <button onclick="nextClue(1)">Siguiente pista</button>
-    </div>
+    function render() {
+      const area = document.getElementById('gameArea');
+      const progressFill = document.getElementById('progressFill');
+      const progressLabel = document.getElementById('progressLabel');
 
-    <div id="clue7" class="hidden clue">
-        <p><strong>Pista 7:</strong> Se puede decir que este regalo refleja una historia en cada paso, desde el principio hasta el final.</p>
-        <button onclick="nextClue(1)">Siguiente pista</button>
-    </div>
+      if (step < clues.length) {
+        const clue = clues[step];
+        const pct = ((step + 1) / (clues.length + 1)) * 100;
+        progressFill.style.width = pct + '%';
+        progressLabel.textContent = `Pista ${step + 1} de ${clues.length}`;
 
-    <div id="clue8" class="hidden clue">
-        <p><strong>Pista 8:</strong> ¿Te gusta coleccionar recuerdos? Este regalo es una forma de juntar recuerdos a lo largo del tiempo.</p>
-        <button onclick="nextClue(1)">Siguiente pista</button>
-    </div>
+        const colors = ['#f9a8c9','#c8a0d8','#a0c8e8','#a0d8b8','#f9c8a0','#f9a8a8','#c8d8a0','#a8c8f9'];
+        area.innerHTML = `
+          <div class="clue-card" style="border-top-color:${colors[step]}">
+            <span class="clue-number">PISTA ${step + 1}</span>
+            <span class="clue-icon">${clue.icon}</span>
+            <p class="clue-text">${clue.text}</p>
+          </div>
+          <div style="text-align:center">
+            <button class="btn" onclick="nextClue()">Siguiente pista →</button>
+          </div>
+        `;
+      } else {
+        // Final question
+        progressFill.style.width = '90%';
+        progressLabel.textContent = 'Pregunta final';
+        area.innerHTML = `
+          <div class="clue-card">
+            <span class="clue-number">ÚLTIMA PISTA</span>
+            <span class="clue-icon">🎤</span>
+            <p class="clue-text">Ya tienes todas las pistas. ¿Ya lo sabes?</p>
+            <div class="lyric-hint">"I was enchanted to meet you..."</div>
+            <div class="final-section">
+              <p>Escribe tu respuesta:</p>
+              <input type="text" class="answer-input" id="answerInput" placeholder="¿Qué crees que es?">
+              <br>
+              <button class="btn" onclick="checkAnswer()">¡Adivinar! 🎁</button>
+            </div>
+          </div>
+        `;
+      }
+    }
 
-    <div id="finalQuestion" class="hidden clue-box">
-        <p><strong>Pregunta final:</strong> "I was enchanted to meet you"</p>
-        <input type="text" id="finalAnswer" placeholder="Escribe tu suposición...">
-        <button onclick="checkFinalAnswer()">¡Adivinar!</button>
-    </div>
+    function nextClue() {
+      step++;
+      render();
+    }
 
-    <div id="result" class="hidden result">
-        <h2>¡Felicidades! ¡Has adivinado el regalo!</h2>
-        <p>El regalo es un <strong>álbum de estampas de Taylor Swift</strong>, que incluye todas las eras de Taylor Swift.</p>
-    </div>
+    function checkAnswer() {
+      const input = document.getElementById('answerInput').value.toLowerCase().trim();
+      const isCorrect = correctAnswers.some(a => input.includes(a));
 
-    <script>
-        let clueIndex = 1;
+      if (isCorrect) {
+        showReveal();
+      } else {
+        // Shake the input
+        const inp = document.getElementById('answerInput');
+        inp.style.borderColor = '#e57373';
+        inp.style.animation = 'shake 0.4s ease';
+        setTimeout(() => {
+          inp.style.borderColor = '';
+          inp.style.animation = '';
+        }, 500);
 
-        // Lista de respuestas correctas posibles, en diferentes formatos y mayúsculas/minúsculas
-        const correctAnswers = [
-            "álbum de estampas de Taylor Swift",
-            "álbum de estampas de todas las eras de Taylor Swift",
-            "álbum de fotos de Taylor Swift",
-            "álbum de estampas de las eras de Taylor Swift",
-            "álbum de estampas de toda la carrera de Taylor Swift",
-            "álbum de Taylor Swift",
-            "ÁLBUM DE TAYLOR SWIFT",
-            "ÁLBUM DE ESTAMPAS DE TAYLOR SWIFT",
-            "álbum de estampas de Taylor swift",
-            "álbum de fotos de taylor swift",
-            "ALBUM DE ESTAMPAS DE TAYLOR SWIFT",
-            "ÁLBUM DE ESTAMPAS DE TODAS LAS ERAS DE TAYLOR SWIFT"
-        ];
-
-        function nextClue(correct) {
-            if (correct === 1) {
-                clueIndex++;
-                if (clueIndex > 8) {
-                    document.getElementById('finalQuestion').style.display = 'block';
-                    document.getElementById('clue8').style.display = 'none';
-                } else {
-                    document.getElementById('clue' + clueIndex).style.display = 'block';
-                    document.getElementById('clue' + (clueIndex - 1)).style.display = 'none';
-                }
-            }
+        // Add shake keyframe if not exists
+        if (!document.getElementById('shakeStyle')) {
+          const s = document.createElement('style');
+          s.id = 'shakeStyle';
+          s.textContent = `@keyframes shake {
+            0%,100%{transform:translateX(0)}
+            25%{transform:translateX(-8px)}
+            75%{transform:translateX(8px)}
+          }`;
+          document.head.appendChild(s);
         }
+      }
+    }
 
-        function checkFinalAnswer() {
-            let userInput = document.getElementById('finalAnswer').value.toLowerCase().split("-")[0].trim(); // Remueve todo después del guión
+    function showReveal() {
+      document.getElementById('progressFill').style.width = '100%';
+      document.getElementById('progressLabel').textContent = '¡Adivinaste! 🎉';
+      document.getElementById('gameArea').innerHTML = `
+        <div class="reveal-card">
+          <span class="big-emoji">🎉</span>
+          <h2>¡Lo adivinaste!</h2>
+          <p class="gift-name">Álbum de estampas de Taylor Swift 💕</p>
+          <p>Incluye todas las eras de Taylor Swift. Para que lo vayas completando poco a poco, como nuestra historia.</p>
+        </div>
+      `;
+    }
 
-            // Comprobamos si la respuesta está en la lista de respuestas correctas
-            if (correctAnswers.some(answer => userInput.includes(answer.toLowerCase()))) {
-                document.getElementById('result').style.display = 'block';
-            } else {
-                alert('¡Lo siento! No adivinaste correctamente. El juego se reiniciará.');
-                resetGame();
-            }
-        }
-
-        function resetGame() {
-            clueIndex = 1;
-            document.getElementById('clue1').style.display = 'block';
-            document.getElementById('clue2').style.display = 'none';
-            document.getElementById('clue3').style.display = 'none';
-            document.getElementById('clue4').style.display = 'none';
-            document.getElementById('clue5').style.display = 'none';
-            document.getElementById('clue6').style.display = 'none';
-            document.getElementById('clue7').style.display = 'none';
-            document.getElementById('clue8').style.display = 'none';
-            document.getElementById('finalQuestion').style.display = 'none';
-            document.getElementById('result').style.display = 'none';
-            document.getElementById('finalAnswer').value = '';
-        }
-    </script>
+    render();
+  </script>
 </body>
 </html>

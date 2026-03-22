@@ -1,142 +1,244 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cumplidos</title>
-  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/833/833472.png">
+  <title>Para Menita · Cumplidos</title>
+  <link rel="stylesheet" href="style.css">
   <style>
     body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      background-color: #ffe5e5;
-    }
-
-    h1 {
-      color: #d6336c;
-      margin-bottom: 20px;
+      min-height: 100vh;
+      padding: 80px 20px 60px;
       text-align: center;
-      background: #ffe5e5;
-      padding: 10px 20px;
-      border-radius: 10px;
-      z-index: 1;
     }
 
-    button {
-      background-color: #d6336c;
-      color: white;
-      border: none;
-      padding: 15px 30px;
-      font-size: 18px;
-      cursor: pointer;
-      border-radius: 5px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: background-color 0.3s;
-      z-index: 1;
+    .page-header {
+      margin-bottom: 40px;
+      animation: fadeInUp 0.6s ease both;
     }
 
-    button:hover {
-      background-color: #c1275c;
+    .page-header h1 {
+      font-family: var(--font-script);
+      font-size: clamp(2rem, 6vw, 3rem);
+      color: var(--primary-dark);
+      margin-bottom: 12px;
     }
 
-    .message {
-      margin-top: 20px;
-      font-size: 24px;
-      color: #4d4d4d;
-      text-align: center;
-      opacity: 0;
-      transition: opacity 0.5s;
+    .page-header p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      max-width: 400px;
+      line-height: 1.6;
+    }
+
+    .compliment-card {
+      width: 100%;
+      max-width: 480px;
       background: white;
-      border-radius: 50px;
-      padding: 40px 60px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 24px;
+      padding: 48px 40px;
+      box-shadow: var(--shadow);
+      position: relative;
+      min-height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 36px;
+      animation: fadeInUp 0.6s ease 0.2s both;
+      border: 1.5px solid rgba(180,130,160,0.15);
+    }
+
+    .compliment-card::before {
+      content: '"';
+      position: absolute;
+      top: 12px;
+      left: 24px;
+      font-family: var(--font-display);
+      font-size: 5rem;
+      color: var(--secondary);
+      line-height: 1;
+    }
+
+    .compliment-card::after {
+      content: '"';
+      position: absolute;
+      bottom: -10px;
+      right: 24px;
+      font-family: var(--font-display);
+      font-size: 5rem;
+      color: var(--secondary);
+      line-height: 1;
+    }
+
+    #complimentMessage {
+      font-size: 1.15rem;
+      line-height: 1.75;
+      color: var(--text);
+      font-weight: 400;
+      opacity: 0;
+      transition: opacity 0.6s ease;
       position: relative;
       z-index: 1;
     }
 
-    .message.show {
+    #complimentMessage.show {
       opacity: 1;
     }
 
-    .message::before,
-    .message::after {
-      content: "";
-      font-size: 30px;
-      position: absolute;
+    .placeholder-text {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      font-style: italic;
     }
 
-    .message::before {
-      content: "⭐";
-      top: -20px;
-      left: -20px;
+    .emoji-decoration {
+      font-size: 2.5rem;
+      animation: float 3s ease infinite;
+      display: block;
+      margin-bottom: 12px;
     }
 
-    .message::after {
-      content: "🧚‍♀️";
-      top: -20px;
-      right: -20px;
+    .btn-reveal {
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+      padding: 16px 48px;
+      font-size: 1.05rem;
+      font-family: var(--font-body);
+      font-weight: 700;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 6px 28px rgba(107,58,88,0.3);
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.6s ease 0.4s both;
     }
 
-    .hamster {
-      content: "🐹";
-      font-size: 30px;
-      position: absolute;
-      top: -30px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
+    .btn-reveal:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 10px 36px rgba(107,58,88,0.4);
+    }
+
+    .counter {
+      margin-top: 16px;
+      font-size: 0.8rem;
+      color: var(--text-light);
+      letter-spacing: 1px;
+      animation: fadeIn 0.5s ease 0.6s both;
+    }
+
+    /* Petals */
+    .petal-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
     }
   </style>
 </head>
-
 <body>
-  <h1 id="introText">Las mensajes que hay aquí, son cosas que realmente pienso. Con que uno te ayude a subirte el ánimo,
-    doy por cumplida mi meta.</h1>
-  <button onclick="showCompliment()">Haz clic para descubrir</button>
-  <div class="message" id="complimentMessage">
-    <div class="hamster">🐹</div>
+
+  <a href="menu.html" class="nav-back">← Menú</a>
+  <div class="petal-container" id="petals"></div>
+
+  <div class="page-header">
+    <h1>Cosas que realmente pienso de ti 🌸</h1>
+    <p>Cada una de estas frases es verdad. Si una te sube el ánimo, doy por cumplida mi meta.</p>
   </div>
+
+  <div class="compliment-card" id="card">
+    <span class="emoji-decoration" id="emoji">🐹</span>
+    <p id="complimentMessage" class="placeholder-text">Haz clic en el botón para descubrir algo bonito ↓</p>
+  </div>
+
+  <button class="btn-reveal" onclick="showCompliment()">Descubrir ✨</button>
+  <p class="counter" id="counter"></p>
 
   <script>
     const compliments = [
-  "Tu empatía es algo que pocas personas tienen y que valoro muchísimo.",
-  "Tu manera de escuchar demuestra cuánto te importan las personas.",
-  "Es raro encontrar a alguien tan auténtico y amable como tú.",
-  "Hablar contigo siempre me deja algo positivo.",
-  "Siempre se nota lo genuino que eres al preocuparte por los demás.",
-  "Tu amabilidad es algo que realmente admiro.",
-  "Tienes una manera muy especial de conectar con las personas.",
-  "La forma en que valoras a los demás me enseña mucho sobre el tipo de persona que eres.",
-  "Aunque no hemos compartido tanto tiempo como me gustaría, puedo ver lo especial que eres.",
-  "Es un privilegio poder conocerte y hablar contigo.",
-  "Me inspira la forma en que siempre piensas en los demás.",
-  "Desde que hablamos, es claro lo genuino y noble que eres.",
-  "Cada día que hablamos, siento más ganas de conocerte mejor."];
-   
+      "Tu empatía es algo que pocas personas tienen y que valoro muchísimo.",
+      "Tu manera de escuchar demuestra cuánto te importan las personas.",
+      "Es raro encontrar a alguien tan auténtico y amable como tú.",
+      "Hablar contigo siempre me deja algo positivo.",
+      "Siempre se nota lo genuino que eres al preocuparte por los demás.",
+      "Tu amabilidad es algo que realmente admiro.",
+      "Tienes una manera muy especial de conectar con las personas.",
+      "La forma en que valoras a los demás me enseña mucho sobre el tipo de persona que eres.",
+      "Aunque no hemos compartido tanto tiempo como me gustaría, puedo ver lo especial que eres.",
+      "Es un privilegio poder conocerte y hablar contigo.",
+      "Me inspira la forma en que siempre piensas en los demás.",
+      "Desde que hablamos, es claro lo genuino y noble que eres.",
+      "Cada día que hablamos, siento más ganas de conocerte mejor."
+    ];
 
+    const emojis = ['🐹', '🌸', '💕', '✨', '🌷', '💗', '🌺', '⭐', '🥰'];
+    let shown = new Set();
     let firstClick = true;
 
     function showCompliment() {
-      const introText = document.getElementById('introText');
-      const messageElement = document.getElementById('complimentMessage');
-      const randomIndex = Math.floor(Math.random() * compliments.length);
+      const msg = document.getElementById('complimentMessage');
+      const emojiEl = document.getElementById('emoji');
+      const counter = document.getElementById('counter');
 
-      if (firstClick) {
-        introText.style.display = 'none';
-        firstClick = false;
-      }
+      // Reset si ya se vieron todos
+      if (shown.size >= compliments.length) shown.clear();
 
-      messageElement.textContent = compliments[randomIndex];
-      messageElement.classList.add('show');
+      // Elegir uno no visto
+      let idx;
+      do { idx = Math.floor(Math.random() * compliments.length); } 
+      while (shown.has(idx));
+      shown.add(idx);
+
+      // Fade out
+      msg.classList.remove('show');
+      msg.style.removeProperty('--placeholder');
+
+      setTimeout(() => {
+        if (firstClick) {
+          emojiEl.style.display = 'none';
+          firstClick = false;
+        }
+        msg.textContent = compliments[idx];
+        msg.classList.add('show');
+        emojiEl.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        counter.textContent = `${shown.size} de ${compliments.length} descubiertas`;
+        spawnPetals();
+      }, 300);
     }
+
+    function spawnPetals() {
+      const container = document.getElementById('petals');
+      const symbols = ['🌸','💕','✨','💗'];
+      for (let i = 0; i < 6; i++) {
+        const p = document.createElement('div');
+        p.style.cssText = `
+          position:absolute;
+          font-size:${0.8+Math.random()*0.8}rem;
+          left:${Math.random()*100}%;
+          top:-30px;
+          animation: petalFall ${2+Math.random()*2}s ease forwards;
+          opacity:0.8;
+          pointer-events:none;
+        `;
+        p.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+        container.appendChild(p);
+        setTimeout(() => p.remove(), 4000);
+      }
+    }
+
+    // Add petalFall keyframe dynamically
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes petalFall {
+        0%   { transform: translateY(0) rotate(0deg); opacity:0.8; }
+        100% { transform: translateY(100vh) rotate(360deg); opacity:0; }
+      }
+    `;
+    document.head.appendChild(style);
   </script>
 </body>
-
 </html>

@@ -1,104 +1,221 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para Menita · Menú</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
 
-        body {
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-            background-color: #f7f2e9;
-            background-image: url('https://www.transparenttextures.com/patterns/gray-floral.png');
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+    .menu-wrapper {
+      width: 100%;
+      max-width: 420px;
+      text-align: center;
+    }
 
-        .menu-container {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-            width: 340px;
-            text-align: center;
-            backdrop-filter: blur(8px);
-        }
+    .menu-header {
+      margin-bottom: 36px;
+      animation: fadeInUp 0.6s ease both;
+    }
 
-        .menu-container h2 {
-            margin-bottom: 20px;
-            font-size: 30px;
-            color: #826ba5;
-            font-weight: 700;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-        }
+    .menu-header h1 {
+      font-family: var(--font-script);
+      font-size: clamp(2rem, 6vw, 3rem);
+      color: var(--primary-dark);
+      margin-bottom: 6px;
+    }
 
-        .menu-option {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-            margin: 15px 0;
-            background-color: #c2b8e2;
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-            text-decoration: none;
-            border-radius: 30px;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
-            border: none;
-            position: relative;
-        }
+    .menu-header p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
 
-        .menu-option:hover {
-            background-color: #a59bc5;
-            transform: scale(1.05);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.15);
-        }
+    .menu-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
 
-        .menu-option img {
-            width: 30px;
-            margin-right: 10px;
-        }
+    .menu-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 24px;
+      background: white;
+      border-radius: 16px;
+      text-decoration: none;
+      color: var(--text);
+      box-shadow: 0 4px 16px rgba(107,58,88,0.1);
+      transition: all 0.3s ease;
+      border: 1.5px solid transparent;
+      animation: fadeInUp 0.5s ease both;
+    }
 
-        .footer {
-            margin-top: 20px;
-            font-size: 14px;
-            color: #826ba5;
-        }
+    .menu-item:hover {
+      transform: translateX(6px);
+      box-shadow: 0 8px 28px rgba(107,58,88,0.18);
+      border-color: var(--accent);
+      background: linear-gradient(135deg, #fff, #fdf0f5);
+    }
 
-        .footer a {
-            color: #826ba5;
-            text-decoration: none;
-        }
-    </style>
+    .menu-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+
+    .icon-regalo  { background: linear-gradient(135deg, #fce4ec, #f8bbd0); }
+    .icon-mapa    { background: linear-gradient(135deg, #e8f5e9, #c8e6c9); }
+    .icon-carta   { background: linear-gradient(135deg, #fde8f0, #f9c5d9); }
+    .icon-textos  { background: linear-gradient(135deg, #ede7f6, #d1c4e9); }
+    .icon-memoria { background: linear-gradient(135deg, #fff3e0, #ffe0b2); }
+    .icon-canciones { background: linear-gradient(135deg, #e3f2fd, #bbdefb); }
+    .icon-timeline { background: linear-gradient(135deg, #f3e5f5, #e1bee7); }
+    .icon-manual  { background: linear-gradient(135deg, #fce4ec, #f48fb1); }
+
+    .menu-label {
+      flex: 1;
+      text-align: left;
+    }
+
+    .menu-label strong {
+      display: block;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 2px;
+    }
+
+    .menu-label span {
+      font-size: 0.78rem;
+      color: var(--text-light);
+    }
+
+    .menu-arrow {
+      color: var(--primary-light);
+      font-size: 1.1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .menu-item:hover .menu-arrow {
+      transform: translateX(4px);
+    }
+
+    .menu-footer {
+      margin-top: 28px;
+      font-family: var(--font-script);
+      font-size: 1.1rem;
+      color: var(--primary-light);
+      animation: fadeIn 1s ease 1s both;
+    }
+
+    a[href="index.html"] {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+    }
+  </style>
 </head>
 <body>
-    <div class="menu-container">
-        <h2>¡Selecciona algún regalo!</h2>
-        <a href="regalo.html" class="menu-option">
-            <img src="https://img.icons8.com/ios/452/gift.png" alt="Regalo"> Regalo
-        </a>
-        <a href="mapa.html" class="menu-option">
-            <img src="https://img.icons8.com/ios/452/worldwide-location.png" alt="Mapa"> Mapa
-        </a>
-        <a href="carta.html" class="menu-option">
-            <img src="https://img.icons8.com/ios/452/new-post.png" alt="Carta"> Carta
-        </a>
-        <a href="palabras.html" class="menu-option">
-            <img src="https://img.icons8.com/ios/452/book.png" alt="Textos"> Textos
-        </a>
-        <a href="memorama.html" class="menu-option">
-            <img src="https://img.icons8.com/ios/452/cards.png" alt="Memorama"> Memorama
-        </a>
+
+  <a href="index.html" class="nav-back">← Inicio</a>
+
+  <div class="menu-wrapper">
+    <div class="menu-header">
+      <h1>¿Qué quieres ver? 🌸</h1>
+      <p>Todo esto es para ti</p>
     </div>
+
+    <div class="menu-grid">
+      <a href="regalo.html" class="menu-item delay-1">
+        <div class="menu-icon icon-regalo">🎁</div>
+        <div class="menu-label">
+          <strong>Regalo</strong>
+          <span>Adivina qué hay dentro</span>
+        </div>
+        <span class="menu-arrow">›</span>
+      </a>
+
+      <a href="mapa.html" class="menu-item delay-2">
+        <div class="menu-icon icon-mapa">🗺️</div>
+        <div class="menu-label">
+          <strong>Mapa</strong>
+          <span>Un recorrido especial</span>
+        </div>
+        <span class="menu-arrow">›</span>
+      </a>
+
+      <a href="carta.html" class="menu-item delay-3">
+        <div class="menu-icon icon-carta">💌</div>
+        <div class="menu-label">
+          <strong>Carta</strong>
+          <span>Palabras desde el corazón</span>
+        </div>
+        <span class="menu-arrow">›</span>
+      </a>
+
+      <a href="palabras.html" class="menu-item delay-4">
+        <div class="menu-icon icon-textos">⭐</div>
+        <div class="menu-label">
+          <strong>Cumplidos</strong>
+          <span>Cosas que realmente pienso</span>
+        </div>
+        <span class="menu-arrow">›</span>
+      </a>
+
+      <a href="memorama.html" class="menu-item delay-5">
+        <div class="menu-icon icon-memoria">🃏</div>
+        <div class="menu-label">
+          <strong>Memorama</strong>
+          <span>Un juego solo para ti</span>
+        </div>
+        <span class="menu-arrow">›</span>
+      </a>
+
+      <a href="canciones.html" class="menu-item delay-6">
+        <div class="menu-icon icon-canciones">🎵</div>
+        <div class="menu-label">
+          <strong>Canciones</strong>
+          <span>Las que me recuerdan a ti</span>
+        </div>
+        <span class="menu-arrow">›</span>
+      </a>
+
+      <a href="timeline.html" class="menu-item" style="animation-delay:0.9s">
+        <div class="menu-icon icon-timeline">📅</div>
+        <div class="menu-label">
+          <strong>Línea de tiempo</strong>
+          <span>Nuestra historia</span>
+        </div>
+        <span class="menu-arrow">›</span>
+      </a>
+
+      <a href="Menual.html" class="menu-item" style="animation-delay:1.05s">
+        <div class="menu-icon icon-manual">📖</div>
+        <div class="menu-label">
+          <strong>Manual de Menita</strong>
+          <span>Todo lo que admiro de ti</span>
+        </div>
+        <span class="menu-arrow">›</span>
+      </a>
+    </div>
+
+    <p class="menu-footer">con mucho cariño 💕</p>
+  </div>
+
 </body>
 </html>

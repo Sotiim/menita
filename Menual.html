@@ -3,58 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manual Premium de [Su Nombre]</title>
+    <title>Para Menita · Su Manual</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        :root {
-            --color-primario: #E91E63;  /* Rosa chic - puedes cambiarlo */
-            --color-secundario: #9C27B0;
-            --color-accento: #FFC107;
-            --color-texto: #333;
-            --color-fondo: #FFF9F9;
-            --color-tarjeta: #fff;
-        }
-        
         body {
             font-family: 'Quicksand', 'Segoe UI', sans-serif;
-            background-color: var(--color-fondo);
-            color: var(--color-texto);
+            background: var(--gradient);
+            color: var(--text);
             line-height: 1.7;
             margin: 0;
-            padding: 0;
-            background-image: radial-gradient(circle at 5% 5%, rgba(233,30,99,0.05) 0%, transparent 15%);
+            padding: 80px 20px 60px;
         }
         
         .manual-container {
             max-width: 900px;
-            margin: 40px auto;
+            margin: 0 auto;
             background: white;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
-            border-radius: 15px;
+            box-shadow: var(--shadow);
+            border-radius: 20px;
             overflow: hidden;
-            position: relative;
         }
         
         .manual-header {
-            background: linear-gradient(135deg, var(--color-primario), var(--color-secundario));
+            background: var(--gradient-primary);
             color: white;
-            padding: 40px 30px;
+            padding: 48px 30px;
             text-align: center;
-            position: relative;
         }
         
         .manual-title {
-            font-size: 2.8rem;
+            font-family: var(--font-script);
+            font-size: clamp(2rem, 5vw, 3rem);
             margin: 0;
             font-weight: 700;
-            letter-spacing: -1px;
-            text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
         }
         
         .manual-subtitle {
             font-style: italic;
-            opacity: 0.9;
+            opacity: 0.85;
             margin: 10px 0 0;
-            font-size: 1.2rem;
+            font-size: 1rem;
             font-weight: 300;
         }
         
@@ -63,12 +53,12 @@
         }
         
         .seccion-gustos {
-            margin-bottom: 40px;
-            background: var(--color-tarjeta);
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 3px 15px rgba(0,0,0,0.05);
-            border-top: 5px solid var(--color-accento);
+            margin-bottom: 36px;
+            background: var(--light);
+            border-radius: 14px;
+            padding: 24px;
+            box-shadow: 0 2px 10px rgba(107,58,88,0.06);
+            border-top: 4px solid var(--accent);
             position: relative;
             overflow: hidden;
         }
@@ -76,180 +66,137 @@
         .seccion-gustos::after {
             content: "";
             position: absolute;
-            top: 0;
-            right: 0;
-            width: 60px;
-            height: 60px;
-            background: var(--color-accento);
-            opacity: 0.1;
+            top: 0; right: 0;
+            width: 60px; height: 60px;
+            background: var(--accent);
+            opacity: 0.08;
             border-radius: 0 0 0 100%;
         }
         
         .seccion-titulo {
-            color: var(--color-primario);
-            font-size: 1.8rem;
+            color: var(--primary);
+            font-size: 1.5rem;
             margin-top: 0;
-            margin-bottom: 20px;
+            margin-bottom: 18px;
             display: flex;
             align-items: center;
-        }
-        
-        .seccion-titulo i {
-            margin-right: 15px;
-            font-size: 1.5rem;
+            gap: 12px;
+            font-family: var(--font-display);
         }
         
         .grid-gustos {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
+        }
+        
+        @media (max-width: 600px) {
+            .grid-gustos { grid-template-columns: 1fr; }
+            .manual-body { padding: 20px; }
         }
         
         .item-gusto {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 15px;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(107,58,88,0.08);
         }
         
         .icono-gusto {
-            margin-right: 15px;
-            color: var(--color-primario);
-            font-size: 1.2rem;
-            min-width: 25px;
-            text-align: center;
+            font-size: 1.1rem;
+            min-width: 24px;
+            color: var(--primary);
         }
         
         .texto-gusto {
-            flex: 1;
+            font-size: 0.9rem;
+            color: var(--text);
         }
         
         .tag {
             display: inline-block;
-            background: var(--color-accento);
-            color: #333;
-            padding: 3px 10px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            margin-right: 5px;
-            margin-bottom: 5px;
-            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+            background: var(--secondary);
+            color: var(--primary-dark);
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 20px;
+            margin: 2px;
+        }
+        
+        .frase-destacada {
+            background: linear-gradient(135deg, #fce4ec, #ede0ea);
+            border-left: 4px solid var(--primary);
+            padding: 14px 18px;
+            margin-top: 16px;
+            border-radius: 0 12px 12px 0;
+            font-style: italic;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
         }
         
         .galeria-fotos {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-top: 14px;
         }
         
         .foto-item {
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
-            height: 120px;
-            position: relative;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s;
-        }
-        
-        .foto-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            box-shadow: 0 3px 10px rgba(107,58,88,0.1);
         }
         
         .foto-item img {
             width: 100%;
-            height: 100%;
+            height: 110px;
             object-fit: cover;
+            display: block;
         }
         
         .foto-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(0,0,0,0.7);
-            color: white;
-            padding: 5px;
-            font-size: 0.7rem;
+            padding: 6px 10px;
+            font-size: 0.78rem;
             text-align: center;
+            background: var(--secondary);
+            color: var(--primary-dark);
+            font-weight: 600;
         }
         
-        .frase-destacada {
-            background: linear-gradient(135deg, rgba(233,30,99,0.1), rgba(156,39,176,0.1));
-            border-left: 4px solid var(--color-primario);
-            padding: 20px;
-            margin: 30px 0;
-            font-style: italic;
+        .nota-adhesiva {
+            background: #FFF9C4;
+            padding: 14px 16px;
+            margin-top: 16px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #FFEE58;
             position: relative;
-            border-radius: 0 8px 8px 0;
-        }
-        
-        .frase-destacada::before {
-            content: "";
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            font-size: 3rem;
-            color: var(--color-primario);
-            opacity: 0.2;
-            font-family: serif;
         }
         
         .footer-personalizado {
             text-align: center;
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 1px dashed #ddd;
-            color: #666;
-            font-size: 0.9rem;
+            padding: 24px;
+            color: var(--text-light);
+            font-size: 0.85rem;
         }
-        
+
         .corazon {
-            color: var(--color-primario);
-            font-size: 1.2rem;
-            animation: latido 1.5s infinite;
+            animation: heartbeat 1.5s ease infinite;
             display: inline-block;
         }
-        
-        @keyframes latido {
-            0% { transform: scale(1); }
-            25% { transform: scale(1.1); }
-            50% { transform: scale(1); }
-            75% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-        
-        /* Efecto de notas adhesivas */
-        .nota-adhesiva {
-            background: #FFF9C4;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 0 15px 15px 15px;
-            box-shadow: 1px 1px 3px rgba(0,0,0,0.2);
-            position: relative;
-            border: 1px solid #FFEE58;
-        }
-        
-        .nota-adhesiva::before {
-            content: "";
-            position: absolute;
-            top: -15px;
-            left: 10px;
-            width: 30px;
-            height: 15px;
-            background: #FFF9C4;
-            clip-path: polygon(0% 100%, 50% 0%, 100% 100%);
-            border-top: 1px solid #FFEE58;
-        }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
+
+    <a href="menu.html" class="nav-back">← Menú</a>
+
     <div class="manual-container">
         <div class="manual-header">
-            <h1 class="manual-title">Manual Exclusivo de [Su Nombre]</h1>
-            <p class="manual-subtitle">Edición Limitada - Contiene información clasificada</p>
+            <h1 class="manual-title">Manual Exclusivo de Menita 🌸</h1>
+            <p class="manual-subtitle">Edición Limitada · Contiene información clasificada</p>
         </div>
         
         <div class="manual-body">
@@ -262,166 +209,179 @@
                         <h3><i class="fas fa-music icono-gusto"></i> Música Favorita</h3>
                         <div class="item-gusto">
                             <div class="icono-gusto">♫</div>
-                            <div class="texto-gusto">Artista favorito: [Nombre artista]</div>
+                            <div class="texto-gusto">Artista favorita: <strong>Taylor Swift</strong></div>
                         </div>
                         <div class="item-gusto">
                             <div class="icono-gusto">♫</div>
-                            <div class="texto-gusto">Canción emblemática: "[Canción]"</div>
+                            <div class="texto-gusto">También le encanta: <strong>One Direction</strong>, <strong>Kevin Kaarl</strong></div>
                         </div>
                         <div class="item-gusto">
                             <div class="icono-gusto">♫</div>
                             <div class="texto-gusto">Géneros preferidos: 
                                 <span class="tag">Pop</span>
                                 <span class="tag">Indie</span>
-                                <span class="tag">Rock Alternativo</span>
+                                <span class="tag">Taylor's Version</span>
                             </div>
                         </div>
                     </div>
                     
                     <div>
-                        <h3><i class="fas fa-utensils icono-gusto"></i> Gustos Gastronómicos</h3>
+                        <h3><i class="fas fa-star icono-gusto"></i> Otras pasiones</h3>
                         <div class="item-gusto">
-                            <div class="icono-gusto">🍕</div>
-                            <div class="texto-gusto">Comida favorita: [Comida]</div>
+                            <div class="icono-gusto">🌸</div>
+                            <div class="texto-gusto">Coleccionar estampas y recuerdos especiales</div>
                         </div>
                         <div class="item-gusto">
-                            <div class="icono-gusto">🍰</div>
-                            <div class="texto-gusto">Debilidad dulce: [Postre]</div>
+                            <div class="icono-gusto">💕</div>
+                            <div class="texto-gusto">Conectar genuinamente con las personas</div>
                         </div>
                         <div class="item-gusto">
-                            <div class="icono-gusto">☕</div>
-                            <div class="texto-gusto">Bebida preferida: [Bebida]</div>
+                            <div class="icono-gusto">✨</div>
+                            <div class="texto-gusto">Ser auténtica en todo momento</div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="nota-adhesiva">
-                    <strong>Dato curioso:</strong> [Anécdota graciosa sobre sus gustos, ej. "Puede comer sushi 5 días seguidos sin cansarse"]
+                    <strong>Dato importante:</strong> Tiene un gusto musical increíble. Si te recomienda una canción, escúchala.
                 </div>
             </div>
             
-            <!-- SECCIÓN 2: HOBBIES -->
+            <!-- SECCIÓN 2: CÓMO ES -->
             <div class="seccion-gustos">
-                <h2 class="seccion-titulo"><i class="fas fa-paint-brush"></i> Hobbies y Tiempo Libre</h2>
+                <h2 class="seccion-titulo"><i class="fas fa-paint-brush"></i> Cómo es Menita</h2>
                 
                 <div class="grid-gustos">
                     <div>
-                        <h3><i class="fas fa-camera icono-gusto"></i> Actividades Creativas</h3>
+                        <h3><i class="fas fa-heart icono-gusto"></i> Sus mejores cualidades</h3>
                         <div class="item-gusto">
-                            <div class="icono-gusto">🎨</div>
-                            <div class="texto-gusto">[Hobby 1]</div>
+                            <div class="icono-gusto">💗</div>
+                            <div class="texto-gusto">Empática: siempre piensa en los demás</div>
                         </div>
                         <div class="item-gusto">
-                            <div class="icono-gusto">✍️</div>
-                            <div class="texto-gusto">[Hobby 2]</div>
+                            <div class="icono-gusto">😄</div>
+                            <div class="texto-gusto">Divertida: compatible en humor desde el día uno</div>
+                        </div>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">🌟</div>
+                            <div class="texto-gusto">Admirable: sigue adelante aunque no sea fácil</div>
                         </div>
                     </div>
                     
                     <div>
-                        <h3><i class="fas fa-running icono-gusto"></i> Actividades Físicas</h3>
+                        <h3><i class="fas fa-grin-stars icono-gusto"></i> Lo que la hace especial</h3>
                         <div class="item-gusto">
-                            <div class="icono-gusto">🏃‍♀️</div>
-                            <div class="texto-gusto">[Deporte o actividad]</div>
+                            <div class="icono-gusto">🔹</div>
+                            <div class="texto-gusto">Sabe escuchar de verdad</div>
                         </div>
                         <div class="item-gusto">
-                            <div class="icono-gusto">🧘‍♀️</div>
-                            <div class="texto-gusto">[Otra actividad]</div>
+                            <div class="icono-gusto">🔹</div>
+                            <div class="texto-gusto">Es genuina y noble sin esforzarse</div>
+                        </div>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">🔹</div>
+                            <div class="texto-gusto">Hace que todo sea más bonito</div>
                         </div>
                     </div>
                 </div>
                 
                 <div class="frase-destacada">
-                    "Cuando hace [hobby favorito], entra en un estado de flujo donde el tiempo parece detenerse. No interrumpir."
+                    "Es raro encontrar a alguien tan auténtico y amable. Menita lo es sin siquiera intentarlo."
                 </div>
             </div>
             
-            <!-- SECCIÓN 3: PELÍCULAS/SERIES/LIBROS -->
+            <!-- SECCIÓN 3: INSTRUCCIONES DE USO -->
             <div class="seccion-gustos">
-                <h2 class="seccion-titulo"><i class="fas fa-film"></i> Entretenimiento Favorito</h2>
+                <h2 class="seccion-titulo"><i class="fas fa-film"></i> Instrucciones de uso</h2>
                 
                 <div class="grid-gustos">
                     <div>
-                        <h3><i class="fas fa-book-open icono-gusto"></i> Libros</h3>
+                        <h3><i class="fas fa-check icono-gusto"></i> Qué le gusta</h3>
                         <div class="item-gusto">
-                            <div class="icono-gusto">📚</div>
-                            <div class="texto-gusto">Género favorito: [Género]</div>
+                            <div class="icono-gusto">✅</div>
+                            <div class="texto-gusto">Que la escuchen de verdad</div>
                         </div>
                         <div class="item-gusto">
-                            <div class="icono-gusto">❤️</div>
-                            <div class="texto-gusto">Libro favorito: [Título]</div>
+                            <div class="icono-gusto">✅</div>
+                            <div class="texto-gusto">El humor genuino</div>
+                        </div>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">✅</div>
+                            <div class="texto-gusto">Las personas que son consistentes</div>
+                        </div>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">✅</div>
+                            <div class="texto-gusto">Momentos simples pero significativos</div>
                         </div>
                     </div>
                     
                     <div>
-                        <h3><i class="fas fa-tv icono-gusto"></i> Series & Películas</h3>
+                        <h3><i class="fas fa-times icono-gusto"></i> Lo que no merece</h3>
                         <div class="item-gusto">
-                            <div class="icono-gusto">🍿</div>
-                            <div class="texto-gusto">Serie para maratonear: [Nombre]</div>
+                            <div class="icono-gusto">❌</div>
+                            <div class="texto-gusto">Verla triste (no se lo merece)</div>
                         </div>
                         <div class="item-gusto">
-                            <div class="icono-gusto">🎬</div>
-                            <div class="texto-gusto">Película que puede ver 100 veces: [Título]</div>
+                            <div class="icono-gusto">❌</div>
+                            <div class="texto-gusto">Que no la valoren</div>
+                        </div>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">❌</div>
+                            <div class="texto-gusto">Pasar por algo difícil sola</div>
                         </div>
                     </div>
                 </div>
                 
-                <h3 style="margin-top: 20px;"><i class="fas fa-photo-video"></i> Galería de Favoritos</h3>
-                <div class="galeria-fotos">
-                    <div class="foto-item">
-                        <img src="https://via.placeholder.com/300x200?text=Serie+Favorita" alt="Serie favorita">
-                        <div class="foto-caption">[Nombre serie]</div>
-                    </div>
-                    <div class="foto-item">
-                        <img src="https://via.placeholder.com/300x200?text=Lugar+Favorito" alt="Lugar favorito">
-                        <div class="foto-caption">[Lugar especial]</div>
-                    </div>
-                    <div class="foto-item">
-                        <img src="https://via.placeholder.com/300x200?text=Recuerdo+Especial" alt="Recuerdo">
-                        <div class="foto-caption">[Momento especial]</div>
-                    </div>
+                <div class="nota-adhesiva">
+                    <strong>Nota importante:</strong> Merece que todo a su alrededor sea tan bueno como ella. Trabaja en eso.
                 </div>
             </div>
             
             <!-- SECCIÓN 4: DATOS CURIOSOS -->
             <div class="seccion-gustos">
-                <h2 class="seccion-titulo"><i class="fas fa-star"></i> Datos de Colección</h2>
+                <h2 class="seccion-titulo"><i class="fas fa-star"></i> Datos de colección</h2>
                 
                 <div class="grid-gustos">
                     <div>
                         <h3><i class="fas fa-lightbulb icono-gusto"></i> Curiosidades</h3>
                         <div class="item-gusto">
                             <div class="icono-gusto">🌟</div>
-                            <div class="texto-gusto">Talento oculto: [Talento]</div>
+                            <div class="texto-gusto">Tuvo la iniciativa en el momento correcto</div>
                         </div>
                         <div class="item-gusto">
-                            <div class="icono-gusto">🤫</div>
-                            <div class="texto-gusto">Miedo irracional: [Miedo gracioso]</div>
+                            <div class="icono-gusto">🐹</div>
+                            <div class="texto-gusto">Le gusta el hámster como emoji de cariño</div>
+                        </div>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">🎵</div>
+                            <div class="texto-gusto">Taylor Swift fan de las eras completas</div>
                         </div>
                     </div>
                     
                     <div>
-                        <h3><i class="fas fa-grin-stars icono-gusto"></i> Manías</h3>
+                        <h3><i class="fas fa-gem icono-gusto"></i> Por qué es única</h3>
                         <div class="item-gusto">
-                            <div class="icono-gusto">🔹</div>
-                            <div class="texto-gusto">[Manía 1]</div>
+                            <div class="icono-gusto">💎</div>
+                            <div class="texto-gusto">Compatible desde el primer día</div>
                         </div>
                         <div class="item-gusto">
-                            <div class="icono-gusto">🔹</div>
-                            <div class="texto-gusto">[Manía 2]</div>
+                            <div class="icono-gusto">💎</div>
+                            <div class="texto-gusto">Hace que todo sea más divertido</div>
+                        </div>
+                        <div class="item-gusto">
+                            <div class="icono-gusto">💎</div>
+                            <div class="texto-gusto">Hace mucho que no llegaba alguien así</div>
                         </div>
                     </div>
-                </div>
-                
-                <div class="nota-adhesiva">
-                    <strong>Secreto:</strong> [Algo que pocos saben de ella, ej. "Sabe recitar de memoria todos los diálogos de su película favorita"]
                 </div>
             </div>
             
             <div class="footer-personalizado">
-                <p>Manual creado con <span class="corazon">❤️</span> el [fecha actual]</p>
-                <p>Actualización recomendada cada 6 meses (sus gustos evolucionan)</p>
+                <p>Manual creado con <span class="corazon">💕</span> · Para la mejor Menita · Edición 2025</p>
+                <p style="margin-top:6px;font-size:0.8rem;">Actualización recomendada cada vez que la conozcas más</p>
             </div>
         </div>
     </div>
+
 </body>
 </html>

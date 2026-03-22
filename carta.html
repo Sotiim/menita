@@ -1,76 +1,152 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Felices 21</title>
-    <style>
-        /* Reseteo básico */
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0; /* Fondo fuera de la hoja */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para Menita · Carta</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 80px 20px 60px;
+    }
 
-        /* Estilo para la hoja */
-        .hoja-carta {
-            width: 90%; /* Ajuste para móvil */
-            max-width: 600px; /* Límite para pantallas grandes */
-            height: auto; /* Altura ajustable */
-            background-color: white;
-            border: 1px solid #ccc;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 16px; /* Márgenes ajustados para pantallas pequeñas */
-            box-sizing: border-box;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+    .carta-wrapper {
+      width: 100%;
+      max-width: 600px;
+      animation: fadeInUp 0.8s ease both;
+    }
 
-        /* Título */
-        .hoja-carta h1 {
-            text-align: center;
-            font-size: 24px; /* Tamaño adecuado */
-            margin-bottom: 16px;
-        }
+    .carta-card {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 12px 48px rgba(107,58,88,0.15);
+      overflow: hidden;
+      position: relative;
+    }
 
-        /* Contenido */
-        .hoja-carta p {
-            font-size: 14px;
-            line-height: 1.6;
-            text-align: justify;
-            margin-bottom: 16px; /* Espaciado entre párrafos */
-        }
+    /* Detalles decorativos de papel */
+    .carta-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary-dark));
+    }
 
-        /* Pie de página */
-        .pie-pagina {
-            text-align: center;
-            font-size: 12px;
-            color: #888;
-            margin-top: 16px;
-        }
-    </style>
+    .carta-header {
+      background: linear-gradient(135deg, #fce4ec, #ede0ea);
+      padding: 36px 40px 28px;
+      text-align: center;
+      border-bottom: 1px solid rgba(107,58,88,0.08);
+    }
+
+    .carta-header .fecha {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .carta-header h1 {
+      font-family: var(--font-script);
+      font-size: 2.6rem;
+      color: var(--primary-dark);
+      margin-bottom: 4px;
+    }
+
+    .carta-header .heart {
+      font-size: 1.4rem;
+      animation: heartbeat 1.8s ease infinite;
+      display: inline-block;
+    }
+
+    .carta-body {
+      padding: 40px;
+    }
+
+    .carta-body p {
+      font-size: 1rem;
+      line-height: 1.9;
+      color: var(--text);
+      margin-bottom: 22px;
+      text-align: justify;
+    }
+
+    .carta-body p:first-child::first-letter {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      float: left;
+      line-height: 0.85;
+      margin-right: 8px;
+      color: var(--primary);
+    }
+
+    .firma {
+      text-align: right;
+      padding: 0 40px 40px;
+      border-top: 1px dashed rgba(107,58,88,0.15);
+      padding-top: 24px;
+      margin-top: 8px;
+    }
+
+    .firma p {
+      font-family: var(--font-script);
+      font-size: 1.4rem;
+      color: var(--primary);
+      margin-bottom: 0;
+    }
+
+    .firma small {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      display: block;
+      margin-top: 4px;
+    }
+
+    .decoracion {
+      position: absolute;
+      opacity: 0.07;
+      font-size: 8rem;
+      right: -10px;
+      top: 100px;
+      pointer-events: none;
+    }
+  </style>
 </head>
 <body>
-    <div class="hoja-carta">
-        <br><br><br><br> <!-- 4 <br> agregados -->
-        <h1>Felices 21 :)</h1>
-        <p>Antes que nada, perdón si algo sale mal o suena raro. Hace mucho tiempo que no escribo una carta, ahahahaha.</p>
 
-        <p>Felices 60 a tu cuerpo y sus dolencias, ahahahaha, y 21 a ti. Gracias por estos casi 4 meses de estar en mi vida. Cuando te decía que eras de lo mejor que llegó a mi vida en la segunda parte del año, no mentía ni exageraba. Hace mucho tiempo que no encontraba a alguien con quien desde el inicio fuera tan compatible en humor y en otras cosas. Eres una persona muy buena que, aunque no la ha pasado muy bien estos últimos meses, sigue adelante, y eso habla mucho de ti y de cómo eres.</p>
+  <a href="menu.html" class="nav-back">← Menú</a>
+
+  <div class="carta-wrapper">
+    <div class="carta-card">
+      <div class="decoracion">💌</div>
+
+      <div class="carta-header">
+        <p class="fecha">2024 · con todo el cariño</p>
+        <h1>Felices 21 <span class="heart">💕</span></h1>
+      </div>
+
+      <div class="carta-body">
+        <p>Antes que nada, perdón si algo sale mal o suena raro. Hace mucho tiempo que no escribo una carta, ahahaha.</p>
+
+        <p>Felices 60 a tu cuerpo y sus dolencias, ahahaha, y 21 a ti. Gracias por estos casi 4 meses de estar en mi vida. Cuando te decía que eras de lo mejor que llegó a mi vida en la segunda parte del año, no mentía ni exageraba. Hace mucho tiempo que no encontraba a alguien con quien desde el inicio fuera tan compatible en humor y en otras cosas. Eres una persona muy buena que, aunque no la ha pasado muy bien estos últimos meses, sigue adelante, y eso habla mucho de ti y de cómo eres.</p>
 
         <p>Como te lo he dicho algunas veces, yo no voy por la vida tratando de conocer a todos o metiéndome en cosas. Pero créeme, agradezco mucho que ese día tú tuvieras la iniciativa. Porque, aparte de lo que pasó ese día, descubrí lo genial que eres: lo admirable, lo buena persona, lo divertida... Bueno, podría pasarme mucho tiempo escribiendo todas las cosas buenas que tienes (y eso que aún no te conozco completamente). Gracias, porque hace mucho que no llegaba a mi vida una persona como tú, y ya lo necesitaba.</p>
 
         <p>Por cosas como esas, es que te digo que no me gusta verte triste, porque no te lo mereces. Mientras pueda y esté en tu vida, haré todo lo posible para hacerte feliz. Porque lo mereces.</p>
+      </div>
 
-        <div class="pie-pagina">
-            &copy; 2024 - Tu Nombre o Empresa
-        </div>
+      <div class="firma">
+        <p>Con mucho cariño 🌸</p>
+        <small>Para Menita, con todo el corazón</small>
+      </div>
     </div>
+  </div>
+
 </body>
 </html>

@@ -1,158 +1,379 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memorama de Frases</title>
-    <style>
-        body {
-            text-align: center;
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
-            padding: 10px;
-        }
-        h1 {
-            color: #ff4081;
-        }
-        .game-board {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-            gap: 10px;
-            justify-content: center;
-            margin-top: 20px;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .card {
-            width: 100%;
-            aspect-ratio: 1/1;
-            perspective: 1000px;
-            cursor: pointer;
-        }
-        .card-inner {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.6s ease;
-        }
-        .card.flipped .card-inner {
-            transform: rotateY(180deg);
-        }
-        .card-front, .card-back {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            backface-visibility: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 12px;
-            text-align: center;
-            padding: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.6s ease;
-        }
-        .card-front {
-            background-color: #ff4081;
-            color: white;
-            font-size: 20px;
-            font-weight: bold;
-        }
-        .card-back {
-            background-color: white;
-            color: #333;
-            transform: rotateY(180deg);
-            border: 2px solid #ff4081;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para Menita · Memorama</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      padding: 80px 20px 60px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 28px;
+      animation: fadeInUp 0.6s ease both;
+    }
+
+    .page-header h1 {
+      font-family: var(--font-script);
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+
+    .page-header p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    .stats-bar {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 24px;
+      animation: fadeInUp 0.5s ease 0.2s both;
+    }
+
+    .stat {
+      background: white;
+      border-radius: 12px;
+      padding: 10px 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(107,58,88,0.1);
+    }
+
+    .stat-value {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary);
+      font-family: var(--font-display);
+    }
+
+    .stat-label {
+      font-size: 0.7rem;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .game-board {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      max-width: 480px;
+      width: 100%;
+      animation: fadeInUp 0.5s ease 0.3s both;
+    }
+
+    @media (max-width: 400px) {
+      .game-board {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+    }
+
+    .card {
+      aspect-ratio: 1 / 1.1;
+      perspective: 800px;
+      cursor: pointer;
+      border-radius: 14px;
+      box-shadow: none;
+    }
+
+    .card:hover .card-inner {
+      box-shadow: 0 6px 20px rgba(107,58,88,0.2);
+    }
+
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 14px;
+    }
+
+    .card.flipped .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card.matched .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card.matched .card-back {
+      background: linear-gradient(135deg, #fce4ec, #f8bbd0);
+      border: 2px solid var(--primary-light);
+    }
+
+    .card-front, .card-back {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 14px;
+      padding: 8px;
+      text-align: center;
+    }
+
+    .card-front {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      box-shadow: 0 4px 14px rgba(107,58,88,0.2);
+    }
+
+    .card-front-icon {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+    }
+
+    .card-back {
+      background: white;
+      transform: rotateY(180deg);
+      box-shadow: 0 4px 14px rgba(107,58,88,0.15);
+    }
+
+    .card-back-text {
+      font-size: clamp(0.6rem, 1.8vw, 0.75rem);
+      line-height: 1.3;
+      color: var(--text);
+      font-weight: 500;
+      padding: 4px;
+    }
+
+    /* Win modal */
+    .win-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(107,58,88,0.5);
+      backdrop-filter: blur(6px);
+      z-index: 200;
+      justify-content: center;
+      align-items: center;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .win-overlay.show {
+      display: flex;
+    }
+
+    .win-card {
+      background: white;
+      border-radius: 24px;
+      padding: 48px 40px;
+      text-align: center;
+      box-shadow: 0 24px 64px rgba(107,58,88,0.25);
+      max-width: 360px;
+      animation: fadeInUp 0.5s ease;
+    }
+
+    .win-emoji {
+      font-size: 4rem;
+      animation: heartbeat 1s ease infinite;
+      display: block;
+      margin-bottom: 16px;
+    }
+
+    .win-card h2 {
+      font-family: var(--font-script);
+      font-size: 2.2rem;
+      color: var(--primary-dark);
+      margin-bottom: 12px;
+    }
+
+    .win-card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+
+    .btn-restart {
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+      padding: 14px 36px;
+      border-radius: 50px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 20px rgba(107,58,88,0.3);
+    }
+
+    .btn-restart:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(107,58,88,0.4);
+    }
+  </style>
 </head>
 <body>
-    <h1>Memorama de Frases 💖</h1>
-    <p>Encuentra las frases iguales</p>
-    <div class="game-board" id="gameBoard"></div>
 
-    <script>
-        const frases = [
-            "Chimena", "Chimena",
-            "🐹", "🐹",
-            "Antes de dormir agradezco que estés aquí", "Antes de dormir agradezco que estés aquí",
-            "Tqm", "Tqm",
-            "curiosa", "curiosa",
-            "bombón cubierto de chocolate", "bombón cubierto de chocolate",
-            "Ibuprofeno de 600", "Ibuprofeno de 600",
-            "All I can say is it was enchanting to meet you", "All I can say is it was enchanting to meet you"
-        ];
+  <a href="menu.html" class="nav-back">← Menú</a>
 
-        let cartas = [];
-        let seleccionadas = [];
-        let paresEncontrados = 0;
+  <div class="page-header">
+    <h1>Memorama 🃏</h1>
+    <p>Encuentra los pares de frases que van juntas</p>
+  </div>
 
-        function barajar(array) {
-            return array.sort(() => Math.random() - 0.5);
-        }
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-value" id="moves">0</div>
+      <div class="stat-label">Movimientos</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="pairs">0/6</div>
+      <div class="stat-label">Parejas</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value" id="timer">0s</div>
+      <div class="stat-label">Tiempo</div>
+    </div>
+  </div>
 
-        function crearTablero() {
-            const tablero = document.getElementById("gameBoard");
-            tablero.innerHTML = "";
-            cartas = barajar(frases);
+  <div class="game-board" id="board"></div>
 
-            cartas.forEach((frase, index) => {
-                const card = document.createElement("div");
-                card.classList.add("card");
-                card.dataset.index = index;
-                card.dataset.frase = frase;
+  <div class="win-overlay" id="winOverlay">
+    <div class="win-card">
+      <span class="win-emoji">🎉</span>
+      <h2>¡Lo lograste! 💕</h2>
+      <p id="winMessage">Completaste el memorama</p>
+      <button class="btn-restart" onclick="restartGame()">Jugar de nuevo 🌸</button>
+    </div>
+  </div>
 
-                const cardInner = document.createElement("div");
-                cardInner.classList.add("card-inner");
+  <script>
+    // Pares de frases (inicio y continuación)
+    const pairs = [
+      { id: 1, a: "Cuando me hablas...", b: "...siempre me alegras el día." },
+      { id: 2, a: "Tu sonrisa es...", b: "...de las cosas más bonitas que existen." },
+      { id: 3, a: "Eres de esas personas...", b: "...que hacen el mundo mejor." },
+      { id: 4, a: "Me gusta mucho...", b: "...que seas tan auténtica." },
+      { id: 5, a: "Gracias por...", b: "...existir y llegar a mi vida." },
+      { id: 6, a: "Lo mejor de ti es...", b: "...todo, pero especialmente tu empatía." },
+    ];
 
-                const cardFront = document.createElement("div");
-                cardFront.classList.add("card-front");
-                cardFront.innerText = "❓";
+    const icons = ['🌸','💕','✨','🌷','💗','⭐'];
+    let flipped = [], matched = 0, moves = 0, canFlip = true;
+    let startTime = null, timerInterval = null;
 
-                const cardBack = document.createElement("div");
-                cardBack.classList.add("card-back");
-                cardBack.innerText = frase;
+    function buildBoard() {
+      const board = document.getElementById('board');
+      board.innerHTML = '';
 
-                cardInner.appendChild(cardFront);
-                cardInner.appendChild(cardBack);
-                card.appendChild(cardInner);
+      // Flatten pairs into individual cards
+      const cards = [];
+      pairs.forEach((pair, i) => {
+        cards.push({ id: pair.id, text: pair.a, icon: icons[i] });
+        cards.push({ id: pair.id, text: pair.b, icon: icons[i] });
+      });
 
-                card.addEventListener("click", voltearCarta);
-                tablero.appendChild(card);
-            });
-        }
+      // Shuffle
+      cards.sort(() => Math.random() - 0.5);
 
-        function voltearCarta() {
-            if (seleccionadas.length < 2 && !this.classList.contains("flipped")) {
-                this.classList.add("flipped");
-                seleccionadas.push(this);
+      cards.forEach((cardData, idx) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.dataset.id = cardData.id;
+        card.dataset.idx = idx;
 
-                if (seleccionadas.length === 2) {
-                    setTimeout(verificarPareja, 800);
-                }
-            }
-        }
+        card.innerHTML = `
+          <div class="card-inner">
+            <div class="card-front">
+              <span class="card-front-icon">${cardData.icon}</span>
+            </div>
+            <div class="card-back">
+              <span class="card-back-text">${cardData.text}</span>
+            </div>
+          </div>`;
 
-        function verificarPareja() {
-            if (seleccionadas[0].dataset.frase === seleccionadas[1].dataset.frase) {
-                paresEncontrados++;
-                seleccionadas = [];
-                if (paresEncontrados === frases.length / 2) {
-                    setTimeout(() => alert("¡Felicidades! Has encontrado todas las frases 🎉"), 500);
-                }
-            } else {
-                seleccionadas.forEach(card => {
-                    card.classList.remove("flipped");
-                });
-                seleccionadas = [];
-            }
-        }
+        card.addEventListener('click', () => flipCard(card));
+        board.appendChild(card);
+      });
+    }
 
-        crearTablero();
-    </script>
+    function flipCard(card) {
+      if (!canFlip) return;
+      if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
+      if (flipped.length >= 2) return;
+
+      // Start timer on first flip
+      if (!startTime) {
+        startTime = Date.now();
+        timerInterval = setInterval(updateTimer, 1000);
+      }
+
+      card.classList.add('flipped');
+      flipped.push(card);
+
+      if (flipped.length === 2) {
+        moves++;
+        document.getElementById('moves').textContent = moves;
+        checkMatch();
+      }
+    }
+
+    function checkMatch() {
+      canFlip = false;
+      const [a, b] = flipped;
+
+      if (a.dataset.id === b.dataset.id) {
+        // Match!
+        setTimeout(() => {
+          a.classList.add('matched');
+          b.classList.add('matched');
+          matched++;
+          document.getElementById('pairs').textContent = `${matched}/${pairs.length}`;
+          flipped = [];
+          canFlip = true;
+
+          if (matched === pairs.length) {
+            clearInterval(timerInterval);
+            setTimeout(showWin, 500);
+          }
+        }, 500);
+      } else {
+        // No match
+        setTimeout(() => {
+          a.classList.remove('flipped');
+          b.classList.remove('flipped');
+          flipped = [];
+          canFlip = true;
+        }, 900);
+      }
+    }
+
+    function updateTimer() {
+      const secs = Math.floor((Date.now() - startTime) / 1000);
+      document.getElementById('timer').textContent = secs < 60 ? secs + 's' : Math.floor(secs/60) + 'm ' + (secs%60) + 's';
+    }
+
+    function showWin() {
+      const totalTime = Math.floor((Date.now() - startTime) / 1000);
+      document.getElementById('winMessage').textContent =
+        `Lo completaste en ${moves} movimientos y ${totalTime} segundos 🌸`;
+      document.getElementById('winOverlay').classList.add('show');
+    }
+
+    function restartGame() {
+      flipped = []; matched = 0; moves = 0; canFlip = true;
+      startTime = null;
+      clearInterval(timerInterval);
+      document.getElementById('moves').textContent = '0';
+      document.getElementById('pairs').textContent = `0/${pairs.length}`;
+      document.getElementById('timer').textContent = '0s';
+      document.getElementById('winOverlay').classList.remove('show');
+      buildBoard();
+    }
+
+    buildBoard();
+  </script>
 </body>
 </html>
