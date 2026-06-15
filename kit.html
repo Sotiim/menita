@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Menita · Kit de Supervivencia 🛋️</title>
+<!-- Hereda los estilos globales del sitio cuando está en el repo -->
+<link rel="stylesheet" href="style.css">
+<style>
+  /* === Autosuficiente: mismas variables y fuentes que el sitio === */
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600;700&display=swap');
+  :root{
+    --primary:#9b6b8a; --primary-light:#c49ab5; --primary-dark:#6d4a61;
+    --secondary:#e8d5e0; --accent:#d4a0b5; --accent2:#b07fa0;
+    --light:#fdf7f9; --text:#3a2a33; --text-light:#7a6070;
+    --gradient:linear-gradient(135deg,#f8e8ef 0%,#eedde8 50%,#e8d5e0 100%);
+    --gradient-primary:linear-gradient(135deg,var(--primary),var(--primary-dark));
+    --font-display:'Playfair Display',Georgia,serif;
+    --font-body:'Lato',sans-serif;
+    --font-script:'Dancing Script',cursive;
+  }
+  *,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+  body{ font-family:var(--font-body); background:var(--gradient); color:var(--text); line-height:1.7; min-height:100vh; }
+  h1,h2,h3{ font-family:var(--font-display); color:var(--primary-dark); }
+
+  .nav-back{ position:fixed; top:20px; left:20px; z-index:100; background:#fff; border:none; border-radius:50px; padding:10px 20px; font-family:var(--font-body); font-size:.9rem; color:var(--primary); cursor:pointer; box-shadow:0 4px 16px rgba(107,58,88,.15); text-decoration:none; display:flex; align-items:center; gap:6px; transition:all .3s ease; font-weight:700; }
+  .nav-back:hover{ background:var(--primary); color:#fff; transform:translateX(-2px); }
+
+  .wrap{ max-width:980px; margin:0 auto; padding:80px 20px 60px; position:relative; z-index:1; }
+
+  /* Encabezado */
+  .kit-header{ text-align:center; margin-bottom:28px; animation:fadeInUp .7s ease both; }
+  .kit-header h1{ font-family:var(--font-script); font-size:clamp(2.4rem,7vw,3.6rem); margin-bottom:6px; }
+  .kit-header p{ color:var(--text-light); font-size:.95rem; }
+
+  /* Dedicatoria */
+  .nota{ max-width:560px; margin:0 auto 34px; background:#fff; border-radius:18px; padding:26px 28px; text-align:center; box-shadow:0 8px 32px rgba(107,58,88,.12); animation:fadeInUp .7s ease .1s both; }
+  .nota .script{ font-family:var(--font-script); font-size:1.6rem; color:var(--primary-dark); margin-bottom:8px; }
+  .nota p{ color:var(--text-light); font-size:.98rem; }
+
+  /* Pestañas */
+  .tabs{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:26px; }
+  .tab-btn{ background:#fff; color:var(--primary); border:none; border-radius:50px; padding:.6rem 1.2rem; font-family:var(--font-body); font-weight:700; font-size:.85rem; cursor:pointer; box-shadow:0 4px 16px rgba(107,58,88,.1); transition:all .3s ease; }
+  .tab-btn:hover{ transform:translateY(-2px); }
+  .tab-btn.activo{ background:var(--gradient-primary); color:#fff; box-shadow:0 6px 22px rgba(107,58,88,.3); }
+
+  /* Secciones */
+  .seccion{ display:none; }
+  .seccion.activa.layout-grid{ display:grid; }
+  .seccion.activa.layout-block{ display:block; }
+
+  /* Tarjetas */
+  .card{ background:#fff; border-radius:18px; overflow:hidden; box-shadow:0 8px 28px rgba(107,58,88,.12); transition:transform .3s ease, box-shadow .3s ease; animation:fadeInUp .5s ease both; }
+  .card:hover{ transform:translateY(-4px); box-shadow:0 16px 40px rgba(107,58,88,.2); }
+  .card-ico{ height:130px; display:flex; align-items:center; justify-content:center; font-size:3.4rem; }
+  .card-body{ padding:18px 20px; }
+  .tag{ font-size:.66rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--primary); background:var(--light); border:1.5px solid var(--secondary); border-radius:50px; padding:.18rem .6rem; display:inline-block; }
+  .card-body h3{ font-size:1.12rem; margin-top:10px; }
+  .card-body p{ font-size:.85rem; color:var(--text-light); margin-top:6px; }
+  .link{ display:inline-block; margin-top:14px; font-size:.82rem; font-weight:700; color:var(--primary); text-decoration:none; }
+  .link:hover{ text-decoration:underline; }
+
+  /* Botones de juego */
+  .btn{ display:inline-block; background:var(--gradient-primary); color:#fff; border:none; padding:.55rem 1.3rem; font-family:var(--font-body); font-weight:700; border-radius:50px; cursor:pointer; box-shadow:0 4px 16px rgba(107,58,88,.3); transition:all .3s ease; font-size:.85rem; text-decoration:none; }
+  .btn:hover{ transform:translateY(-2px); filter:brightness(1.05); }
+  .jbtn{ background:#fff; color:var(--primary); border:none; border-radius:50px; padding:.45rem 1rem; font-weight:700; font-size:.78rem; cursor:pointer; box-shadow:0 3px 12px rgba(107,58,88,.12); }
+  .jbtn.jactivo{ background:var(--gradient-primary); color:#fff; }
+  .juego{ display:none; } .juego.activo-juego{ display:block; }
+
+  .memo-card,.gato-cell,.rps-btn{ background:var(--secondary); border:2px solid var(--accent); border-radius:14px; cursor:pointer; display:flex; align-items:center; justify-content:center; color:var(--primary-dark); }
+  .memo-card{ aspect-ratio:1; font-size:1.9rem; }
+  .gato-cell{ aspect-ratio:1; font-size:2rem; }
+  .memo-card.match,.gato-cell:disabled{ background:var(--primary-light); color:#fff; }
+  .ah-tecla{ font-weight:700; background:var(--secondary); border:2px solid var(--accent); border-radius:8px; width:2.1rem; height:2.1rem; cursor:pointer; color:var(--primary-dark); }
+  .ah-tecla:disabled{ opacity:.3; cursor:default; }
+  .rps-btn{ font-size:2rem; padding:.6rem 1rem; }
+
+  /* Pétalos */
+  .petal{ position:fixed; pointer-events:none; font-size:1.1rem; opacity:.6; animation:petalFall linear infinite; z-index:0; }
+  @keyframes petalFall{ 0%{ transform:translateY(-20px) rotate(0); opacity:.7; } 100%{ transform:translateY(110vh) rotate(360deg); opacity:0; } }
+  @keyframes fadeInUp{ from{ opacity:0; transform:translateY(24px); } to{ opacity:1; transform:translateY(0); } }
+  .grid-3{ grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:20px; }
+  .cuento-op{ display:block; width:100%; text-align:left; background:var(--light); border:2px solid var(--secondary); border-radius:14px; padding:.7rem 1rem; margin:.5rem 0; cursor:pointer; font-weight:600; color:var(--text); font-family:var(--font-body); transition:all .2s; }
+  .cuento-op:hover{ border-color:var(--accent); background:#fff; transform:translateX(3px); }
+  .pecera{ position:relative; height:300px; border-radius:16px; overflow:hidden; background:linear-gradient(180deg,#dff0f5 0%,#a9dae7 60%,#83c4d6 100%); }
+  .arena{ position:absolute; left:0; right:0; bottom:0; height:34px; background:linear-gradient(#ecdcb9,#d9c293); }
+  .alga{ position:absolute; bottom:22px; font-size:1.6rem; transform-origin:bottom center; animation:vaiven 4s ease-in-out infinite; }
+  @keyframes vaiven{ 0%,100%{ transform:rotate(-8deg);} 50%{ transform:rotate(8deg);} }
+  .pez{ position:absolute; }
+  @keyframes nadarDer{ from{ left:-14%; } to{ left:114%; } }
+  @keyframes nadarIzq{ from{ left:114%; } to{ left:-14%; } }
+  @keyframes bob{ 0%,100%{ margin-top:0; } 50%{ margin-top:-12px; } }
+  .burbuja{ position:absolute; bottom:30px; width:9px; height:9px; border-radius:50%; background:rgba(255,255,255,.55); animation:subir linear infinite; }
+  @keyframes subir{ from{ transform:translateY(0); opacity:.6; } to{ transform:translateY(-260px); opacity:0; } }
+  .pellet{ position:absolute; width:8px; height:8px; border-radius:50%; background:#c98a3c; box-shadow:0 0 0 1px rgba(0,0,0,.06); }
+  #kit-toast{ position:fixed; left:50%; bottom:24px; transform:translateX(-50%) translateY(20px); background:var(--primary-dark); color:#fff; padding:12px 20px; border-radius:50px; font-family:var(--font-body); font-weight:700; font-size:.88rem; box-shadow:0 8px 28px rgba(107,58,88,.35); opacity:0; pointer-events:none; transition:all .35s ease; z-index:10000; max-width:90vw; text-align:center; }
+  #kit-toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
+  @keyframes caer{ from{ top:0; opacity:1; } to{ top:80%; opacity:.15; } }
+
+  @media (prefers-reduced-motion:reduce){ *{ animation:none!important; transition:none!important; } }
+</style>
+</head>
+<body>
+
+  <a href="menu.html" class="nav-back">← Menú</a>
+
+  <div class="wrap">
+
+    <div class="kit-header">
+      <h1>Kit de Supervivencia 🛋️</h1>
+      <p>Te junté un montón de cosas para que estos días se te hagan cortitos. Métete cuando quieras. 🌸</p>
+    </div>
+
+    <div class="nota">
+      <p class="script">Menita 💕</p>
+      <p>Te armé este rinconcito para acompañarte: ve algo, juega un rato, o no hagas nada y ya. Cuando quieras, sin prisa. Aquí ando. 🌿</p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn activo" id="btn-musica" onclick="cambiarPestana('musica')">🎵 Música</button>
+      <button class="tab-btn" id="btn-peliculas" onclick="cambiarPestana('peliculas')">🎬 Cine</button>
+      <button class="tab-btn" id="btn-series" onclick="cambiarPestana('series')">📺 Series</button>
+      <button class="tab-btn" id="btn-juegos" onclick="cambiarPestana('juegos')">🎮 Juegos</button>
+      <button class="tab-btn" id="btn-cuento" onclick="cambiarPestana('cuento')">📖 Cuento</button>
+      <button class="tab-btn" id="btn-pecera" onclick="cambiarPestana('pecera')">🐠 Pecera</button>
+      <button class="tab-btn" id="btn-tiktok" onclick="cambiarPestana('tiktok')">📱 TikToks</button>
+    </div>
+
+    <!-- MÚSICA -->
+    <section id="sec-musica" class="seccion activa layout-block">
+      <div class="card" style="max-width:560px; margin:0 auto; padding:22px; text-align:center;">
+        <h3 style="margin-bottom:4px;">La playlist que te hice 🎧</h3>
+        <p style="color:var(--text-light); font-size:.85rem; margin-bottom:16px;">Dale play y déjala correr de fondo. La armé pensando en ti.</p>
+        <div style="border-radius:14px; overflow:hidden; border:2.5px solid var(--secondary); box-shadow:0 8px 28px rgba(107,58,88,.15);">
+          <iframe width="100%" height="420" src="https://www.youtube.com/embed/videoseries?list=PL8MdxsHO2Cg_XjacVScmMj8OA4fhEyhy_" title="Playlist de Menita" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="display:block; border:0;"></iframe>
+        </div>
+        <a class="btn" target="_blank" rel="noopener" href="https://music.youtube.com/playlist?list=PL8MdxsHO2Cg_XjacVScmMj8OA4fhEyhy_" style="margin-top:16px;">Abrir en YouTube Music 🎵</a>
+      </div>
+    </section>
+
+    <!-- CINE -->
+    <section id="sec-peliculas" class="seccion layout-grid grid-3">
+      <article class="card"><div class="card-ico" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9)">✊</div><div class="card-body"><span class="tag">Lucha social</span><h3>Pride (Orgullo)</h3><p>Gente peleando por lo justo, pero sin dejar de reírse. Sales con el alma calientita, te lo aseguro.</p><a class="link" target="_blank" rel="noopener" href="https://www.primevideo.com/-/es/detail/Pride-Orgullo-y-Esperanza/0SXL4TD5XACRI6Y6DB1X0SDJJC">Ver en Prime Video →</a></div></article>
+      <article class="card"><div class="card-ico" style="background:linear-gradient(135deg,#e3f2fd,#bbdefb)">🔢</div><div class="card-body"><span class="tag">Mates + causa</span><h3>Talentos ocultos</h3><p>Tres matemáticas geniales comiéndose al mundo. Me acordé de ti toda la peli, futura maestra. 🔢</p><a class="link" target="_blank" rel="noopener" href="https://www.disneyplus.com/es-mx/browse/entity-bd9d3f07-aefe-4e45-b421-ad2a745c3bb0">Ver en Disney+ →</a></div></article>
+      <article class="card"><div class="card-ico" style="background:linear-gradient(135deg,#fff3e0,#ffe0b2)">🎶</div><div class="card-body"><span class="tag">Coming-of-age</span><h3>Sing Street</h3><p>Unos chavos armando una banda por amor. De esas que te dejan tarareando y sonriendo sola.</p><a class="link" target="_blank" rel="noopener" href="https://youtu.be/s35PicyLjbk?si=ylzhAAZg_u9TiPPA">Ver en Youtube →</a></div></article>
+      <article class="card"><div class="card-ico" style="background:linear-gradient(135deg,#ede7f6,#d1c4e9)">💌</div><div class="card-body"><span class="tag">Romance</span><h3>Cartas a Ellie (The Half of It)</h3><p>Un amor lento y bonito, con cartas de por medio. Tranquilita, nada de sufrir.</p><a class="link" target="_blank" rel="noopener" href="https://www.netflix.com/search?q=Cartas%20a%20Ellie">Ver en Netflix →</a></div></article>
+      <article class="card"><div class="card-ico" style="background:linear-gradient(135deg,#fce4ec,#f8bbd0)">💘</div><div class="card-body"><span class="tag">Comedia romántica</span><h3>Set It Up</h3><p>Dos asistentes hartos deciden emparejar a sus jefes. Bobita, chistosa y justo para un día flojo.</p><a class="link" target="_blank" rel="noopener" href="https://www.netflix.com/search?q=Set%20It%20Up">Ver en Netflix →</a></div></article>
+    </section>
+
+    <!-- SERIES -->
+    <section id="sec-series" class="seccion layout-grid grid-3">
+      <article class="card"><div class="card-ico" style="background:linear-gradient(135deg,#fff3e0,#ffe0b2)">🍂</div><div class="card-body"><span class="tag">Romance</span><h3>Heartstopper</h3><p>La cosa más tierna del mundo. Para verla envuelta en cobija y suspirar.</p><a class="link" target="_blank" rel="noopener" href="https://www.netflix.com/search?q=Heartstopper">Ver en Netflix →</a></div></article>
+      <article class="card"><div class="card-ico" style="background:linear-gradient(135deg,#fce4ec,#f8bbd0)">🗼</div><div class="card-body"><span class="tag">Comedia romántica</span><h3>Emily en París</h3><p>Ropa bonita, París y romance sin enredos. Puro escape, cero pensar.</p><a class="link" target="_blank" rel="noopener" href="https://www.netflix.com/search?q=Emily%20en%20Paris">Ver en Netflix →</a></div></article>
+      <article class="card"><div class="card-ico" style="background:linear-gradient(135deg,#ede7f6,#d1c4e9)">📓</div><div class="card-body"><span class="tag">Coming-of-age</span><h3>Yo nunca (Never Have I Ever)</h3><p>Bien chistosa y con corazón. Se ve solita, capítulo tras capítulo.</p><a class="link" target="_blank" rel="noopener" href="https://www.netflix.com/search?q=Yo%20nunca">Ver en Netflix →</a></div></article>
+      <article class="card"><div class="card-ico" style="background:linear-gradient(135deg,#e3f2fd,#bbdefb)">🍀</div><div class="card-body"><span class="tag">Comedia</span><h3>Derry Girls</h3><p>Unas chamacas irlandesas en puro lío. Risas seguras y episodios cortitos.</p><a class="link" target="_blank" rel="noopener" href="https://www.netflix.com/search?q=Derry%20Girls">Ver en Netflix →</a></div></article>
+      <article class="card"><div class="card-ico" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9)">🧁</div><div class="card-body"><span class="tag">Comedia / cocina</span><h3>Nailed It!</h3><p>Gente arruinando pasteles de formas épicas. Tan tonta y tan buena que cura el día.</p><a class="link" target="_blank" rel="noopener" href="https://www.netflix.com/search?q=Nailed%20It">Ver en Netflix →</a></div></article>
+    </section>
+
+    <!-- JUEGOS -->
+    <section id="sec-juegos" class="seccion layout-block">
+      <p style="color:var(--text-light); font-size:.88rem; text-align:center; margin-bottom:16px;">Unos jueguitos para cuando te aburras. Ya le puedes ganar al gato 😉 y cada victoria te suma un pez a la pecera.</p>
+      <div class="tabs" style="margin-bottom:18px;">
+        <button class="jbtn jactivo" id="jbtn-gato" onclick="cambiarJuego('gato')">⭕ Gato</button>
+        <button class="jbtn" id="jbtn-ahorcado" onclick="cambiarJuego('ahorcado')">🔤 Ahorcado</button>
+        <button class="jbtn" id="jbtn-rps" onclick="cambiarJuego('rps')">✊ Piedra-papel-tijera</button>
+      </div>
+
+      <div class="juego activo-juego card" id="juego-gato" style="padding:22px; max-width:420px; margin:0 auto;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;"><h3>Gato (vs la compu)</h3><button class="btn" onclick="gatoInit()">Reiniciar</button></div>
+        <p id="gato-msg" style="color:var(--text-light); font-size:.85rem; margin-bottom:12px;"></p>
+        <div id="gato-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; max-width:260px; margin:0 auto;"></div>
+      </div>
+
+      <div class="juego card" id="juego-ahorcado" style="padding:22px; max-width:480px; margin:0 auto;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;"><h3>Ahorcado</h3><button class="btn" onclick="ahInit()">Otra palabra</button></div>
+        <p id="ah-vidas" style="font-size:1.3rem; margin-bottom:6px;"></p>
+        <p id="ah-palabra" style="font-family:var(--font-display); font-size:1.6rem; letter-spacing:.25em; color:var(--primary-dark); margin-bottom:6px;"></p>
+        <p id="ah-msg" style="color:var(--accent2); font-size:.85rem; min-height:1.2em; margin-bottom:12px;"></p>
+        <div id="ah-teclado" style="display:flex; flex-wrap:wrap; gap:5px;"></div>
+      </div>
+
+      <div class="juego card" id="juego-rps" style="padding:22px; max-width:420px; margin:0 auto; text-align:center;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;"><h3>Piedra, papel o tijera</h3><button class="btn" onclick="rpsInit()">Reiniciar</button></div>
+        <p id="rps-score" style="color:var(--text-light); font-size:.85rem;"></p>
+        <div id="rps-botones" style="display:flex; gap:12px; justify-content:center; margin:16px 0;"></div>
+        <p id="rps-res" style="font-family:var(--font-script); font-size:1.4rem; color:var(--primary-dark); min-height:1.6em;"></p>
+      </div>
+    </section>
+
+    <!-- CUENTO -->
+    <section id="sec-cuento" class="seccion layout-block">
+      <div class="card" style="max-width:520px; margin:0 auto; padding:24px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <h3>Un cuento con Michi 🐱</h3>
+          <button class="btn" onclick="cuentoInit()">Empezar de nuevo</button>
+        </div>
+        <div id="cuento-area"></div>
+      </div>
+    </section>
+
+    <!-- PECERA -->
+    <section id="sec-pecera" class="seccion layout-block">
+      <div class="card" style="max-width:540px; margin:0 auto; padding:22px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <h3>Pecera</h3>
+          <button class="btn" onclick="darDeComer()">Dar de comer 🐟</button>
+        </div>
+        <div id="pecera-agua" class="pecera"><div class="arena"></div></div>
+        <p id="pecera-msg" class="script" style="font-family:var(--font-script); font-size:1.3rem; color:var(--primary-dark); text-align:center; min-height:1.6em; margin-top:10px;"></p>
+        <p id="pecera-conteo" style="text-align:center; font-weight:700; color:var(--primary); font-size:.82rem; margin-top:4px;"></p>
+        <p style="color:var(--text-light); font-size:.8rem; text-align:center;">Solo míralos nadar un rato, calma pura. 🫧 Dales de comer si quieres, y cada vez que ganes un juego llega un amiguito nuevo que se queda contigo.</p>
+      </div>
+    </section>
+
+    <!-- TIKTOK -->
+    <section id="sec-tiktok" class="seccion layout-block">
+      <div class="card" style="max-width:520px; margin:0 auto; text-align:center; padding:32px 28px;">
+        <div style="font-size:3.4rem;">🫰🏾</div>
+        <p class="script" style="font-family:var(--font-script); font-size:1.7rem; color:var(--primary-dark); margin-top:8px;">Para cuando estés mejor</p>
+        <p style="color:var(--text-light); font-size:.9rem; margin:10px 0 22px;">Te fui guardando TikToks que me recordaron a ti o que sé que te van a sacar risa. Ábrelos cuando necesites sonreír.</p>
+        <a class="btn" target="_blank" rel="noopener" href="https://www.tiktok.com/@elsotiim/collection/Para%20cuando%20est%C3%A9s%20mejor%20%F0%9F%AB%B0%F0%9F%8F%BE-7650006733571541767?is_from_webapp=1&sender_device=pc">Abrir la colección en TikTok →</a>
+      </div>
+    </section>
+
+  </div>
+
+<script>
+  /* Pétalos flotantes (igual que el sitio) */
+  (function(){
+    const s=['🌸','💕','✨','🌷','💗','🌺'];
+    for(let i=0;i<16;i++){ const p=document.createElement('div'); p.className='petal'; p.textContent=s[Math.floor(Math.random()*s.length)]; p.style.left=Math.random()*100+'vw'; p.style.animationDuration=(8+Math.random()*10)+'s'; p.style.animationDelay=(Math.random()*8)+'s'; p.style.fontSize=(0.8+Math.random()*0.8)+'rem'; document.body.appendChild(p); }
+  })();
+
+  function cambiarPestana(id){
+    document.querySelectorAll('.seccion').forEach(s=>s.classList.remove('activa'));
+    document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('activo'));
+    document.getElementById('sec-'+id).classList.add('activa');
+    document.getElementById('btn-'+id).classList.add('activo');
+  }
+  function cambiarJuego(id){
+    document.querySelectorAll('.juego').forEach(j=>j.classList.remove('activo-juego'));
+    document.querySelectorAll('.jbtn').forEach(b=>b.classList.remove('jactivo'));
+    document.getElementById('juego-'+id).classList.add('activo-juego');
+    document.getElementById('jbtn-'+id).classList.add('jactivo');
+    if(id==='gato') gatoInit(); if(id==='ahorcado') ahInit(); if(id==='rps') rpsInit();
+  }
+
+  /* ===== GATO ===== */
+  let gatoBoard, gatoOver;
+  const GATO_WINS=[[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
+  function gatoInit(){ gatoBoard=Array(9).fill(''); gatoOver=false; document.getElementById('gato-msg').textContent='Tu turno (eres ❌)'; gatoRender(); }
+  function gatoRender(){ const g=document.getElementById('gato-grid'); g.innerHTML=''; gatoBoard.forEach((v,i)=>{ const b=document.createElement('button'); b.className='gato-cell'; b.textContent=v; if(v) b.disabled=true; b.onclick=()=>gatoPlay(i); g.appendChild(b); }); }
+  function gatoWin(p){ return GATO_WINS.some(w=>w.every(i=>gatoBoard[i]===p)); }
+  function gatoFull(){ return gatoBoard.every(x=>x); }
+  function gatoEnd(t){ gatoOver=true; document.getElementById('gato-msg').textContent=t; }
+  function gatoPlay(i){ if(gatoOver||gatoBoard[i])return; gatoBoard[i]='❌'; gatoRender(); if(gatoWin('❌')){gatoEnd('¡Ganaste! 🎉');ganarPez();return;} if(gatoFull()){gatoEnd('Empate 🤝');return;} const m=gatoBest('⭕'); if(m>-1)gatoBoard[m]='⭕'; gatoRender(); if(gatoWin('⭕')){gatoEnd('Gané yo 🤖 ¡otra!');return;} if(gatoFull()){gatoEnd('Empate 🤝');} }
+  function gatoBest(p){ const o=p==='⭕'?'❌':'⭕';
+    const free=[...Array(9).keys()].filter(i=>!gatoBoard[i]);
+    const rnd=()=>free[Math.floor(Math.random()*free.length)];
+    for(const i of free){ gatoBoard[i]=p; const w=gatoWin(p); gatoBoard[i]=''; if(w) return i; }
+    if(Math.random()<0.5){ for(const i of free){ gatoBoard[i]=o; const w=gatoWin(o); gatoBoard[i]=''; if(w) return i; } }
+    return free.length ? rnd() : -1;
+  }
+
+  /* ===== AHORCADO =====  EDITABLE: tus palabras (mayúsculas, sin acentos) */
+  const ahorcadoPalabras=['DESCANSO','VENTANA','GATITO','CHOCOLATE','ALMOHADA','PELICULA'];
+  let ahPalabra, ahAdivinadas, ahErrores; const AH_MAX=6;
+  function ahInit(){ ahPalabra=ahorcadoPalabras[Math.floor(Math.random()*ahorcadoPalabras.length)].toUpperCase(); ahAdivinadas=new Set(); ahErrores=0; ahTeclado(); ahRender(); }
+  function ahTeclado(){ const c=document.getElementById('ah-teclado'); c.innerHTML=''; 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('').forEach(L=>{ const b=document.createElement('button'); b.className='ah-tecla'; b.textContent=L; b.onclick=()=>ahGuess(L,b); c.appendChild(b); }); }
+  function ahRender(){ document.getElementById('ah-palabra').textContent=[...ahPalabra].map(ch=>ch===' '?' ':(ahAdivinadas.has(ch)?ch:'_')).join(' '); document.getElementById('ah-vidas').textContent='💗'.repeat(AH_MAX-ahErrores)+'🤍'.repeat(ahErrores); const won=[...ahPalabra].every(ch=>ch===' '||ahAdivinadas.has(ch)); const m=document.getElementById('ah-msg'); if(won){m.textContent='¡Adivinaste! 🎉';ahLock();ganarPez();} else if(ahErrores>=AH_MAX){m.textContent='Era: '+ahPalabra+' 🌸';ahLock();} else m.textContent=''; }
+  function ahGuess(L,b){ b.disabled=true; if(ahPalabra.includes(L))ahAdivinadas.add(L); else ahErrores++; ahRender(); }
+  function ahLock(){ document.querySelectorAll('.ah-tecla').forEach(b=>b.disabled=true); }
+
+  /* ===== PIEDRA, PAPEL O TIJERA ===== */
+  const RPS=[{e:'✊',n:'Piedra'},{e:'✋',n:'Papel'},{e:'✌️',n:'Tijera'}];
+  let rpsW, rpsL, rpsT;
+  function rpsInit(){ rpsW=rpsL=rpsT=0; rpsScore(); document.getElementById('rps-res').textContent='Elige tu jugada'; const c=document.getElementById('rps-botones'); c.innerHTML=''; RPS.forEach((o,i)=>{ const b=document.createElement('button'); b.className='rps-btn'; b.textContent=o.e; b.title=o.n; b.onclick=()=>rpsPlay(i); c.appendChild(b); }); }
+  function rpsScore(){ document.getElementById('rps-score').textContent='Tú '+rpsW+' · Empates '+rpsT+' · Yo '+rpsL; }
+  function rpsPlay(i){ const cpu=Math.floor(Math.random()*3); let r; if(cpu===i){rpsT++;r='Empate 🤝';} else if(cpu===(i+2)%3){rpsW++;r='¡Ganaste! 🎉';} else {rpsL++;r='Gané yo 🤖';} document.getElementById('rps-res').textContent=RPS[i].e+'  vs  '+RPS[cpu].e+' — '+r; rpsScore(); }
+
+  /* ===== CUENTO INTERACTIVO =====  EDITABLE: cambia los textos o agrega nodos (op: opciones; fin: true = final) */
+  const cuento={
+    inicio:{ t:"Michi, una gatita esponjosa, abre un ojo. El sol entra calientito por la ventana. ¿Qué hace?",
+      op:[{l:"Estirarse y volver a dormir",n:"dormir"},{l:"Salir a investigar la casa",n:"investigar"},{l:"Maullar pidiendo comida",n:"comida"}] },
+
+    dormir:{ t:"Michi se estira como liga, da tres vueltas y se hace dona. ¿La dejas dormir o le das un cariñito?",
+      op:[{l:"Dejarla dormir",n:"finSiesta"},{l:"Cariñito en la pancita",n:"carinito"}] },
+    carinito:{ t:"Michi ronronea y se voltea panza arriba, toda inocente… ¿Le sigues acariciando o te detienes?",
+      op:[{l:"Seguir acariciando",n:"finTrampa"},{l:"Mejor detenerte",n:"finOfendida"}] },
+
+    investigar:{ t:"Michi camina muy seria por la casa. Ve una caja vacía, un rayo de sol y la cocina. ¿A dónde va?",
+      op:[{l:"A la caja 📦",n:"caja"},{l:"Al rayo de sol ☀️",n:"sol"},{l:"A la cocina 🍳",n:"cocina"}] },
+    sol:{ t:"Michi se acuesta en el rayo de sol… pero pasa una nube y el rayo desaparece. ¿Qué hace?",
+      op:[{l:"Esperar a que vuelva",n:"finPaciencia"},{l:"Buscar otro rayo",n:"finCazadora"}] },
+    caja:{ t:"Michi se mete a la caja. No cabe. Se mete igual. Ahora la caja es suya y del universo. ¿Sale a conquistar o se queda de reina?",
+      op:[{l:"Conquistar la casa",n:"conquista"},{l:"Quedarse de reina",n:"finCaja"}] },
+    conquista:{ t:"Michi sale a conquistar y se topa con su reflejo en el espejo. Un gato idéntico la reta. ¿Qué hace?",
+      op:[{l:"Atacar al intruso",n:"finEspejo"},{l:"Ignorarlo con elegancia",n:"finElegante"}] },
+    cocina:{ t:"En la cocina hay un pez de juguete y una bolsa de croquetas. ¿A cuál va primero?",
+      op:[{l:"Al pez de juguete 🐟",n:"finJuguete"},{l:"A las croquetas",n:"finCroquetas"}] },
+
+    comida:{ t:"Michi maúlla con cara de no comer desde hace 9 años (comió hace 1 hora). ¿Le crees?",
+      op:[{l:"Darle una croqueta",n:"finChantaje"},{l:"Resistir sus ojitos",n:"finResistir"}] },
+
+    finSiesta:{ t:"Michi duerme 14 horas seguidas, récord personal. Despierta renovada y un poquito confundida. A veces el mejor plan es no hacer nada. 🐱💤", fin:true },
+    finTrampa:{ t:"Era la trampa de la pancita. Michi te abraza la mano con las cuatro patitas y te da mordiditas suaves. Caíste… pero felizmente. 🐾😼", fin:true },
+    finOfendida:{ t:"Te detienes. Michi te mira como si la hubieras traicionado, se levanta dignísima y se va. Volverá en 5 minutos: siempre vuelve. 😾", fin:true },
+    finPaciencia:{ t:"Michi espera quietecita. La nube pasa, el sol regresa y ella sonríe por dentro. La paciencia siempre paga (en calorcito). ☀️😌", fin:true },
+    finCazadora:{ t:"Michi encuentra OTRO rayo de sol en la otra ventana. Estratega nivel experto. Se derrite ahí el resto de la tarde. 🌞🐈", fin:true },
+    finEspejo:{ t:"Michi le tira un zarpazo al gato del espejo. El otro contraataca igualito. Empate eterno. Decide que mejor son amigos. 🪞🐱", fin:true },
+    finElegante:{ t:"Michi ignora su reflejo con la elegancia de quien no le debe nada a nadie. Se aleja caminando como modelo de pasarela. 💅🐈", fin:true },
+    finJuguete:{ t:"Michi caza al pez de juguete con furia épica y lo deja 'derrotado' bajo el sillón, donde vivirá perdido para siempre. Misión cumplida. 🐟🏆", fin:true },
+    finCroquetas:{ t:"Michi abre la bolsa con maña felina y se da un festín. Cero culpa, cero testigos (que ella sepa). 🍽️😺", fin:true },
+    finChantaje:{ t:"Le crees y le das croqueta. Michi gana otra vez. Marcador imaginario: Michi 9999, tú 0. 😼", fin:true },
+    finResistir:{ t:"Resistes sus ojitos… tres segundos. Luego le das doble ración. Nadie le gana a esa carita. 🥺🐾", fin:true },
+    finCaja:{ t:"Michi gobierna su reino de cartón con pata firme. Súbditos: cero. Le da igual. 📦👑", fin:true }
+  };
+  function cuentoInit(){ renderNodo('inicio'); }
+  function renderNodo(id){
+    const n=cuento[id]; const a=document.getElementById('cuento-area'); if(!a) return; a.innerHTML='';
+    const p=document.createElement('p'); p.style.cssText='font-size:1.02rem; line-height:1.6; margin-bottom:16px;'; p.textContent=n.t; a.appendChild(p);
+    if(n.fin){
+      const e=document.createElement('p'); e.className='script'; e.style.cssText='font-family:var(--font-script); font-size:1.5rem; color:var(--primary-dark); margin-bottom:14px;'; e.textContent='Fin 💕'; a.appendChild(e);
+      const b=document.createElement('button'); b.className='btn'; b.textContent='Otra vez 🐾'; b.onclick=cuentoInit; a.appendChild(b); return;
+    }
+    n.op.forEach(o=>{ const b=document.createElement('button'); b.className='cuento-op'; b.textContent=o.l; b.onclick=()=>renderNodo(o.n); a.appendChild(b); });
+  }
+
+  /* ===== PECERA (con progresión que se guarda) ===== */
+  const PEC={ fish:[], food:[], cont:null, raf:0, unlocked:0,
+    criaturas:['🐠','🐟','🐡','🦀','🐙','🐢','🦐','🪼','🦞','🐬','🐳','🦑'] };
+  const PECKEY='kitMenitaPecera';
+  function pecLoad(){ try{ const d=JSON.parse(localStorage.getItem(PECKEY)); if(d&&d.unlocked) return Math.min(d.unlocked,PEC.criaturas.length); }catch(e){} return 3; }
+  function pecSave(){ try{ localStorage.setItem(PECKEY, JSON.stringify({unlocked:PEC.unlocked})); }catch(e){} }
+  function addFish(e){
+    const t=PEC.cont; if(!t) return;
+    const el=document.createElement('div'); el.className='pez'; el.textContent=e; el.style.fontSize=(1.4+Math.random()*0.9)+'rem'; t.appendChild(el);
+    PEC.fish.push({ el, x:0.05+Math.random()*0.9, y:0.15+Math.random()*0.55,
+      vx:(Math.random()<0.5?-1:1)*(0.0010+Math.random()*0.0010), vy:(Math.random()-0.5)*0.0006, target:null });
+  }
+  function pecConteo(){ const c=document.getElementById('pecera-conteo'); if(c) c.textContent='Amiguitos: '+PEC.unlocked+' / '+PEC.criaturas.length; }
+  function ganarPez(){
+    if(PEC.unlocked>=PEC.criaturas.length) return;
+    PEC.unlocked++; pecSave();
+    const e=PEC.criaturas[PEC.unlocked-1];
+    if(PEC.cont) addFish(e);
+    pecConteo();
+    toast('¡Nuevo amiguito para la pecera! '+e+' 🎉');
+  }
+  function toast(txt){
+    let el=document.getElementById('kit-toast');
+    if(!el){ el=document.createElement('div'); el.id='kit-toast'; document.body.appendChild(el); }
+    el.textContent=txt; el.classList.add('show'); clearTimeout(el._t);
+    el._t=setTimeout(()=>el.classList.remove('show'),3200);
+  }
+  function peceraInit(){
+    const t=document.getElementById('pecera-agua'); if(!t||t.dataset.listo) return; t.dataset.listo='1';
+    PEC.cont=t;
+    [20,50,78].forEach(x=>{ const a=document.createElement('div'); a.className='alga'; a.textContent='🌿'; a.style.left=x+'%'; a.style.animationDelay=(Math.random()*2).toFixed(1)+'s'; t.appendChild(a); });
+    for(let i=0;i<6;i++){ const b=document.createElement('div'); b.className='burbuja'; b.style.left=(10+Math.random()*80)+'%'; b.style.animationDuration=(4+Math.random()*4).toFixed(1)+'s'; b.style.animationDelay=(Math.random()*4).toFixed(1)+'s'; t.appendChild(b); }
+    PEC.unlocked=pecLoad();
+    for(let i=0;i<PEC.unlocked;i++) addFish(PEC.criaturas[Math.min(i,PEC.criaturas.length-1)]);
+    pecConteo();
+    cancelAnimationFrame(PEC.raf); PEC.raf=requestAnimationFrame(loopPecera);
+  }
+  function loopPecera(){
+    const t=PEC.cont; if(!t) return;
+    const w=t.clientWidth||500, h=t.clientHeight||300;
+    const botFish=1-(46/h), botFood=1-(30/h);
+    PEC.food.forEach(f=>{ f.y+=0.0018; });
+    PEC.fish.forEach(fi=>{
+      if(fi.target){
+        const f=fi.target, dx=f.x-fi.x, dy=f.y-fi.y, d=Math.hypot(dx,dy)||1, sp=0.0050;
+        fi.vx=dx/d*sp; fi.vy=dy/d*sp;
+        if(d<0.05){ f.el.remove(); PEC.food=PEC.food.filter(o=>o!==f); fi.target=null; pecMsg('ñom 🐠'); }
+      } else {
+        const sgn=fi.vx<0?-1:1;
+        fi.vx += (sgn*0.0011 - fi.vx)*0.05;
+        if(Math.random()<0.012) fi.vy+=(Math.random()-0.5)*0.0006;
+        fi.vy*=0.95;
+      }
+      fi.x+=fi.vx; fi.y+=fi.vy;
+      if(fi.x<0.03){ fi.x=0.03; fi.vx=Math.abs(fi.vx); }
+      if(fi.x>0.95){ fi.x=0.95; fi.vx=-Math.abs(fi.vx); }
+      if(fi.y<0.06){ fi.y=0.06; fi.vy=Math.abs(fi.vy); }
+      if(fi.y>botFish){ fi.y=botFish; fi.vy=-Math.abs(fi.vy); }
+      fi.el.style.left=(fi.x*w)+'px'; fi.el.style.top=(fi.y*h)+'px';
+      fi.el.style.transform = fi.vx>0 ? 'scaleX(-1)' : 'scaleX(1)';
+    });
+    PEC.food=PEC.food.filter(f=>{ if(f.y>botFood){ f.el.remove(); PEC.fish.forEach(fi=>{ if(fi.target===f) fi.target=null; }); return false; } f.el.style.left=(f.x*w)+'px'; f.el.style.top=(f.y*h)+'px'; return true; });
+    PEC.raf=requestAnimationFrame(loopPecera);
+  }
+  function darDeComer(){
+    const t=PEC.cont; if(!t||!PEC.fish.length) return;
+    PEC.fish.forEach(fi=>{
+      if(fi.target) return;
+      const el=document.createElement('div'); el.className='pellet'; t.appendChild(el);
+      const pel={ el, x:0.1+Math.random()*0.8, y:Math.random()*0.05 };
+      PEC.food.push(pel); fi.target=pel;
+    });
+    pecMsg('¡a comer! 🐟');
+  }
+  function pecMsg(txt){ const m=document.getElementById('pecera-msg'); if(!m) return; m.textContent=txt; clearTimeout(m._t); m._t=setTimeout(()=>{ if(m) m.textContent=''; },2200); }
+
+  /* Init */
+  gatoInit(); ahInit(); rpsInit(); cuentoInit(); peceraInit();
+</script>
+</body>
+</html>
