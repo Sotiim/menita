@@ -263,7 +263,45 @@
   }
 
   /* ===== AHORCADO =====  EDITABLE: tus palabras (mayúsculas, sin acentos) */
-  const ahorcadoPalabras=['DESCANSO','VENTANA','GATITO','CHOCOLATE','ALMOHADA','PELICULA'];
+  const ahorcadoPalabras = [
+    // --- Éxitos de Taylor Swift ---
+    'LAVENDER HAZE',
+    'CRUEL SUMMER',
+    'BLANK SPACE',
+    'LOVE STORY',
+    'YOU BELONG WITH ME',
+    'SHAKE IT OFF',
+    'ALL TOO WELL',
+    'GETAWAY CAR',
+    'CHAMPAGNE PROBLEMS',
+    'DEAR JOHN',
+    'MISS AMERICANA',
+    'CARDIGAN',
+    'LOVER',
+    'MIDNIGHTS',
+    'FEARLESS',
+    'REPUTATION',
+    'FOLKLORE',
+    
+    // --- Éxitos de One Direction ---
+    'THROUGH THE DARK',
+    'WHAT MAKES YOU BEAUTIFUL',
+    'NIGHT CHANGES',
+    'STORY OF MY LIFE',
+    'DRAG ME DOWN',
+    'STEAL MY GIRL',
+    'BEST SONG EVER',
+    'YOU AND I',
+    'ONE THING',
+    'LITTLE THINGS',
+    'KISS YOU',
+    'PERFECT',
+    'HISTORY',
+    'MIDNIGHT MEMORIES',
+    'FOUR',
+    'MADE IN THE AM'
+  ];
+
   let ahPalabra, ahAdivinadas, ahErrores; const AH_MAX=6;
   function ahInit(){ ahPalabra=ahorcadoPalabras[Math.floor(Math.random()*ahorcadoPalabras.length)].toUpperCase(); ahAdivinadas=new Set(); ahErrores=0; ahTeclado(); ahRender(); }
   function ahTeclado(){ const c=document.getElementById('ah-teclado'); c.innerHTML=''; 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('').forEach(L=>{ const b=document.createElement('button'); b.className='ah-tecla'; b.textContent=L; b.onclick=()=>ahGuess(L,b); c.appendChild(b); }); }
